@@ -31,7 +31,6 @@ public class UserDto implements Cloneable
 	private String					oldPassword;
 	private String					newPassword;
 	private String					email;
-	private Integer					idFlagPassword;
 	private String					imageColorCode;
 	private Integer					idImageColorCode;
 	private Short					isRegistered;
@@ -295,16 +294,6 @@ public class UserDto implements Cloneable
 	public void setEmail(String email)
 	{
 		this.email = email;
-	}
-
-	public Integer getIdFlagPassword()
-	{
-		return idFlagPassword;
-	}
-
-	public void setIdFlagPassword(Integer idFlagPassword)
-	{
-		this.idFlagPassword = idFlagPassword;
 	}
 
 	public String getImageColorCode()

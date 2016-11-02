@@ -35,5 +35,7 @@ libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-io" % "1.3.2",
   "commons-collections" % "commons-collections" % "3.0",
   "commons-lang" % "commons-lang" % "2.6",
-  "net.sf.jt400" % "jt400" % "6.7"
+  "net.sf.jt400" % "jt400" % "6.7",
+  "org.elasticsearch" % "elasticsearch" % "1.7.3",
+  "com.google.code.gson" % "gson" % "2.3.1"
 )

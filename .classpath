@@ -152,11 +152,13 @@
 	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/org.easytesting/fest-util/jars/fest-util-1.1.6.jar"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_25"/>
-	<classpathentry kind="lib" path="E:/Play Spikes/shoppingKart/target/scala-2.11/classes_managed"/>
+	<classpathentry kind="lib" path="E:/Projects/Shopping/target/scala-2.11/classes_managed"/>
 	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/javax.mail/mail/jars/mail-1.4.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.3.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/org.elasticsearch/elasticsearch/jars/elasticsearch-1.7.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rajagja/.ivy2/cache/com.google.code.gson/gson/jars/gson-2.6.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

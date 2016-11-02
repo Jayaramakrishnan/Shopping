@@ -26,9 +26,6 @@ import com.crackers.repositories.CredentialRepository;
 import com.crackers.repositories.UserSourceRepository;
 import com.crackers.util.PassEncryptUtil;
 
-/**
- * @author nachish
- */
 @Component
 public class FormAuthenticator implements Authenticator
 {

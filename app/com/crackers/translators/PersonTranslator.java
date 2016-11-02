@@ -27,18 +27,17 @@ public class PersonTranslator
 
 	public User translateToPerson(UserDto userDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
+		User user = new User();
 		if (userDto == null)
 		{
-			return new User();
+			return user;
 		}
-		User user = new User();
 		CMSLogger.info(logger, "Iduser in Person Translator before decrypting: " + userDto.getIdUser());
 		List<String> properties = new ArrayList<>();
 		BeanUtil.copyBeanProperties(userDto, user, properties);
 		if (userDto.getIdUser() != null)
 		{
 			user.setIdUser(CryptoBinderUtil.getDecryptId(userDto.getIdUser()));
-			CMSLogger.info(logger, "User Id in Person Translator: " + user.getIdUser());
 		}
 		if (userDto.getUserSourceDto() != null && userDto.getUserSourceDto().getIdSource() != null)
 		{
