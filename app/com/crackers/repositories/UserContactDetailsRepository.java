@@ -2,18 +2,18 @@ package com.crackers.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.crackers.model.ContactDetails;
 
-public interface UserContactDetailsRepository extends JpaRepository<ContactDetails, Integer>
+public interface UserContactDetailsRepository extends GraphRepository<ContactDetails>
 {
 
-	@Query("select r from ContactDetails r where r.user.idUser= :id and  r.isDeleted= 0")
-	List<ContactDetails> getContactDetails(@Param("id") Integer idUser);
+    @Query("match (cd:ContactDetails) where cd.user.idUser= :id and cd.isDeleted= 0 return cd")
+    List<ContactDetails> getContactDetails(@Param("id") Integer idUser);
 
-	@Query("select r from ContactDetails r where r.isDeleted= 0")
-	List<ContactDetails> getAllContactDetails();
+    @Query("match (cd:ContactDetails) where cd.isDeleted = 0")
+    List<ContactDetails> getAllContactDetails();
 }

@@ -18,19 +18,19 @@ import com.crackers.util.CryptoBinderUtil;
 public class UserHandler extends Handler
 {
 
-	private static Logger	logger	= Logger.getLogger(UserHandler.class);
-	protected final String	USER	= "user";
-	@Resource
-	private UserService		userService;
+    private static Logger  logger = Logger.getLogger(UserHandler.class);
+    protected final String USER   = "user";
+    @Resource
+    private UserService    userService;
 
-	@Override
-	public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
-	{
-		CMSLogger.info(logger, "Inside UserHandler");
-		if (changedList.equalsIgnoreCase(USER))
-		{
-			return userService.updateUserDetails(CryptoBinderUtil.getDecryptId(userDto.getIdUser()), idCurrentUser, userDto);
-		}
-		return super.handleRequest(idUser, userDto, idCurrentUser, changedList);
-	}
+    @Override
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    {
+        CMSLogger.info(logger, "Inside UserHandler");
+        if (changedList.equalsIgnoreCase(USER))
+        {
+            return userService.updateUserDetails(CryptoBinderUtil.getDecryptId(userDto.getIdUser()), idCurrentUser, userDto);
+        }
+        return super.handleRequest(idUser, userDto, idCurrentUser, changedList);
+    }
 }

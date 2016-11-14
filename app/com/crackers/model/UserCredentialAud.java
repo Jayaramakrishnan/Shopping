@@ -1,190 +1,150 @@
 package com.crackers.model;
-// default package
-import static javax.persistence.GenerationType.IDENTITY;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * UserCredentialAud entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "USER_CREDENTIAL_AUD")
+@NodeEntity(label = "UserCredentialAud")
 public class UserCredentialAud implements java.io.Serializable
 {
 
-	private static final long	serialVersionUID	= 1L;
-	// Fields
-	private Integer		rev;
-	private Integer		idUserCredential;
-	private Short		revtype;
-	private Integer		idUser;
-	private String		saltKey;
-	private String		hashedKey;
-	private Short		isDeleted;
-	private Integer		createdBy;
-	private Timestamp	createdOn;
-	private Integer		updatedBy;
-	private Timestamp	updatedOn;
+    private static final long serialVersionUID = 1L;
+    private Integer           rev;
+    private Integer           idUserCredential;
+    private Short             revtype;
+    private Integer           idUser;
+    private String            saltKey;
+    private String            hashedKey;
+    private Short             isDeleted;
+    private Integer           createdBy;
+    private Timestamp         createdOn;
+    private Integer           updatedBy;
+    private Timestamp         updatedOn;
 
-	// Constructors
-	/** default constructor */
-	public UserCredentialAud() {
-	}
+    @GraphId
+    @Property(name = "rev")
+    public Integer getRev()
+    {
+        return this.rev;
+    }
 
-	/** minimal constructor */
-	public UserCredentialAud(Integer rev, Integer idUserCredential, Integer idUser, String saltKey, String hashedKey, Short isDeleted, Integer createdBy, Timestamp createdOn) {
-		this.rev = rev;
-		this.idUserCredential = idUserCredential;
-		this.idUser = idUser;
-		this.saltKey = saltKey;
-		this.hashedKey = hashedKey;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
-	}
+    public void setRev(Integer rev)
+    {
+        this.rev = rev;
+    }
 
-	/** full constructor */
-	public UserCredentialAud(Integer rev, Integer idUserCredential, Short revtype, Integer idUser, String saltKey, String hashedKey, Short isDeleted, Integer createdBy, Timestamp createdOn, Integer updatedBy, Timestamp updatedOn) {
-		this.rev = rev;
-		this.idUserCredential = idUserCredential;
-		this.revtype = revtype;
-		this.idUser = idUser;
-		this.saltKey = saltKey;
-		this.hashedKey = hashedKey;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
-		this.updatedBy = updatedBy;
-		this.updatedOn = updatedOn;
-	}
+    @Property(name = "idUserCredential")
+    public Integer getIdUserCredential()
+    {
+        return this.idUserCredential;
+    }
 
-	// Property accessors
-	@Id
-	@Column(name = "REV", unique = true, nullable = false)
-	@GeneratedValue(strategy = IDENTITY)
-	public Integer getRev()
-	{
-		return this.rev;
-	}
+    public void setIdUserCredential(Integer idUserCredential)
+    {
+        this.idUserCredential = idUserCredential;
+    }
 
-	public void setRev(Integer rev)
-	{
-		this.rev = rev;
-	}
+    @Property(name = "revtype")
+    public Short getRevtype()
+    {
+        return this.revtype;
+    }
 
-	@Column(name = "ID_USER_CREDENTIAL", nullable = false)
-	public Integer getIdUserCredential()
-	{
-		return this.idUserCredential;
-	}
+    public void setRevtype(Short revtype)
+    {
+        this.revtype = revtype;
+    }
 
-	public void setIdUserCredential(Integer idUserCredential)
-	{
-		this.idUserCredential = idUserCredential;
-	}
+    @Property(name = "idUser")
+    public Integer getIdUser()
+    {
+        return this.idUser;
+    }
 
-	@Column(name = "REVTYPE")
-	public Short getRevtype()
-	{
-		return this.revtype;
-	}
+    public void setIdUser(Integer idUser)
+    {
+        this.idUser = idUser;
+    }
 
-	public void setRevtype(Short revtype)
-	{
-		this.revtype = revtype;
-	}
+    @Property(name = "saltKey")
+    public String getSaltKey()
+    {
+        return this.saltKey;
+    }
 
-	@Column(name = "ID_USER", nullable = false)
-	public Integer getIdUser()
-	{
-		return this.idUser;
-	}
+    public void setSaltKey(String saltKey)
+    {
+        this.saltKey = saltKey;
+    }
 
-	public void setIdUser(Integer idUser)
-	{
-		this.idUser = idUser;
-	}
+    @Property(name = "hashedKey")
+    public String getHashedKey()
+    {
+        return this.hashedKey;
+    }
 
-	@Column(name = "SALT_KEY", nullable = false, length = 8)
-	public String getSaltKey()
-	{
-		return this.saltKey;
-	}
+    public void setHashedKey(String hashedKey)
+    {
+        this.hashedKey = hashedKey;
+    }
 
-	public void setSaltKey(String saltKey)
-	{
-		this.saltKey = saltKey;
-	}
+    @Property(name = "isDeleted")
+    public Short getIsDeleted()
+    {
+        return this.isDeleted;
+    }
 
-	@Column(name = "HASHED_KEY", nullable = false, length = 256)
-	public String getHashedKey()
-	{
-		return this.hashedKey;
-	}
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 
-	public void setHashedKey(String hashedKey)
-	{
-		this.hashedKey = hashedKey;
-	}
+    @Property(name = "createdBy")
+    public Integer getCreatedBy()
+    {
+        return this.createdBy;
+    }
 
-	@Column(name = "IS_DELETED", nullable = false)
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    @Property(name = "createdOn")
+    public Timestamp getCreatedOn()
+    {
+        return this.createdOn;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    @Property(name = "updatedBy")
+    public Integer getUpdatedBy()
+    {
+        return this.updatedBy;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false, length = 19)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    @Property(name = "updatedOn")
+    public Timestamp getUpdatedOn()
+    {
+        return this.updatedOn;
+    }
 
-	@Column(name = "UPDATED_BY")
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
-
-	@Column(name = "UPDATED_ON", length = 19)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
-
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
+    public void setUpdatedOn(Timestamp updatedOn)
+    {
+        this.updatedOn = updatedOn;
+    }
 }

@@ -16,11 +16,11 @@ import com.google.gson.Gson;
 public class IndexAllRecordsController extends BaseController
 {
 
-	public UserDoc getUserSettingsIndexDocById(String id)
-	{
-		GetResponse getResponse = ESConstants.client.prepareGet(ESConstants.index, ESConstants.userType, id).execute().actionGet();
-		Gson gson = new Gson();
-		UserDoc userDoc = gson.fromJson(getResponse.getSourceAsString(), UserDoc.class);
-		return userDoc;
-	}
+    public UserDoc getUserSettingsIndexDocById(String id)
+    {
+        GetResponse getResponse = ESConstants.client.prepareGet(ESConstants.index, ESConstants.userType, id).execute().actionGet();
+        Gson gson = new Gson();
+        UserDoc userDoc = gson.fromJson(getResponse.getSourceAsString(), UserDoc.class);
+        return userDoc;
+    }
 }

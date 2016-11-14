@@ -38,97 +38,97 @@ import com.crackers.util.CryptoBinderUtil;
 public class UserSettingsElasticSearchIndexObserver
 {
 
-	private static Logger				logger	= Logger.getLogger(UserSettingsElasticSearchIndexObserver.class);
-	@Resource
-	private IndexAllRecordsManager		indexAllRecordsManager;
-	@Resource
-	private UserService					userService;
-	@Resource
-	private RoleTranslator				roleTranslator;
-	@Resource
-	private UserRoleRepository			userRoleRepository;
-	@Resource
-	private ImageColorCodeRepository	imageColorCodeRepository;
-	@Resource
-	private ImageService				imageService;
-	@Resource
-	private UserSourceRepository		userSourceRepository;
-	@Resource
-	private UserStateRepository			userStateRepository;
-	@Resource
-	private UserSourceTranslator		userSourceTranslator;
-	@Resource
-	private UserStateTranslator			userStateTranslator;
+    private static Logger            logger = Logger.getLogger(UserSettingsElasticSearchIndexObserver.class);
+    @Resource
+    private IndexAllRecordsManager   indexAllRecordsManager;
+    @Resource
+    private UserService              userService;
+    @Resource
+    private RoleTranslator           roleTranslator;
+    @Resource
+    private UserRoleRepository       userRoleRepository;
+    @Resource
+    private ImageColorCodeRepository imageColorCodeRepository;
+    @Resource
+    private ImageService             imageService;
+    @Resource
+    private UserSourceRepository     userSourceRepository;
+    @Resource
+    private UserStateRepository      userStateRepository;
+    @Resource
+    private UserSourceTranslator     userSourceTranslator;
+    @Resource
+    private UserStateTranslator      userStateTranslator;
 
-	public void update(UserDto userDto) throws IllegalAccessException, InvocationTargetException, RegistrationException
-	{
-		List<PhoneNumberDto> phoneNumberDtos = null;
-		List<EmailDto> emailDtos = null;
-		List<ContactDetailsDto> contactDetailsDtos = null;
-		ImageDto imageDto = null;
-		if (userDto == null)
-		{
-			return;
-		}
-		Integer idUser = CryptoBinderUtil.getDecryptId(userDto.getIdUser());
-		phoneNumberDtos = userService.getPhoneNumberList(idUser);
-		emailDtos = userService.getEmailList(idUser);
-		contactDetailsDtos = userService.getContactDetailsList(idUser);
-		imageDto = imageService.getImageDto(idUser);
-		if (phoneNumberDtos != null)
-		{
-			userDto.setPhoneNumberDtos(phoneNumberDtos);
-		}
-		if (emailDtos != null)
-		{
-			userDto.setEmailDtos(emailDtos);
-		}
-		if (contactDetailsDtos != null)
-		{
-			userDto.setContactDetailsDtos(contactDetailsDtos);
-		}
-		if (imageDto != null)
-		{
-			userDto.setImageDto(imageDto);
-		}
-		if (userDto.getUserSourceDto() != null && userDto.getUserSourceDto().getIdSource() != null)
-		{
-			UserSource category = userSourceRepository.findOne(userDto.getUserSourceDto().getIdSource());
-			userDto.setUserSourceDto(userSourceTranslator.translateToUserSourceDto(category));
-		}
-		if (userDto.getUserStateDto() != null && userDto.getUserStateDto().getIdUserState() != null)
-		{
-			com.crackers.model.UserState category = userStateRepository.findOne(userDto.getUserStateDto().getIdUserState());
-			userDto.setUserStateDto(userStateTranslator.translateToUserStateDto(category));
-		}
-		if (userDto.getIdImageColorCode() != null)
-		{
-			userDto.setImageColorCode(imageColorCodeRepository.getImageColorCode(userDto.getIdImageColorCode()));
-		}
-		String fullName = RestUrlAttribute.EMPTY_QUOTES;
-		if (userDto.getFirstName() != null && userDto.getLastName() != null)
-		{
-			fullName = userDto.getFirstName() + userDto.getLastName();
-		}
-		else if (userDto.getFirstName() != null)
-		{
-			fullName = userDto.getFirstName();
-		}
-		else
-		{
-			fullName = userDto.getLastName();
-		}
-		userDto.setFullName(fullName);
-		userDto.setRoleDto(roleTranslator.translateToRoleDto(userRoleRepository.getRoleByIdUser(idUser)));
-		try
-		{
-			UserDoc userDoc = new UserDoc.UserDocBuilder().setUserDto(userDto).build();
-			String userSettingsId = ESConstants.USER_SETTINGS + userDto.getIdUser();
-			// indexAllRecordsManager.createUserSettingsIndexById(ESConstants.client, userDoc, userSettingsId, ESConstants.index, ESConstants.userType);
-		}
-		catch (IllegalArgumentException e)
-		{
-			CMSLogger.error(logger, "Error while indexing User Details", e);
-		}
-	}
+    public void update(UserDto userDto) throws IllegalAccessException, InvocationTargetException, RegistrationException
+    {
+        List<PhoneNumberDto> phoneNumberDtos = null;
+        List<EmailDto> emailDtos = null;
+        List<ContactDetailsDto> contactDetailsDtos = null;
+        ImageDto imageDto = null;
+        if (userDto == null)
+        {
+            return;
+        }
+        Integer idUser = CryptoBinderUtil.getDecryptId(userDto.getIdUser());
+        phoneNumberDtos = userService.getPhoneNumberList(idUser);
+        emailDtos = userService.getEmailList(idUser);
+        contactDetailsDtos = userService.getContactDetailsList(idUser);
+        imageDto = imageService.getImageDto(idUser);
+        if (phoneNumberDtos != null)
+        {
+            userDto.setPhoneNumberDtos(phoneNumberDtos);
+        }
+        if (emailDtos != null)
+        {
+            userDto.setEmailDtos(emailDtos);
+        }
+        if (contactDetailsDtos != null)
+        {
+            userDto.setContactDetailsDtos(contactDetailsDtos);
+        }
+        if (imageDto != null)
+        {
+            userDto.setImageDto(imageDto);
+        }
+        if (userDto.getUserSourceDto() != null && userDto.getUserSourceDto().getIdSource() != null)
+        {
+            UserSource category = userSourceRepository.findOne(userDto.getUserSourceDto().getIdSource());
+            userDto.setUserSourceDto(userSourceTranslator.translateToUserSourceDto(category));
+        }
+        if (userDto.getUserStateDto() != null && userDto.getUserStateDto().getIdUserState() != null)
+        {
+            com.crackers.model.UserState category = userStateRepository.findOne(userDto.getUserStateDto().getIdUserState());
+            userDto.setUserStateDto(userStateTranslator.translateToUserStateDto(category));
+        }
+        if (userDto.getIdImageColorCode() != null)
+        {
+            userDto.setImageColorCode(imageColorCodeRepository.getImageColorCode(userDto.getIdImageColorCode()));
+        }
+        String fullName = RestUrlAttribute.EMPTY_QUOTES;
+        if (userDto.getFirstName() != null && userDto.getLastName() != null)
+        {
+            fullName = userDto.getFirstName() + userDto.getLastName();
+        }
+        else if (userDto.getFirstName() != null)
+        {
+            fullName = userDto.getFirstName();
+        }
+        else
+        {
+            fullName = userDto.getLastName();
+        }
+        userDto.setFullName(fullName);
+        userDto.setRoleDto(roleTranslator.translateToRoleDto(userRoleRepository.getRoleByIdUser(idUser)));
+        try
+        {
+            UserDoc userDoc = new UserDoc.UserDocBuilder().setUserDto(userDto).build();
+            String userSettingsId = ESConstants.USER_SETTINGS + userDto.getIdUser();
+            // indexAllRecordsManager.createUserSettingsIndexById(ESConstants.client, userDoc, userSettingsId, ESConstants.index, ESConstants.userType);
+        }
+        catch (IllegalArgumentException e)
+        {
+            CMSLogger.error(logger, "Error while indexing User Details", e);
+        }
+    }
 }

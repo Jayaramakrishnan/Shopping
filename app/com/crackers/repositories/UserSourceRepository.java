@@ -1,8 +1,8 @@
 package com.crackers.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 import com.crackers.model.UserSource;
 
-public interface UserSourceRepository extends JpaRepository<UserSource, Integer>
+public interface UserSourceRepository extends GraphRepository<UserSource>
 {}

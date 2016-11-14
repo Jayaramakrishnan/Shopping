@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 public class DateStringUtil
 {
 
-	public Timestamp getCurrentTimestamp()
-	{
-		return new Timestamp(System.currentTimeMillis());
-	}
+    public Timestamp getCurrentTimestamp()
+    {
+        return new Timestamp(System.currentTimeMillis());
+    }
 }

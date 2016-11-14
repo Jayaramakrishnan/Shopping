@@ -5,48 +5,48 @@ import java.sql.Timestamp;
 public class UserSourceDto
 {
 
-	private Integer		idSource;
-	private String		source;
-	private Integer		createdBy;
-	private Timestamp	createdOn;
+    private Integer   idSource;
+    private String    source;
+    private Integer   createdBy;
+    private Timestamp createdOn;
 
-	public Integer getIdSource()
-	{
-		return idSource;
-	}
+    public Integer getIdSource()
+    {
+        return idSource;
+    }
 
-	public void setIdSource(Integer idSource)
-	{
-		this.idSource = idSource;
-	}
+    public void setIdSource(Integer idSource)
+    {
+        this.idSource = idSource;
+    }
 
-	public String getSource()
-	{
-		return source;
-	}
+    public String getSource()
+    {
+        return source;
+    }
 
-	public void setSource(String source)
-	{
-		this.source = source;
-	}
+    public void setSource(String source)
+    {
+        this.source = source;
+    }
 
-	public Integer getCreatedBy()
-	{
-		return createdBy;
-	}
+    public Integer getCreatedBy()
+    {
+        return createdBy;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	public Timestamp getCreatedOn()
-	{
-		return createdOn;
-	}
+    public Timestamp getCreatedOn()
+    {
+        return createdOn;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 }

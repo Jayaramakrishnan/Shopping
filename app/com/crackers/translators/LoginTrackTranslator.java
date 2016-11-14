@@ -15,19 +15,19 @@ import com.crackers.model.LoginTrack;
 public class LoginTrackTranslator
 {
 
-	private static Logger	logger	= Logger.getLogger(LoginTrackTranslator.class);
+    private static Logger logger = Logger.getLogger(LoginTrackTranslator.class);
 
-	public LoginTrack translateToLoginTrack(LoginTrackDto loginTrackDto)
-	{
-		LoginTrack loginTrack = new LoginTrack();
-		try
-		{
-			BeanUtil.copyBeanProperties(loginTrackDto, loginTrack, new ArrayList<String>());
-		}
-		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
-		{
-			CMSLogger.error(logger, "Error while copying bean util in Login Track", e);
-		}
-		return loginTrack;
-	}
+    public LoginTrack translateToLoginTrack(LoginTrackDto loginTrackDto)
+    {
+        LoginTrack loginTrack = new LoginTrack();
+        try
+        {
+            BeanUtil.copyBeanProperties(loginTrackDto, loginTrack, new ArrayList<String>());
+        }
+        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+        {
+            CMSLogger.error(logger, "Error while copying bean util in Login Track", e);
+        }
+        return loginTrack;
+    }
 }

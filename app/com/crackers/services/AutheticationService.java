@@ -11,11 +11,11 @@ import com.crackers.manager.db.AuthenticationManager;
 public class AutheticationService
 {
 
-	@Resource
-	private AuthenticationManager	authenticationManager;
+    @Resource
+    private AuthenticationManager authenticationManager;
 
-	public Object validate(UserDto userDto, String secrat) throws Exception
-	{
-		return authenticationManager.validate(userDto, secrat);
-	}
+    public Object validate(UserDto userDto, String secrat) throws Exception
+    {
+        return authenticationManager.validate(userDto, secrat);
+    }
 }

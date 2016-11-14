@@ -1,14 +1,14 @@
 package com.crackers.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.crackers.model.LoginTrack;
 
-public interface LoginTrackRepository extends JpaRepository<LoginTrack, Integer>
+public interface LoginTrackRepository extends GraphRepository<LoginTrack>
 {
 
-	@Query("select lt from LoginTrack lt where lt.sessionToken like :uniqueId")
-	LoginTrack getLoginTrack(@Param("uniqueId") String uniqueId);
+    @Query("match (lt:LoginTrack) where lt.sessionToken like :uniqueId return lt")
+    LoginTrack getLoginTrack(@Param("uniqueId") String uniqueId);
 }

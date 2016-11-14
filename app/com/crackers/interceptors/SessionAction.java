@@ -13,29 +13,14 @@ import play.mvc.Result;
 public class SessionAction extends Action<SessionHandler>
 {
 
-	@Override
-	public Promise<Result> call(Http.Context ctx) throws Throwable
-	{
-		/*String previousT = ctx.session().get("usertime");
-		if (Dashboard.clientConfigurationSettings != null && (previousT != null) && !previousT.equals(RestUrlAttribute.EMPTY_QUOTES))
-		{
-			long currentT1 = new Date().getTime();
-			long previousT1 = Long.valueOf(previousT);
-			long timeout = Long.valueOf(Dashboard.clientConfigurationSettings.getSessionTimeout());
-			if ((currentT1 - previousT1) > timeout)
-			{
-				ctx.session().clear();
-			}
-			else
-			{
-				String tickString = Long.toString(new Date().getTime());
-				ctx.session().put("usertime", tickString);
-			}
-		}
-		else
-		{
-			ctx.session().clear();
-		}*/
-		return delegate.call(ctx);
-	}
+    @Override
+    public Promise<Result> call(Http.Context ctx) throws Throwable
+    {
+        /*
+         * String previousT = ctx.session().get("usertime"); if (Dashboard.clientConfigurationSettings != null && (previousT != null) && !previousT.equals(RestUrlAttribute.EMPTY_QUOTES)) { long currentT1 = new Date().getTime(); long previousT1 = Long.valueOf(previousT); long
+         * timeout = Long.valueOf(Dashboard.clientConfigurationSettings.getSessionTimeout()); if ((currentT1 - previousT1) > timeout) { ctx.session().clear(); } else { String tickString = Long.toString(new Date().getTime()); ctx.session().put("usertime", tickString); } } else {
+         * ctx.session().clear(); }
+         */
+        return delegate.call(ctx);
+    }
 }

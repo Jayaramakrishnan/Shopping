@@ -1,189 +1,162 @@
 package com.crackers.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * KeywordTrack entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "\"KEYWORD_TRACK\"")
+@NodeEntity(label = "KeywordTrack")
 public class KeywordTrack implements java.io.Serializable
 {
 
-	private static final long	serialVersionUID	= 1L;
-	// Fields
-	private Integer				idKeywordTrack;
-	private String				form;
-	//private byte[]				keywordBytes;
-	private String				keyword;
-	private Integer				idUser;
-	private Integer				count;
-	private String				noOfMatches;
-	private String				exception;
-	private Integer				createdBy;
-	private Timestamp			createdOn;
-	private Integer				updatedBy;
-	private Timestamp			updatedOn;
-	private String 				url;
+    private static final long serialVersionUID = 1L;
+    private Integer           idKeywordTrack;
+    private String            form;
+    private String            keyword;
+    private Integer           idUser;
+    private Integer           count;
+    private String            noOfMatches;
+    private String            exception;
+    private Integer           createdBy;
+    private Timestamp         createdOn;
+    private Integer           updatedBy;
+    private Timestamp         updatedOn;
+    private String            url;
 
-	// Constructors
-	/** default constructor */
-	public KeywordTrack() {
-	}
+    @GraphId
+    @Property(name = "idKeywordTrack")
+    public Integer getIdKeywordTrack()
+    {
+        return this.idKeywordTrack;
+    }
 
-	public KeywordTrack(Integer idKeywordTrack, String form, String keyword, Integer idUser, Integer createdBy, Timestamp createdOn, Integer updatedBy, Timestamp updatedOn,Integer count,String url) {
-		super();
-		this.idKeywordTrack = idKeywordTrack;
-		this.form = form;
-		this.keyword = keyword;
-		this.idUser = idUser;
-		this.count = count;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
-		this.updatedBy = updatedBy;
-		this.updatedOn = updatedOn;
-		this.url = url;
-	}
+    public void setIdKeywordTrack(Integer idKeywordTrack)
+    {
+        this.idKeywordTrack = idKeywordTrack;
+    }
 
-	// Property accessors
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_KEYWORD_TRACK", unique = true, nullable = false, length = 11)
-	public Integer getIdKeywordTrack()
-	{
-		return this.idKeywordTrack;
-	}
+    @Property(name = "keyword")
+    public String getKeyword()
+    {
+        return this.keyword;
+    }
 
-	public void setIdKeywordTrack(Integer idKeywordTrack)
-	{
-		this.idKeywordTrack = idKeywordTrack;
-	}
+    public void setKeyword(String keyword)
+    {
+        this.keyword = keyword;
+    }
 
-	@Column(name = "KEYWORD", nullable = true, length = 65535)
-	public String getKeyword()
-	{
-		return this.keyword;
-	}
+    @Property(name = "exception")
+    public String getException()
+    {
+        return exception;
+    }
 
-	public void setKeyword(String keyword)
-	{
-		this.keyword = keyword;
-		
-	}
+    public void setException(String exception)
+    {
+        this.exception = exception;
+    }
 
-	@Column(name = "EXCEPTION", length = 5500)
-	public String getException()
-	{
-		return exception;
-	}
+    @Property(name = "idUser")
+    public Integer getIdUser()
+    {
+        return this.idUser;
+    }
 
-	public void setException(String exception)
-	{
-		this.exception = exception;
-	}
+    public void setIdUser(Integer idUser)
+    {
+        this.idUser = idUser;
+    }
 
-	@Column(name = "ID_USER", length = 11)
-	public Integer getIdUser()
-	{
-		return this.idUser;
-	}
+    @Property(name = "noOfMatches")
+    public String getNoOfMatches()
+    {
+        return noOfMatches;
+    }
 
-	public void setIdUser(Integer idUser)
-	{
-		this.idUser = idUser;
-	}
+    public void setNoOfMatches(String noOfMatches)
+    {
+        this.noOfMatches = noOfMatches;
+    }
 
-	@Column(name = "NO_OF_MATCHES", length = 5500)
-	public String getNoOfMatches()
-	{
-		return noOfMatches;
-	}
+    @Property(name = "form")
+    public String getForm()
+    {
+        return form;
+    }
 
-	public void setNoOfMatches(String noOfMatches)
-	{
-		this.noOfMatches = noOfMatches;
-	}
+    public void setForm(String form)
+    {
+        this.form = form;
+    }
 
-	@Column(name = "FORM", nullable = false, length = 512)
-	public String getForm()
-	{
-		return form;
-	}
+    @Property(name = "createdBy")
+    public Integer getCreatedBy()
+    {
+        return this.createdBy;
+    }
 
-	public void setForm(String form)
-	{
-		this.form = form;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    @Property(name = "createdOn")
+    public Timestamp getCreatedOn()
+    {
+        return this.createdOn;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
+    @Property(name = "updatedBy")
+    public Integer getUpdatedBy()
+    {
+        return this.updatedBy;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	@Column(name = "UPDATED_BY", nullable = true, length = 11)
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    @Property(name = "updatedOn")
+    public Timestamp getUpdatedOn()
+    {
+        return this.updatedOn;
+    }
 
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setUpdatedOn(Timestamp updatedOn)
+    {
+        this.updatedOn = updatedOn;
+    }
 
-	@Column(name = "UPDATED_ON", nullable = true)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
+    @Property(name = "count")
+    public Integer getCount()
+    {
+        return this.count;
+    }
 
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
-	
-	@Column(name = "COUNT", nullable = true)
-	public Integer getCount()
-	{
-		return this.count;
-	}
+    public void setCount(Integer count)
+    {
+        this.count = count;
+    }
 
-	public void setCount(Integer count)
-	{
-		this.count = count;
-	}
+    @Property(name = "url")
+    public String getUrl()
+    {
+        return url;
+    }
 
-	@Column(name = "URL", nullable = true)
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url)
+    {
+        this.url = url;
+    }
 }

@@ -2,18 +2,18 @@ package com.crackers.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.crackers.model.ApplicationConfig;
 
-public interface ApplicationConfigRepository extends JpaRepository<ApplicationConfig, Integer>
+public interface ApplicationConfigRepository extends GraphRepository<ApplicationConfig>
 {
 
-	@Query("select ac.configValue from ApplicationConfig ac where ac.configKey like :configKey")
-	String getConfigValueByKey(@Param("configKey") String configKey);
+    @Query("match (ac:ApplicationConfig) where ac.configKey like :configKey return ac.configValue")
+    String getConfigValueByKey(@Param("configKey") String configKey);
 
-	@Query("select ac.configKey, ac.configValue from ApplicationConfig ac where ac.configKey in ( :configKey ) ")
-	List<Object[]> getConfigValuesByKeys(@Param("configKey") List<String> configKey);
+    @Query("match (ac:ApplicationConfig) where ac.configKey in (:configKey) return ac.configKey, ac.configValue")
+    List<Object[]> getConfigValuesByKeys(@Param("configKey") List<String> configKey);
 }

@@ -15,20 +15,20 @@ import com.crackers.translators.ImageTranslator;
 public class ImageService
 {
 
-	@Resource
-	private ImageManager	imageManager;
-	@Resource
-	private ImageTranslator	imageTranslator;
+    @Resource
+    private ImageManager    imageManager;
+    @Resource
+    private ImageTranslator imageTranslator;
 
-	public ImageDto getImageDto(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		Image image = imageManager.getImage(idUser);
-		return imageTranslator.translateImageToDto(image);
-	}
+    public ImageDto getImageDto(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        Image image = imageManager.getImage(idUser);
+        return imageTranslator.translateImageToDto(image);
+    }
 
-	public ImageDto getImageId(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		Image image = imageManager.getImage(idUser);
-		return imageTranslator.translateImageToDtoById(image);
-	}
+    public ImageDto getImageId(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        Image image = imageManager.getImage(idUser);
+        return imageTranslator.translateImageToDtoById(image);
+    }
 }

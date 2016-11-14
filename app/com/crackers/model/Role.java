@@ -1,125 +1,102 @@
 package com.crackers.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * Role entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "\"ROLE\"")
+@NodeEntity(label = "Role")
 public class Role implements java.io.Serializable
 {
 
-	private static final long			serialVersionUID		= 1L;
-	// Fields
-	private Integer						idRole;
-	private String						role;
-	private Short						isDeleted;
-	private Integer						createdBy;
-	private Timestamp					createdOn;
-	private Integer						updatedBy;
-	private Timestamp					updatedOn;
-	private Set<RoleFunctionalAccess>	roleFunctionalAccess	= new HashSet<>(0);
+    private static final long serialVersionUID = 1L;
+    private Integer           idRole;
+    private String            roleName;
+    private Short             isDeleted;
+    private Integer           createdBy;
+    private Timestamp         createdOn;
+    private Integer           updatedBy;
+    private Timestamp         updatedOn;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_ROLE", unique = true, nullable = false, length = 11)
-	public Integer getIdRole()
-	{
-		return this.idRole;
-	}
+    @GraphId
+    @Property(name = "idRole")
+    public Integer getIdRole()
+    {
+        return this.idRole;
+    }
 
-	public void setIdRole(Integer idRole)
-	{
-		this.idRole = idRole;
-	}
+    public void setIdRole(Integer idRole)
+    {
+        this.idRole = idRole;
+    }
 
-	@Column(name = "ROLE", nullable = false, length = 128)
-	public String getRole()
-	{
-		return this.role;
-	}
+    @Property(name = "role")
+    public String getRoleName()
+    {
+        return this.roleName;
+    }
 
-	public void setRole(String role)
-	{
-		this.role = role;
-	}
+    public void setRoleName(String roleName)
+    {
+        this.roleName = roleName;
+    }
 
-	@Column(name = "IS_DELETED", nullable = false, length = 6, columnDefinition = "smallint default 0")
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
+    @Property(name = "isDeleted")
+    public Short getIsDeleted()
+    {
+        return this.isDeleted;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    @Property(name = "createdBy")
+    public Integer getCreatedBy()
+    {
+        return this.createdBy;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
+    @Property(name = "createdOn")
+    public Timestamp getCreatedOn()
+    {
+        return this.createdOn;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	@Column(name = "UPDATED_BY", nullable = true, length = 11)
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    @Property(name = "updatedBy")
+    public Integer getUpdatedBy()
+    {
+        return this.updatedBy;
+    }
 
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	@Column(name = "UPDATED_ON", nullable = true)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
+    @Property(name = "updatedOn")
+    public Timestamp getUpdatedOn()
+    {
+        return this.updatedOn;
+    }
 
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
-	public Set<RoleFunctionalAccess> getRoleFunctionalAccess()
-	{
-		return roleFunctionalAccess;
-	}
-
-	public void setRoleFunctionalAccess(Set<RoleFunctionalAccess> roleFunctionalAccess)
-	{
-		this.roleFunctionalAccess = roleFunctionalAccess;
-	}
+    public void setUpdatedOn(Timestamp updatedOn)
+    {
+        this.updatedOn = updatedOn;
+    }
 }

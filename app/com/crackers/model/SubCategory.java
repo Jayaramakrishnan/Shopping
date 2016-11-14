@@ -1,147 +1,126 @@
 package com.crackers.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * SubCategory entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "SUB_CATEGORY")
-@Audited
+@NodeEntity(label = "SubCategory")
 public class SubCategory implements java.io.Serializable
 {
 
-	private static final long	serialVersionUID	= 1L;
-	private Integer				idSubCategory;
-	private Integer				idCategory;
-	private String				subCategory;
-	private Short				isDeleted;
-	private Short				isChecked;
-	private Integer				createdBy;
-	private Timestamp			createdOn;
-	private Integer				updatedBy;
-	private Timestamp			updatedOn;
-	private Integer				sortOrder;
+    private static final long serialVersionUID = 1L;
+    private Integer           idSubCategory;
+    private Integer           idCategory;
+    private String            subCategoryName;
+    private Short             isDeleted;
+    private Integer           createdBy;
+    private Timestamp         createdOn;
+    private Integer           updatedBy;
+    private Timestamp         updatedOn;
+    private Integer           sortOrder;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_SUB_CATEGORY", unique = true, nullable = false, length = 11)
-	public Integer getIdSubCategory()
-	{
-		return this.idSubCategory;
-	}
+    @GraphId
+    @Property(name = "idSubCategory")
+    public Integer getIdSubCategory()
+    {
+        return this.idSubCategory;
+    }
 
-	public void setIdSubCategory(Integer idSubCategory)
-	{
-		this.idSubCategory = idSubCategory;
-	}
+    public void setIdSubCategory(Integer idSubCategory)
+    {
+        this.idSubCategory = idSubCategory;
+    }
 
-	@Column(name = "ID_CATEGORY", nullable = false)
-	public Integer getIdCategory()
-	{
-		return idCategory;
-	}
+    @Property(name = "idCategory")
+    public Integer getIdCategory()
+    {
+        return idCategory;
+    }
 
-	public void setIdCategory(Integer idCategory)
-	{
-		this.idCategory = idCategory;
-	}
+    public void setIdCategory(Integer idCategory)
+    {
+        this.idCategory = idCategory;
+    }
 
-	@Column(name = "SUB_CATEGORY", nullable = false, length = 128)
-	public String getSubCategory()
-	{
-		return this.subCategory;
-	}
+    @Property(name = "subCategory")
+    public String getSubCategory()
+    {
+        return this.subCategoryName;
+    }
 
-	public void setSubCategory(String subCategory)
-	{
-		this.subCategory = subCategory;
-	}
+    public void setSubCategory(String subCategory)
+    {
+        this.subCategoryName = subCategory;
+    }
 
-	@Column(name = "IS_DELETED", nullable = false, length = 6, columnDefinition = "smallint default 0")
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
+    @Property(name = "isDeleted")
+    public Short getIsDeleted()
+    {
+        return this.isDeleted;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 
-	@Column(name = "IS_CHECKED", nullable = true, length = 1, columnDefinition = "smallint default 0")
-	public Short getIsChecked()
-	{
-		return isChecked;
-	}
+    @Property(name = "createdBy")
+    public Integer getCreatedBy()
+    {
+        return this.createdBy;
+    }
 
-	public void setIsChecked(Short isChecked)
-	{
-		this.isChecked = isChecked;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    @Property(name = "createdOn")
+    public Timestamp getCreatedOn()
+    {
+        return this.createdOn;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
+    @Property(name = "updatedBy")
+    public Integer getUpdatedBy()
+    {
+        return this.updatedBy;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	@Column(name = "UPDATED_BY", nullable = true, length = 11)
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    @Property(name = "updatedOn")
+    public Timestamp getUpdatedOn()
+    {
+        return this.updatedOn;
+    }
 
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setUpdatedOn(Timestamp updatedOn)
+    {
+        this.updatedOn = updatedOn;
+    }
 
-	@Column(name = "UPDATED_ON", nullable = true)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
+    @Property(name = "sortOrder")
+    public Integer getSortOrder()
+    {
+        return sortOrder;
+    }
 
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
-
-	@Column(name = "SORT_ORDER", nullable = false, length = 11)
-	public Integer getSortOrder()
-	{
-		return sortOrder;
-	}
-
-	public void setSortOrder(Integer sortOrder)
-	{
-		this.sortOrder = sortOrder;
-	}
+    public void setSortOrder(Integer sortOrder)
+    {
+        this.sortOrder = sortOrder;
+    }
 }

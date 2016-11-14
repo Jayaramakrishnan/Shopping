@@ -17,15 +17,15 @@ import com.google.gson.Gson;
 public class IndexAllRecordsManager
 {
 
-	private static Logger	logger	= Logger.getLogger(IndexAllRecordsManager.class);
+    private static Logger logger = Logger.getLogger(IndexAllRecordsManager.class);
 
-	public boolean createUserSettingsIndexById(Client client, UserDoc userDoc, String idUser, String index, String type)
-	{
-		Gson gson = new Gson();
-		String value = gson.toJson(userDoc);
-		IndexResponse indexResponse = client.prepareIndex(index, type, idUser).setSource(value).execute().actionGet();
-		client.admin().indices().prepareRefresh().execute().actionGet();
-		CMSLogger.info(logger, "indexResponse.getId() of UserSettings " + indexResponse.getId());
-		return indexResponse.isCreated();
-	}
+    public boolean createUserSettingsIndexById(Client client, UserDoc userDoc, String idUser, String index, String type)
+    {
+        Gson gson = new Gson();
+        String value = gson.toJson(userDoc);
+        IndexResponse indexResponse = client.prepareIndex(index, type, idUser).setSource(value).execute().actionGet();
+        client.admin().indices().prepareRefresh().execute().actionGet();
+        CMSLogger.info(logger, "indexResponse.getId() of UserSettings " + indexResponse.getId());
+        return indexResponse.isCreated();
+    }
 }

@@ -13,13 +13,13 @@ import com.crackers.repositories.LoginTrackRepository;
 public class LoginTrackManager
 {
 
-	private Logger					logger	= Logger.getLogger(LoginTrackManager.class);
-	@Resource
-	private LoginTrackRepository	loginTrackRepository;
+    private Logger               logger = Logger.getLogger(LoginTrackManager.class);
+    @Resource
+    private LoginTrackRepository loginTrackRepository;
 
-	public void loginTrack(LoginTrack loginTrack)
-	{
-		loginTrackRepository.saveAndFlush(loginTrack);
-		CMSLogger.info(logger, "Login got Tracked");
-	}
+    public void loginTrack(LoginTrack loginTrack)
+    {
+        loginTrackRepository.saveAndFlush(loginTrack);
+        CMSLogger.info(logger, "Login got Tracked");
+    }
 }

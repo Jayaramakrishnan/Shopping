@@ -1,8 +1,8 @@
 package com.crackers.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.neo4j.repository.GraphRepository;
 
 import com.crackers.model.EmailTemplate;
 
-public interface EmailTemplateRepository extends JpaRepository<EmailTemplate, Integer>
+public interface EmailTemplateRepository extends GraphRepository<EmailTemplate>
 {}

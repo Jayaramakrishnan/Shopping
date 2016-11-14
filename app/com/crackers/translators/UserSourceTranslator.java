@@ -15,63 +15,63 @@ import com.crackers.model.UserSource;
 public class UserSourceTranslator
 {
 
-	public List<UserSourceDto> translateListToUserSourceDto(List<UserSource> userSources) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		List<UserSourceDto> userSourceDtos = new ArrayList<>();
-		if (userSources == null)
-		{
-			return userSourceDtos;
-		}
-		Iterator<UserSource> userSourceIterator = userSources.iterator();
-		while (userSourceIterator.hasNext())
-		{
-			UserSource userSource1 = userSourceIterator.next();
-			UserSourceDto userSourceDto = new UserSourceDto();
-			BeanUtil.copyBeanProperties(userSource1, userSourceDto, new ArrayList<>());
-			userSourceDtos.add(userSourceDto);
-		}
-		return userSourceDtos;
-	}
+    public List<UserSourceDto> translateListToUserSourceDto(List<UserSource> userSources) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        List<UserSourceDto> userSourceDtos = new ArrayList<>();
+        if (userSources == null)
+        {
+            return userSourceDtos;
+        }
+        Iterator<UserSource> userSourceIterator = userSources.iterator();
+        while (userSourceIterator.hasNext())
+        {
+            UserSource userSource1 = userSourceIterator.next();
+            UserSourceDto userSourceDto = new UserSourceDto();
+            BeanUtil.copyBeanProperties(userSource1, userSourceDto, new ArrayList<>());
+            userSourceDtos.add(userSourceDto);
+        }
+        return userSourceDtos;
+    }
 
-	public UserSourceDto translateToUserSourceDto(UserSource userSource) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		UserSourceDto userSourceDto = new UserSourceDto();
-		if (userSource == null)
-		{
-			return userSourceDto;
-		}
-		BeanUtil.copyBeanProperties(userSource, userSourceDto, new ArrayList<>());
-		return userSourceDto;
-	}
+    public UserSourceDto translateToUserSourceDto(UserSource userSource) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        UserSourceDto userSourceDto = new UserSourceDto();
+        if (userSource == null)
+        {
+            return userSourceDto;
+        }
+        BeanUtil.copyBeanProperties(userSource, userSourceDto, new ArrayList<>());
+        return userSourceDto;
+    }
 
-	public UserSource translateDtoToUserSource(UserSourceDto userSourceDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		UserSource userSource = new UserSource();
-		if (userSourceDto == null)
-		{
-			return userSource;
-		}
-		BeanUtil.copyBeanProperties(userSourceDto, userSource, new ArrayList<>());
-		return userSource;
-	}
+    public UserSource translateDtoToUserSource(UserSourceDto userSourceDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        UserSource userSource = new UserSource();
+        if (userSourceDto == null)
+        {
+            return userSource;
+        }
+        BeanUtil.copyBeanProperties(userSourceDto, userSource, new ArrayList<>());
+        return userSource;
+    }
 
-	public Integer getUserSourceId(UserSourceDto userSourceDto)
-	{
-		if (userSourceDto == null)
-		{
-			return null;
-		}
-		return userSourceDto.getIdSource();
-	}
+    public Integer getUserSourceId(UserSourceDto userSourceDto)
+    {
+        if (userSourceDto == null)
+        {
+            return null;
+        }
+        return userSourceDto.getIdSource();
+    }
 
-	public UserSourceDto translateToUserSourceDto(Integer idUserSource) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
-	{
-		if (idUserSource == null)
-		{
-			return null;
-		}
-		UserSourceDto userSourceDto = new UserSourceDto();
-		userSourceDto.setIdSource(idUserSource);
-		return userSourceDto;
-	}
+    public UserSourceDto translateToUserSourceDto(Integer idUserSource) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    {
+        if (idUserSource == null)
+        {
+            return null;
+        }
+        UserSourceDto userSourceDto = new UserSourceDto();
+        userSourceDto.setIdSource(idUserSource);
+        return userSourceDto;
+    }
 }

@@ -3,81 +3,81 @@ package com.crackers.dto;
 public class PasswordDto
 {
 
-	private Integer	idPassword;
-	private String	encryptText;
-	private String	email;
-	private Integer	idUser;
-	private String	saltKey;
-	private Integer	idFlag;
-	private Short	isDeleted;
-	
-	public Integer getIdPassword()
-	{
-		return idPassword;
-	}
+    private Integer idPassword;
+    private String  encryptText;
+    private String  email;
+    private Integer idUser;
+    private String  saltKey;
+    private Integer idFlag;
+    private Short   isDeleted;
 
-	public void setIdPassword(Integer idPassword)
-	{
-		this.idPassword = idPassword;
-	}
+    public Integer getIdPassword()
+    {
+        return idPassword;
+    }
 
-	public String getEncryptText()
-	{
-		return encryptText;
-	}
+    public void setIdPassword(Integer idPassword)
+    {
+        this.idPassword = idPassword;
+    }
 
-	public void setEncryptText(String encryptText)
-	{
-		this.encryptText = encryptText;
-	}
+    public String getEncryptText()
+    {
+        return encryptText;
+    }
 
-	public String getEmail()
-	{
-		return email;
-	}
+    public void setEncryptText(String encryptText)
+    {
+        this.encryptText = encryptText;
+    }
 
-	public void setEmail(String email)
-	{
-		this.email = email;
-	}
+    public String getEmail()
+    {
+        return email;
+    }
 
-	public Integer getIdUser()
-	{
-		return idUser;
-	}
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
 
-	public void setIdUser(Integer idUser)
-	{
-		this.idUser = idUser;
-	}
+    public Integer getIdUser()
+    {
+        return idUser;
+    }
 
-	public String getSaltKey()
-	{
-		return saltKey;
-	}
+    public void setIdUser(Integer idUser)
+    {
+        this.idUser = idUser;
+    }
 
-	public void setSaltKey(String saltKey)
-	{
-		this.saltKey = saltKey;
-	}
+    public String getSaltKey()
+    {
+        return saltKey;
+    }
 
-	public Integer getIdFlag()
-	{
-		return idFlag;
-	}
+    public void setSaltKey(String saltKey)
+    {
+        this.saltKey = saltKey;
+    }
 
-	public void setIdFlag(Integer idFlag)
-	{
-		this.idFlag = idFlag;
-	}
+    public Integer getIdFlag()
+    {
+        return idFlag;
+    }
 
-	public Short getIsDeleted()
-	{
-		return isDeleted;
-	}
+    public void setIdFlag(Integer idFlag)
+    {
+        this.idFlag = idFlag;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    public Short getIsDeleted()
+    {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 }

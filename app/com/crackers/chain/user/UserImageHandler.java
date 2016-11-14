@@ -18,19 +18,19 @@ import com.crackers.util.CryptoBinderUtil;
 public class UserImageHandler extends Handler
 {
 
-	private static Logger	logger	= Logger.getLogger(UserImageHandler.class);
-	protected final String	IMAGE	= "Image";
-	@Resource
-	private UserManager		userManager;
+    private static Logger  logger = Logger.getLogger(UserImageHandler.class);
+    protected final String IMAGE  = "Image";
+    @Resource
+    private UserManager    userManager;
 
-	@Override
-	public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
-	{
-		if (changedList.equalsIgnoreCase(IMAGE) && userDto.getImageDto() != null)
-		{
-			CMSLogger.info(logger, "Inside IMAGE");
-			return userManager.updateUserImageDetails(CryptoBinderUtil.getDecryptId(userDto.getIdUser()), userDto.getImageDto(), idCurrentUser);
-		}
-		return super.handleRequest(idUser, userDto, idCurrentUser, changedList);
-	}
+    @Override
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    {
+        if (changedList.equalsIgnoreCase(IMAGE) && userDto.getImageDto() != null)
+        {
+            CMSLogger.info(logger, "Inside IMAGE");
+            return userManager.updateUserImageDetails(CryptoBinderUtil.getDecryptId(userDto.getIdUser()), userDto.getImageDto(), idCurrentUser);
+        }
+        return super.handleRequest(idUser, userDto, idCurrentUser, changedList);
+    }
 }

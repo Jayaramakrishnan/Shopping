@@ -1,167 +1,115 @@
 package com.crackers.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * EmailTemplate entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "\"EMAIL_TEMPLATE\"")
+@NodeEntity(label = "EmailTemplate")
 public class EmailTemplate implements java.io.Serializable
 {
 
-	private static final long	serialVersionUID	= 1L;
-	// Fields
-	private Integer		idEmailTemplate;
-	private String		subject;
-	private byte[]		bodyData;
-	private String		body;
-	private Short		isDeleted;
-	private Integer		createdBy;
-	private Timestamp	createdOn;
-	private Integer		updatedBy;
-	private Timestamp	updatedOn;
+    private static final long serialVersionUID = 1L;
+    // Fields
+    private Integer           idEmailTemplate;
+    private String            subject;
+    private String            body;
+    private Short             isDeleted;
+    private Integer           createdBy;
+    private Timestamp         createdOn;
+    private Integer           updatedBy;
+    private Timestamp         updatedOn;
 
-	// Constructors
-	/** default constructor */
-	public EmailTemplate() {
-	}
+    @GraphId
+    @Property(name = "idEmailTemplate")
+    public Integer getIdEmailTemplate()
+    {
+        return this.idEmailTemplate;
+    }
 
-	/** full constructor */
-	public EmailTemplate(String subject, byte[]	bodyData , Short isDeleted, Integer createdBy, Timestamp createdOn, Integer updatedBy, Timestamp updatedOn) {
-		this.subject = subject;
-		this.bodyData = bodyData;
-		if(bodyData != null)
-		{
-			this.body = new String(bodyData);
-		}
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
-		this.updatedBy = updatedBy;
-		this.updatedOn = updatedOn;
-	}
+    public void setIdEmailTemplate(Integer idEmailTemplate)
+    {
+        this.idEmailTemplate = idEmailTemplate;
+    }
 
-	// Property accessors
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_EMAIL_TEMPLATE", unique = true, nullable = false, length = 11)
-	public Integer getIdEmailTemplate()
-	{
-		return this.idEmailTemplate;
-	}
+    @Property(name = "subject")
+    public String getSubject()
+    {
+        return this.subject;
+    }
 
-	public void setIdEmailTemplate(Integer idEmailTemplate)
-	{
-		this.idEmailTemplate = idEmailTemplate;
-	}
+    public void setSubject(String subject)
+    {
+        this.subject = subject;
+    }
 
-	@Column(name = "SUBJECT", length = 128)
-	public String getSubject()
-	{
-		return this.subject;
-	}
+    @Property(name = "body")
+    public String getBody()
+    {
+        return this.body;
+    }
 
-	public void setSubject(String subject)
-	{
-		this.subject = subject;
-	}
-	
-	@Transient
-	public String getBody()
-	{
-		return this.body;
-	}
+    public void setBody(String body)
+    {
+        this.body = body;
+    }
 
-	public void setBody(String body)
-	{
-		this.body = body;
-		if(body != null)
-		{
-			this.bodyData = body.getBytes();
-		}
-	}
+    @Property(name = "isDeleted")
+    public Short getIsDeleted()
+    {
+        return this.isDeleted;
+    }
 
-	@Column(name = "BODY", length = 16777216)
-	@Lob
-	public byte[] getBodyData()
-	{
-		return bodyData;
-	}
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 
-	public void setBodyData(byte[] bodyData)
-	{
-		this.bodyData = bodyData;
-		if(bodyData != null)
-		{
-			this.body = new String(bodyData);
-		}
-	}
+    @Property(name = "createdBy")
+    public Integer getCreatedBy()
+    {
+        return this.createdBy;
+    }
 
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
+    @Property(name = "createdOn")
+    public Timestamp getCreatedOn()
+    {
+        return this.createdOn;
+    }
 
-	@Column(name = "IS_DELETED", nullable = false, length = 6, columnDefinition = "smallint default 0")
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    @Property(name = "updatedBy")
+    public Integer getUpdatedBy()
+    {
+        return this.updatedBy;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    @Property(name = "updatedOn")
+    public Timestamp getUpdatedOn()
+    {
+        return this.updatedOn;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
-
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
-
-	@Column(name = "UPDATED_BY", nullable = true, length = 11)
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
-
-	@Column(name = "UPDATED_ON", nullable = true)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
-
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
+    public void setUpdatedOn(Timestamp updatedOn)
+    {
+        this.updatedOn = updatedOn;
+    }
 }

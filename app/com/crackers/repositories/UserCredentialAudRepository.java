@@ -2,15 +2,15 @@ package com.crackers.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.crackers.model.UserCredentialAud;
 
-public interface UserCredentialAudRepository extends JpaRepository<UserCredentialAud, Integer>
+public interface UserCredentialAudRepository extends GraphRepository<UserCredentialAud>
 {
 
-	@Query("select p from UserCredentialAud p where p.idUser = :idUser and p.isDeleted = 0 order by p.updatedOn DESC")
-	List<UserCredentialAud> verifyPreviousPasswords(@Param("idUser") Integer idUser);
+    @Query("match (uca:UserCredentialAud) where uca.idUser = :idUser and uca.isDeleted = 0 order by uca.updatedOn DESC return uca")
+    List<UserCredentialAud> verifyPreviousPasswords(@Param("idUser") Integer idUser);
 }

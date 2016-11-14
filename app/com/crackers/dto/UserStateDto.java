@@ -8,49 +8,49 @@ import java.sql.Timestamp;
 public class UserStateDto
 {
 
-	// Fields
-	private Integer		idUserState;
-	private String		state;
-	private Integer		createdBy;
-	private Timestamp	createdOn;
+    // Fields
+    private Integer   idUserState;
+    private String    state;
+    private Integer   createdBy;
+    private Timestamp createdOn;
 
-	public Integer getCreatedBy()
-	{
-		return createdBy;
-	}
+    public Integer getCreatedBy()
+    {
+        return createdBy;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	public Timestamp getCreatedOn()
-	{
-		return createdOn;
-	}
+    public Timestamp getCreatedOn()
+    {
+        return createdOn;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	public Integer getIdUserState()
-	{
-		return idUserState;
-	}
+    public Integer getIdUserState()
+    {
+        return idUserState;
+    }
 
-	public void setIdUserState(Integer idUserState)
-	{
-		this.idUserState = idUserState;
-	}
+    public void setIdUserState(Integer idUserState)
+    {
+        this.idUserState = idUserState;
+    }
 
-	public String getState()
-	{
-		return state;
-	}
+    public String getState()
+    {
+        return state;
+    }
 
-	public void setState(String state)
-	{
-		this.state = state;
-	}
+    public void setState(String state)
+    {
+        this.state = state;
+    }
 }

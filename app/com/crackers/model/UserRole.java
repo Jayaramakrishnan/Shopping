@@ -1,130 +1,119 @@
 package com.crackers.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * UserRole entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "\"USER_ROLE\"")
-@Audited
+@NodeEntity(label = "UserRole")
 public class UserRole implements java.io.Serializable
 {
 
-	private static final long	serialVersionUID	= 1L;
-	// Fields
-	private Integer				idUserRole;
-	private User				user;
-	private Role				role;
-	private Short				isDeleted;
-	private Integer				createdBy;
-	private Timestamp			createdOn;
-	private Integer				updatedBy;
-	private Timestamp			updatedOn;
+    private static final long serialVersionUID = 1L;
+    @GraphId
+    @Property(name = "idUserRole")
+    private Integer           idUserRole;
+    @Property(name = "idUser")
+    private Integer           idUser;
+    @Property(name = "idRole")
+    private Role              role;
+    @Property(name = "isDeleted")
+    private Short             isDeleted;
+    @Property(name = "createdBy")
+    private Integer           createdBy;
+    @Property(name = "createdOn")
+    private Timestamp         createdOn;
+    @Property(name = "updatedBy")
+    private Integer           updatedBy;
+    @Property(name = "updatedOn")
+    private Timestamp         updatedOn;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_USER_ROLE", unique = true, nullable = false, length = 11)
-	public Integer getIdUserRole()
-	{
-		return this.idUserRole;
-	}
+    public Integer getIdUserRole()
+    {
+        return idUserRole;
+    }
 
-	public void setIdUserRole(Integer idUserRole)
-	{
-		this.idUserRole = idUserRole;
-	}
+    public void setIdUserRole(Integer idUserRole)
+    {
+        this.idUserRole = idUserRole;
+    }
 
-	@JoinColumn(name = "ID_USER")
-	@ManyToOne
-	public User getUser()
-	{
-		return user;
-	}
+    public Integer getIdUser()
+    {
+        return idUser;
+    }
 
-	public void setUser(User user)
-	{
-		this.user = user;
-	}
+    public void setIdUser(Integer idUser)
+    {
+        this.idUser = idUser;
+    }
 
-	@JoinColumn(name = "ID_ROLE")
-	@ManyToOne
-	@NotAudited
-	public Role getRole()
-	{
-		return role;
-	}
+    public Role getRole()
+    {
+        return role;
+    }
 
-	public void setRole(Role role)
-	{
-		this.role = role;
-	}
+    public void setRole(Role role)
+    {
+        this.role = role;
+    }
 
-	@Column(name = "IS_DELETED", nullable = false, length = 6, columnDefinition = "smallint default 0")
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
+    public Short getIsDeleted()
+    {
+        return isDeleted;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    public Integer getCreatedBy()
+    {
+        return createdBy;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
+    public Timestamp getCreatedOn()
+    {
+        return createdOn;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	@Column(name = "UPDATED_BY", nullable = true, length = 11)
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
+    public Integer getUpdatedBy()
+    {
+        return updatedBy;
+    }
 
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	@Column(name = "UPDATED_ON", nullable = true)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
+    public Timestamp getUpdatedOn()
+    {
+        return updatedOn;
+    }
 
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
+    public void setUpdatedOn(Timestamp updatedOn)
+    {
+        this.updatedOn = updatedOn;
+    }
+
+    public static long getSerialversionuid()
+    {
+        return serialVersionUID;
+    }
 }

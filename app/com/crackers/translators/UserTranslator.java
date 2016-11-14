@@ -16,44 +16,44 @@ import com.crackers.util.CryptoBinderUtil;
 public class UserTranslator
 {
 
-	private static Logger	logger	= Logger.getLogger(UserTranslator.class);
+    private static Logger logger = Logger.getLogger(UserTranslator.class);
 
-	public UserDto translateToUserDto(User user) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
-	{
-		CMSLogger.info(logger, "Inside translateToUserDto");
-		UserDto userDto = new UserDto();
-		/*
-		 * Checking whether the user object is null.
-		 */
-		if (user == null)
-		{
-			return userDto;
-		}
-		/*
-		 * Copying model parameters to dto parameters.
-		 */
-		BeanUtil.copyBeanProperties(user, userDto, new ArrayList<>());
-		if (user.getIdUser() != null)
-		{
-			userDto.setIdUser(CryptoBinderUtil.getEncryptId(user.getIdUser().toString()));
-		}
-		return userDto;
-	}
+    public UserDto translateToUserDto(User user) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
+        CMSLogger.info(logger, "Inside translateToUserDto");
+        UserDto userDto = new UserDto();
+        /*
+         * Checking whether the user object is null.
+         */
+        if (user == null)
+        {
+            return userDto;
+        }
+        /*
+         * Copying model parameters to dto parameters.
+         */
+        BeanUtil.copyBeanProperties(user, userDto, new ArrayList<>());
+        if (user.getIdUser() != null)
+        {
+            userDto.setIdUser(CryptoBinderUtil.getEncryptId(user.getIdUser().toString()));
+        }
+        return userDto;
+    }
 
-	public User translateToUser(Integer idUser) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
-	{
-		/*
-		 * Checking whether the idUser is null.
-		 */
-		if (idUser == null)
-		{
-			return null;
-		}
-		/*
-		 * Copying model parameters to dto parameters.
-		 */
-		User user = new User();
-		user.setIdUser(idUser);
-		return user;
-	}
+    public User translateToUser(Integer idUser) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    {
+        /*
+         * Checking whether the idUser is null.
+         */
+        if (idUser == null)
+        {
+            return null;
+        }
+        /*
+         * Copying model parameters to dto parameters.
+         */
+        User user = new User();
+        user.setIdUser(idUser);
+        return user;
+    }
 }

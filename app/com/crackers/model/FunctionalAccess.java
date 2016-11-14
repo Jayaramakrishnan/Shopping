@@ -2,16 +2,14 @@ package com.crackers.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * FunctionalAccess entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "\"FUNCTIONAL_ACCESS\"")
+@NodeEntity(label = "FunctionalAccess")
 public class FunctionalAccess implements java.io.Serializable
 {
 
@@ -22,8 +20,8 @@ public class FunctionalAccess implements java.io.Serializable
 	private Integer				createdBy;
 	private Timestamp			createdOn;
 
-	@Id
-	@Column(name = "ID_FUNCTIONAL_ACCESS", unique = true, nullable = false, length = 11)
+	@GraphId
+	@Property(name = "idFunctionalAccess")
 	public Integer getIdFunctionalAccess()
 	{
 		return idFunctionalAccess;
@@ -34,7 +32,7 @@ public class FunctionalAccess implements java.io.Serializable
 		this.idFunctionalAccess = idFunctionalAccess;
 	}
 
-	@Column(name = "FUNCTION_ACCESS", length = 128)
+	@Property(name = "functionAccess")
 	public String getFunctionAccess()
 	{
 		return functionAccess;
@@ -45,7 +43,7 @@ public class FunctionalAccess implements java.io.Serializable
 		this.functionAccess = functionAccess;
 	}
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
+	@Property(name = "createdBy")
 	public Integer getCreatedBy()
 	{
 		return createdBy;
@@ -56,7 +54,7 @@ public class FunctionalAccess implements java.io.Serializable
 		this.createdBy = createdBy;
 	}
 
-	@Column(name = "CREATED_ON", nullable = false)
+	@Property(name = "createdOn")
 	public Timestamp getCreatedOn()
 	{
 		return createdOn;

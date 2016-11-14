@@ -1,154 +1,117 @@
 package com.crackers.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * Image entity. @author MyEclipse Persistence Tools
  */
-@Entity
-@Table(name = "\"IMAGE\"")
+@NodeEntity(label = "Image")
 public class Image implements java.io.Serializable
 {
 
-	private static final long	serialVersionUID	= 1L;
-	// Fields
-	private Integer				idImage;
-	private User				user;
-	private byte[]				image;
-	private Short				isDeleted;
-	private Integer				createdBy;
-	private Timestamp			createdOn;
-	private Integer				updatedBy;
-	private Timestamp			updatedOn;
+    private static final long serialVersionUID = 1L;
+    @GraphId
+    @Property(name = "idImage")
+    private Integer           idImage;
+    @Property(name = "idUser")
+    private User              user;
+    private byte[]            imageArr;
+    @Property(name = "isDeleted")
+    private Short             isDeleted;
+    @Property(name = "createdBy")
+    private Integer           createdBy;
+    @Property(name = "createdOn")
+    private Timestamp         createdOn;
+    @Property(name = "updatedBy")
+    private Integer           updatedBy;
+    @Property(name = "updatedOn")
+    private Timestamp         updatedOn;
 
-	// Constructors
-	/** default constructor */
-	public Image() {
-	}
+    public Integer getIdImage()
+    {
+        return this.idImage;
+    }
 
-	/** minimal constructor */
-	public Image(Integer idImage, User user, Short isDeleted, Integer createdBy, Timestamp createdOn) {
-		this.idImage = idImage;
-		this.user = user;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
-	}
+    public void setIdImage(Integer idImage)
+    {
+        this.idImage = idImage;
+    }
 
-	/** full constructor */
-	public Image(Integer idImage, User user, byte[] image, Short isDeleted, Integer createdBy, Timestamp createdOn, Integer updatedBy, Timestamp updatedOn) {
-		this.idImage = idImage;
-		this.user = user;
-		this.image = image;
-		this.isDeleted = isDeleted;
-		this.createdBy = createdBy;
-		this.createdOn = createdOn;
-		this.updatedBy = updatedBy;
-		this.updatedOn = updatedOn;
-	}
+    public User getUser()
+    {
+        return this.user;
+    }
 
-	// Property accessors
-	@Id
-	@Column(name = "ID_IMAGE", unique = true, nullable = false, length = 11)
-	@GeneratedValue(strategy = IDENTITY)
-	public Integer getIdImage()
-	{
-		return this.idImage;
-	}
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
 
-	public void setIdImage(Integer idImage)
-	{
-		this.idImage = idImage;
-	}
+    @Property(name = "image")
+    @Lob
+    public byte[] getImage()
+    {
+        return this.imageArr;
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_USER", nullable = false)
-	public User getUser()
-	{
-		return this.user;
-	}
+    public void setImage(byte[] image)
+    {
+        this.imageArr = image;
+    }
 
-	public void setUser(User user)
-	{
-		this.user = user;
-	}
+    public Short getIsDeleted()
+    {
+        return this.isDeleted;
+    }
 
-	@Column(name = "IMAGE", length = 16777215)
-	@Lob
-	public byte[] getImage()
-	{
-		return this.image;
-	}
+    public void setIsDeleted(Short isDeleted)
+    {
+        this.isDeleted = isDeleted;
+    }
 
-	public void setImage(byte[] image)
-	{
-		this.image = image;
-	}
+    public Integer getCreatedBy()
+    {
+        return this.createdBy;
+    }
 
-	@Column(name = "IS_DELETED", nullable = false, length = 6, columnDefinition = "smallint default 0")
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
+    public void setCreatedBy(Integer createdBy)
+    {
+        this.createdBy = createdBy;
+    }
 
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
+    public Timestamp getCreatedOn()
+    {
+        return this.createdOn;
+    }
 
-	@Column(name = "CREATED_BY", nullable = false, length = 11)
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
+    public void setCreatedOn(Timestamp createdOn)
+    {
+        this.createdOn = createdOn;
+    }
 
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
+    public Integer getUpdatedBy()
+    {
+        return this.updatedBy;
+    }
 
-	@Column(name = "CREATED_ON", nullable = false)
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
+    public void setUpdatedBy(Integer updatedBy)
+    {
+        this.updatedBy = updatedBy;
+    }
 
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
+    public Timestamp getUpdatedOn()
+    {
+        return this.updatedOn;
+    }
 
-	@Column(name = "UPDATED_BY", length = 11, updatable = true)
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
-
-	@Column(name = "UPDATED_ON", updatable = true)
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
-
-	public void setUpdatedOn(Timestamp ts)
-	{
-		this.updatedOn = ts;
-	}
+    public void setUpdatedOn(Timestamp ts)
+    {
+        this.updatedOn = ts;
+    }
 }

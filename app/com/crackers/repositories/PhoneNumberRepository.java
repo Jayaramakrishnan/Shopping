@@ -2,18 +2,18 @@ package com.crackers.repositories;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.crackers.model.PhoneNumber;
 
-public interface PhoneNumberRepository extends JpaRepository<PhoneNumber, Integer>
+public interface PhoneNumberRepository extends GraphRepository<PhoneNumber>
 {
 
-	@Query("select u from PhoneNumber u where u.user.idUser = :idUser and u.isDeleted =0")
-	List<PhoneNumber> getUserPhoneNumbers(@Param("idUser") Integer idUser);
-	
-	@Query("select u from PhoneNumber u where u.isDeleted =0")
-	List<PhoneNumber> getPhoneNumbers();
+    @Query("match (pn:PhoneNumber) where pn.user.idUser = :idUser and pn.isDeleted = 0 return pn")
+    List<PhoneNumber> getUserPhoneNumbers(@Param("idUser") Integer idUser);
+
+    @Query("match (pn:PhoneNumber) where pn.isDeleted = 0 return pn")
+    List<PhoneNumber> getPhoneNumbers();
 }
