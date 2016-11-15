@@ -1,0 +1,63 @@
+body
+{
+	margin: 0;
+	width: auto;
+}
+.header
+{
+	height: 50px;
+}
+.align-center
+{
+	text-align: center;
+}
+.tahoma
+{
+	font-family: Tahoma;
+}
+.display-inline-block
+{
+	display: inline-block;
+}
+.display-inline-flex
+{
+	display: inline-flex;
+}
+.site-header
+{
+	    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    vertical-align: -webkit-baseline-middle;
+    padding: 2px 20px;
+}
+.search-input
+{
+    width: 550px;
+    height: 35px;
+    content: "Search...";
+    position: relative;
+    padding: 10px;
+    vertical-align: -webkit-baseline-middle;
+    border: none;
+    outline: none;
+}
+.search-input-div
+{
+	padding: 0;
+}
+.login-btn-div
+{
+	position: relative;
+    top: 7px;
+    padding: 0 30px;
+}
+.login-btn
+{
+	height: 35px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+}
