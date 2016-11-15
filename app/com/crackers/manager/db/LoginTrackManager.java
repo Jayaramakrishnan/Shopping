@@ -19,7 +19,7 @@ public class LoginTrackManager
 
     public void loginTrack(LoginTrack loginTrack)
     {
-        loginTrackRepository.saveAndFlush(loginTrack);
+        loginTrackRepository.save(loginTrack);
         CMSLogger.info(logger, "Login got Tracked");
     }
 }

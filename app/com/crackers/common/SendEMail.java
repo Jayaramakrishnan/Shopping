@@ -193,7 +193,7 @@ public class SendEMail
         emailTrack.setIsDeleted((short) CommonConstants.IS_DELETED);
         emailTrack.setCreatedOn(dateStringUtil.getCurrentTimestamp());
         emailTrack.setEmail(userInfos.getUserName());
-        emailTrackRepository.saveAndFlush(emailTrack);
+        emailTrackRepository.save(emailTrack);
     }
 
     public String getEmailSettings(String key)

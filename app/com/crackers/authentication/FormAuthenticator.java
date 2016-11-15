@@ -12,7 +12,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.http.auth.InvalidCredentialsException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -93,7 +92,7 @@ public class FormAuthenticator implements Authenticator
     {
         CMSLogger.info(logger, "Form User sources:");
         List<UserSource> userSources = new ArrayList<>();
-        userSources.add(userSourceRepository.findOne(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM)));
+        userSources.add(userSourceRepository.findOne(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM).longValue()));
         CMSLogger.info(logger, "User sources:" + userSources);
         return userSources;
     }

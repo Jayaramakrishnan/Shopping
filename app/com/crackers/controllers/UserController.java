@@ -74,7 +74,7 @@ public class UserController extends BaseController
         CMSLogger.info(logger, "User Controller Method Call:" + "createUser( )");
         JsonNode json = request().body().asJson();
         UserDto userDto = Json.fromJson(json, UserDto.class);
-        if (uniqueId == null || userDto == null || (userDto.getFirstName() == null && userDto.getLastName() == null) || (userDto.getFirstName().equals(RestUrlAttribute.EMPTY_QUOTES) && userDto.getLastName().equals(RestUrlAttribute.EMPTY_QUOTES)))
+        if (uniqueId == null || userDto == null || userDto.getUserName() == null || userDto.getUserName().equals(RestUrlAttribute.EMPTY_QUOTES))
         {
             CMSLogger.error(logger, "Invalid inputs", null);
             return badRequest();
@@ -101,7 +101,7 @@ public class UserController extends BaseController
         try
         {
             CMSLogger.info(logger, "User Title is valid,Going to create new User.");
-            if ((userDto.getLastName() != RestUrlAttribute.EMPTY_QUOTES && userDto.getLastName() != null) || (userDto.getFirstName() != RestUrlAttribute.EMPTY_QUOTES && userDto.getFirstName() != null))
+            if (userDto.getUserName() != RestUrlAttribute.EMPTY_QUOTES && userDto.getUserName() != null)
             {
                 userDtoCreated = userService.createUser(idUser, userDto);
                 if (userDtoCreated == null)
@@ -137,7 +137,7 @@ public class UserController extends BaseController
                                 baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
                             }
                             CMSLogger.info(logger, "baseUrl.substring(0, baseUrl.length());" + baseUrl);
-                            String createPasswordUrl = baseUrl + com.crackers.controllers.web.routes.PasswordController.createPassword(password.getIdPassword(), password.getEncryptText()).url();
+                            String createPasswordUrl = baseUrl ;// + com.crackers.controllers.web.routes.PasswordController.createPassword(password.getIdPassword(), password.getEncryptText()).url();
                             CMSLogger.info(logger, "createPasswordUrl" + createPasswordUrl);
                             URLEncoder.encode(createPasswordUrl, "UTF-8");
                             UserCredential userCredential = userService.getUserCredentialObject(userId);
@@ -147,7 +147,7 @@ public class UserController extends BaseController
                                 EmailTemplate emailTemplate = new EmailTemplate();
                                 if (userDtoCreated.getUserSourceDto() != null && userDtoCreated.getUserSourceDto().getIdSource().intValue() == 1)
                                 {
-                                    emailTemplate = emailTemplateRepository.findOne(CommonConstants.NEW_PASSWORD);
+                                    emailTemplate = emailTemplateRepository.findOne(CommonConstants.NEW_PASSWORD.longValue());
                                     map.put("[[New Password]]", createPasswordUrl);
                                 }
                                 map.put(CommonConstants.POWERED_BY_XXX, EmailHelper.replaceNullInString(applicationConfigRepository.getConfigValueByKey(CommonConstants.POWERED_BY_XXX)));
@@ -290,16 +290,16 @@ public class UserController extends BaseController
                     baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
                 }
                 CMSLogger.info(logger, "baseUrl.substring(0, baseUrl.length());" + baseUrl);
-                String createPasswordUrl = baseUrl + com.crackers.controllers.web.routes.PasswordController.forgotPassword(password.getIdPassword(), encryptText, 0).url();
+                String createPasswordUrl = baseUrl;// + com.crackers.controllers.web.routes.PasswordController.forgotPassword(password.getIdPassword(), encryptText, 0).url();
                 CMSLogger.info(logger, "createPasswordUrl" + createPasswordUrl);
                 URLEncoder.encode(createPasswordUrl, "UTF-8");
                 Map<String, String> map = new HashMap<>();
-                User userCredential2 = userRepository.findOne(idUser);
+                User userCredential2 = userRepository.findOne(idUser.longValue());
                 EmailTemplate emailTemplate = new EmailTemplate();
                 if (userCredential2.getIdSource() != null && userCredential2.getIdSource().intValue() == 1)
                 {
                     CMSLogger.info(logger, "forgot mail");
-                    emailTemplate = emailTemplateRepository.findOne(CommonConstants.FORGET_PASSWORD);
+                    emailTemplate = emailTemplateRepository.findOne(CommonConstants.FORGET_PASSWORD.longValue());
                     map.put("[[Forgot Password]]", createPasswordUrl);
                 }
                 map.put(CommonConstants.POWERED_BY_XXX, EmailHelper.replaceNullInString(applicationConfigRepository.getConfigValueByKey(CommonConstants.POWERED_BY_XXX)));

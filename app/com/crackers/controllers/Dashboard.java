@@ -56,25 +56,17 @@ public class Dashboard extends BaseController
                 UserVO userInfoVO = new UserVO();
                 if (userInfo != null)
                 {
-                    if (userInfo.getFirstName() == null)
+                    if (userInfo.getUserName() == null)
                     {
-                        userInfoVO.setFirstName(RestUrlAttribute.EMPTY_QUOTES);
+                        userInfoVO.setUserName(RestUrlAttribute.EMPTY_QUOTES);
                     }
                     else
                     {
-                        userInfoVO.setFirstName(userInfo.getFirstName());
-                    }
-                    if (userInfo.getLastName() == null)
-                    {
-                        userInfoVO.setLastName(RestUrlAttribute.EMPTY_QUOTES);
-                    }
-                    else
-                    {
-                        userInfoVO.setLastName(userInfo.getLastName());
+                        userInfoVO.setUserName(userInfo.getUserName());
                     }
                     userInfoVO.setIdUser(userInfo.getIdUser());
                     userInfoVO.setIdRole(userRole.getIdRole());
-                    userInfoVO.setRole(userRole.getRole());
+                    userInfoVO.setRole(userRole.getRoleName());
                     userInfoVO.setImageColorCode(userInfo.getImageColorCode());
                 }
                 UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();

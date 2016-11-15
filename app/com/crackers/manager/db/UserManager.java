@@ -13,7 +13,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.persistence.EntityManager;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.log4j.Logger;
@@ -23,7 +22,6 @@ import com.crackers.common.BeanUtil;
 import com.crackers.common.CMSLogger;
 import com.crackers.common.CommonConstants;
 import com.crackers.common.DateStringUtil;
-import com.crackers.common.RestUrlAttribute;
 import com.crackers.dto.ImageDto;
 import com.crackers.dto.PhoneTypeDto;
 import com.crackers.dto.UserDto;
@@ -102,8 +100,6 @@ public class UserManager
     @Resource
     private ImageColorCodeRepository     imageColorCodeRepository;
     @Resource
-    private EntityManager                em;
-    @Resource
     private ApplicationConfigRepository  applicationConfigRepository;
     @Resource
     private DateStringUtil               dateStringUtil;
@@ -136,24 +132,10 @@ public class UserManager
         CMSLogger.info(logger, "Calling UserManager's:" + "createUser" + "(" + user + ")");
         CMSLogger.debug(logger, "Check the UserTitle for duplicate entry");
         Integer random = (int) (Math.random() * 17 + 1);
-        ImageColorCode imageColorCode = imageColorCodeRepository.findOne(random);
+        ImageColorCode imageColorCode = imageColorCodeRepository.findOne(random.longValue());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         user.setIsDeleted((short) 0);
         user.setIdUserState(1);
-        String fullName = RestUrlAttribute.EMPTY_QUOTES;
-        if (user.getFirstName() != null)
-        {
-            fullName = user.getFirstName();
-        }
-        if (user.getLastName() != null && fullName.length() > CommonConstants.EMPTY_LIST)
-        {
-            fullName = fullName.concat(" ").concat(user.getLastName());
-        }
-        else if (user.getLastName() != null)
-        {
-            fullName = user.getLastName();
-        }
-        user.setFullName(fullName);
         if (user.getIdImageColorCode() == null && imageColorCode != null)
         {
             user.setIdImageColorCode(imageColorCode.getIdImageColorCode());
@@ -161,7 +143,7 @@ public class UserManager
         user.setCreatedBy(idUser);
         user.setCreatedOn(ts);
         user.setLastUpdatedOn(ts);
-        return userRepository.saveAndFlush(user);
+        return userRepository.save(user);
     }
 
     public Long getUser(String userName)
@@ -173,17 +155,17 @@ public class UserManager
     {
         if (userDto.getRoleDto() != null && userDto.getRoleDto().getIdRole() != null)
         {
-            Role category = roleRepository.findOne(userDto.getRoleDto().getIdRole());
+            Role category = roleRepository.findOne(userDto.getRoleDto().getIdRole().longValue());
             userDto.setRoleDto(roleTranslator.translateToRoleDto(category));
         }
         if (userDto.getUserSourceDto() != null && userDto.getUserSourceDto().getIdSource() != null)
         {
-            UserSource category = userSourceRepository.findOne(userDto.getUserSourceDto().getIdSource());
+            UserSource category = userSourceRepository.findOne(userDto.getUserSourceDto().getIdSource().longValue());
             userDto.setUserSourceDto(userSourceTranslator.translateToUserSourceDto(category));
         }
         if (userDto.getUserStateDto() != null && userDto.getUserStateDto().getIdUserState() != null)
         {
-            UserState category = userStateRepository.findOne(userDto.getUserStateDto().getIdUserState());
+            UserState category = userStateRepository.findOne(userDto.getUserStateDto().getIdUserState().longValue());
             userDto.setUserStateDto(userStateTranslator.translateToUserStateDto(category));
         }
         return userDto;
@@ -203,11 +185,11 @@ public class UserManager
             BeanUtil.copyBeanProperties(entityImage, image, new ArrayList<>());
             image.setUpdatedBy(idUser);
             image.setUpdatedOn(ts);
-            created = imageRepository.saveAndFlush(image);
-            User user = userRepository.findOne(idUser);
+            created = imageRepository.save(image);
+            User user = userRepository.findOne(idUser.longValue());
             user.setUpdatedBy(idCurrentUser);
             user.setUpdatedOn(ts);
-            userDto = userTranslator.translateToUserDto(userRepository.saveAndFlush(user));
+            userDto = userTranslator.translateToUserDto(userRepository.save(user));
             userDto.setImageDto(imageTranslator.translateImageToDto(created));
         }
         else
@@ -217,11 +199,11 @@ public class UserManager
             entityImage.setIsDeleted((short) 0);
             entityImage.setCreatedOn(ts);
             entityImage.setCreatedBy(idCurrentUser);
-            created = imageRepository.saveAndFlush(entityImage);
-            User user = userRepository.findOne(idUser);
+            created = imageRepository.save(entityImage);
+            User user = userRepository.findOne(idUser.longValue());
             user.setUpdatedBy(idUser);
             user.setUpdatedOn(ts);
-            userDto = userTranslator.translateToUserDto(userRepository.saveAndFlush(user));
+            userDto = userTranslator.translateToUserDto(userRepository.save(user));
             userDto.setImageDto(imageTranslator.translateImageToDto(created));
         }
         return userDto;
@@ -235,14 +217,13 @@ public class UserManager
     public PhoneNumber updatePhoneNumber(Integer idUser, PhoneNumber phoneNumbergiven, int idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
     {
         CMSLogger.info(logger, "PhoneNumber already exist");
-        PhoneNumber phoneNumber = phoneNumberRepository.findOne(phoneNumbergiven.getIdPhoneNumber());
+        PhoneNumber phoneNumber = phoneNumberRepository.findOne(phoneNumbergiven.getIdPhoneNumber().longValue());
         BeanUtil.copyBeanProperties(phoneNumbergiven, phoneNumber, new ArrayList<>());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         phoneNumber.setUpdatedBy(idUser);
         phoneNumber.setUpdatedOn(ts);
-        phoneNumber.setUser(userRepository.findOne(idUser));
-        PhoneNumber updated = phoneNumberRepository.saveAndFlush(phoneNumber);
-        return updated;
+        phoneNumber.setUser(userRepository.findOne(idUser.longValue()));
+        return phoneNumberRepository.save(phoneNumber);
     }
 
     public PhoneNumber createPhoneNumber(Integer idUser, PhoneNumber phoneNumbergiven, int idCurrentUser)
@@ -252,9 +233,8 @@ public class UserManager
         phoneNumbergiven.setCreatedBy(idCurrentUser);
         phoneNumbergiven.setCreatedOn(ts);
         phoneNumbergiven.setIsDeleted((short) 0);
-        phoneNumbergiven.setUser(userRepository.findOne(idUser));
-        PhoneNumber updated = phoneNumberRepository.saveAndFlush(phoneNumbergiven);
-        return updated;
+        phoneNumbergiven.setUser(userRepository.findOne(idUser.longValue()));
+        return phoneNumberRepository.save(phoneNumbergiven);
     }
 
     public List<Email> getUserEmails(Integer idUser)
@@ -265,7 +245,7 @@ public class UserManager
     public Email updateEmail(Integer idUser, Email email, int idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
     {
         CMSLogger.info(logger, "Email already exist");
-        Email mail = emailRepository.findOne(email.getIdEmail());
+        Email mail = emailRepository.findOne(email.getIdEmail().longValue());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         if (email != null && email.getIsPrimary() != null && !(email.getIsPrimary().equals(mail.getIsPrimary())) && !(mail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM))))
         {
@@ -284,8 +264,8 @@ public class UserManager
                     primaryMail.setIsPrimary((short) 0);
                     primaryMail.setUpdatedBy(idCurrentUser);
                     primaryMail.setUpdatedOn(ts);
-                    primaryMail.setUser(userRepository.findOne(idUser));
-                    emailRepository.saveAndFlush(primaryMail);
+                    primaryMail.setUser(userRepository.findOne(idUser.longValue()));
+                    emailRepository.save(primaryMail);
                 }
                 else
                 {
@@ -294,28 +274,28 @@ public class UserManager
                 }
             }
         }
-        if (email != null && email.getEmail() != null && !(email.getEmail().equals(mail.getEmail())) && mail.getEmailSource() != null && !(mail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM)))
+        if (email != null && email.getEmailValue() != null && !(email.getEmailValue().equals(mail.getEmailValue())) && mail.getEmailSource() != null && !(mail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM)))
                 && email.getEmailSource().equals(mail.getEmailSource()))
         {
             CMSLogger.info(logger, "Mail id cant change");
-            email.setEmail(mail.getEmail());
+            email.setEmailValue(mail.getEmailValue());
         }
-        if (email != null && email.getEmail() != null && !(email.getEmail().equals(mail.getEmail())) && mail.getEmailSource() != null && mail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM))
+        if (email != null && email.getEmailValue() != null && !(email.getEmailValue().equals(mail.getEmailValue())) && mail.getEmailSource() != null && mail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM))
                 && email.getEmailSource().equals(mail.getEmailSource()))
         {
             CMSLogger.info(logger, "Mail id Changed");
-            User user = userRepository.findOne(idUser);
-            user.setUserName(email.getEmail());
+            User user = userRepository.findOne(idUser.longValue());
+            user.setUserName(email.getEmailValue());
             user.setUpdatedBy(idCurrentUser);
             user.setUpdatedOn(ts);
             user.setLastUpdatedOn(ts);
-            userRepository.saveAndFlush(user);
+            userRepository.save(user);
         }
         BeanUtil.copyBeanProperties(email, mail, new ArrayList<>());
         mail.setUpdatedBy(idCurrentUser);
         mail.setUpdatedOn(ts);
-        mail.setUser(userRepository.findOne(idUser));
-        return emailRepository.saveAndFlush(mail);
+        mail.setUser(userRepository.findOne(idUser.longValue()));
+        return emailRepository.save(mail);
     }
 
     public Email createEmail(Integer idUser, Email email, int idCurrentUser)
@@ -332,8 +312,8 @@ public class UserManager
                     primaryMail.setIsPrimary((short) 0);
                     primaryMail.setUpdatedBy(idCurrentUser);
                     primaryMail.setUpdatedOn(ts);
-                    primaryMail.setUser(userRepository.findOne(idUser));
-                    emailRepository.saveAndFlush(primaryMail);
+                    primaryMail.setUser(userRepository.findOne(idUser.longValue()));
+                    emailRepository.save(primaryMail);
                 }
                 else
                 {
@@ -345,34 +325,20 @@ public class UserManager
         email.setCreatedBy(idCurrentUser);
         email.setCreatedOn(ts);
         email.setIsDeleted((short) 0);
-        email.setUser(userRepository.findOne(idUser));
-        return emailRepository.saveAndFlush(email);
+        email.setUser(userRepository.findOne(idUser.longValue()));
+        return emailRepository.save(email);
     }
 
     public User updateUser(Integer idUser, int idCurrentUser, User user) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserManager's:" + "updateUserDetails" + "(" + user + ")");
         CMSLogger.debug(logger, "Check the UserTitle for duplicate entry");
-        User oldUser = userRepository.findOne(idUser);
+        User oldUser = userRepository.findOne(idUser.longValue());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         BeanUtil.copyBeanProperties(user, oldUser, new ArrayList<>());
         oldUser.setUpdatedBy(idCurrentUser);
         oldUser.setUpdatedOn(ts);
-        String fullName = RestUrlAttribute.EMPTY_QUOTES;
-        if (oldUser.getFirstName() != null)
-        {
-            fullName = oldUser.getFirstName();
-        }
-        if (oldUser.getLastName() != null && fullName.length() > CommonConstants.EMPTY_LIST)
-        {
-            fullName = fullName.concat(" ").concat(oldUser.getLastName());
-        }
-        else if (oldUser.getLastName() != null)
-        {
-            fullName = oldUser.getLastName();
-        }
-        oldUser.setFullName(fullName);
-        return userRepository.saveAndFlush(oldUser);
+        return userRepository.save(oldUser);
     }
 
     public List<ContactDetails> getUserContactDetails(Integer idUser)
@@ -384,19 +350,19 @@ public class UserManager
     {
         CMSLogger.info(logger, "Starts  updateIndividualAddressDetails");
         logger.debug("Calling :" + "updateUserContactDetails" + "(" + idUser + "," + contactDetails + "," + idCurrentUser + ")");
-        ContactDetails contactDetailsgiven = userContactDetailsRepository.findOne(contactDetails.getIdContactDetails());
+        ContactDetails contactDetailsgiven = userContactDetailsRepository.findOne(contactDetails.getIdContactDetails().longValue());
         CMSLogger.info(logger, "*****************" + contactDetails);
         CMSLogger.info(logger, "The record already present");
         BeanUtil.copyBeanProperties(contactDetails, contactDetailsgiven, new ArrayList<>());
         contactDetailsgiven.setUpdatedBy(idCurrentUser);
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         contactDetailsgiven.setUpdatedOn(ts);
-        contactDetailsgiven.setUser(userRepository.findOne(idUser));
-        ContactDetails updated = userContactDetailsRepository.saveAndFlush(contactDetailsgiven);
-        User individualEntity = userRepository.findOne(idUser);
+        contactDetailsgiven.setUser(userRepository.findOne(idUser.longValue()));
+        ContactDetails updated = userContactDetailsRepository.save(contactDetailsgiven);
+        User individualEntity = userRepository.findOne(idUser.longValue());
         individualEntity.setUpdatedBy(idUser);
         individualEntity.setUpdatedOn(new Timestamp((new Date()).getTime()));
-        userRepository.saveAndFlush(individualEntity);
+        userRepository.save(individualEntity);
         return updated;
     }
 
@@ -409,12 +375,12 @@ public class UserManager
         entityContactDetails.setCreatedBy(idCurrentUser);
         CMSLogger.info(logger, "individual entity id:" + idUser);
         BeanUtil.copyBeanProperties(contactDetails, entityContactDetails, new ArrayList<>());
-        entityContactDetails.setUser(userRepository.findOne(idUser));
-        ContactDetails created = userContactDetailsRepository.saveAndFlush(entityContactDetails);
-        User individualEntity = userRepository.findOne(idUser);
+        entityContactDetails.setUser(userRepository.findOne(idUser.longValue()));
+        ContactDetails created = userContactDetailsRepository.save(entityContactDetails);
+        User individualEntity = userRepository.findOne(idUser.longValue());
         individualEntity.setUpdatedBy(idUser);
         individualEntity.setUpdatedOn(new Timestamp((new Date()).getTime()));
-        userRepository.saveAndFlush(individualEntity);
+        userRepository.save(individualEntity);
         return created;
     }
 
@@ -451,7 +417,7 @@ public class UserManager
             userCredential.setHashedKey(hashedKey);
             userCredential.setUpdatedBy(idUser);
             userCredential.setUpdatedOn(ts);
-            userCredential = credentialRepository.saveAndFlush(userCredential);
+            userCredential = credentialRepository.save(userCredential);
         }
         else
         {
@@ -465,7 +431,7 @@ public class UserManager
             userCredential.setCreatedOn(ts);
             userCredential.setUpdatedBy(idUser);
             userCredential.setUpdatedOn(ts);
-            userCredential = credentialRepository.saveAndFlush(userCredential);
+            userCredential = credentialRepository.save(userCredential);
         }
         return Integer.valueOf(userCredential.getIdUser().intValue());
     }
@@ -494,7 +460,7 @@ public class UserManager
         userCredential.setHashedKey(hashedKey);
         userCredential.setCreatedBy(idUser);
         userCredential.setCreatedOn(ts);
-        return credentialRepository.saveAndFlush(userCredential);
+        return credentialRepository.save(userCredential);
     }
 
     public synchronized Password createPasswordEntry(String encryptText, String email, Integer idUser, String saltKey)
@@ -509,7 +475,7 @@ public class UserManager
         password.setIsExpired((short) 0);
         password.setCreatedBy(idUser);
         password.setCreatedOn(ts);
-        return passwordRepository.saveAndFlush(password);
+        return passwordRepository.save(password);
     }
 
     public Password getPasswordObject(Integer idPassword)
@@ -554,7 +520,7 @@ public class UserManager
         {
             Password password = iterator.next();
             password.setIsExpired((short) 1);
-            passwordsFinal.add(passwordRepository.saveAndFlush(password));
+            passwordsFinal.add(passwordRepository.save(password));
         }
         return passwordsFinal;
     }
@@ -571,6 +537,6 @@ public class UserManager
 
     public PhoneTypeDto getPhoneType(Integer idPhoneType) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
     {
-        return phoneTypeTranslator.translateToPhoneTypeDto(phoneTypeRepository.findOne(idPhoneType));
+        return phoneTypeTranslator.translateToPhoneTypeDto(phoneTypeRepository.findOne(idPhoneType.longValue()));
     }
 }

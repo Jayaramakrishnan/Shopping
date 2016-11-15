@@ -7,9 +7,6 @@ public class UserDto implements Cloneable
 
     private String                  idUser;
     private RoleDto                 roleDto;
-    private String                  firstName;
-    private String                  fullName;
-    private String                  lastName;
     private String                  userName;
     private ImageDto                imageDto;
     private UserSourceDto           userSourceDto;
@@ -54,36 +51,6 @@ public class UserDto implements Cloneable
     public void setRoleDto(RoleDto roleDto)
     {
         this.roleDto = roleDto;
-    }
-
-    public String getFirstName()
-    {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
-
-    public String getFullName()
-    {
-        return fullName;
-    }
-
-    public void setFullName(String fullName)
-    {
-        this.fullName = fullName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
     }
 
     public String getUserName()

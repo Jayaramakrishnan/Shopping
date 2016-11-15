@@ -5,51 +5,51 @@
 GET		/																   @com.crackers.controllers.Application.hello
 
 # Home page
-#GET      /                                                                @com.crackers.controllers.LoginController.index(url: String ?= "")
-#POST     /Login                                                           @com.crackers.controllers.LoginController.validate
-#GET      /Logout                                                          @com.crackers.controllers.LoginController.logout
-#GET      /sessioncheck                                                    @com.crackers.controllers.LoginController.sessionCheck
+GET      /                                                                @com.crackers.controllers.LoginController.index(url: String ?= "")
+POST     /Login                                                           @com.crackers.controllers.LoginController.validate
+GET      /Logout                                                          @com.crackers.controllers.LoginController.logout
+GET      /sessioncheck                                                    @com.crackers.controllers.LoginController.sessionCheck
 
-#GET      /DashBoard                                                       @com.crackers.controllers.Dashboard.dashBoard
-#POST     /redirectResource                                                @com.crackers.controllers.Dashboard.redirectResource
+GET      /DashBoard                                                       @com.crackers.controllers.Dashboard.dashBoard
+POST     /redirectResource                                                @com.crackers.controllers.Dashboard.redirectResource
 
 # Map static resources from the /public folder to the /assets URL path
 GET       /assets/*file               									   controllers.Assets.at(path="/public", file)
 
 #SignIn
-#GET      /Authenticate                                                    @com.crackers.controllers.AuthenticationController.authenticate
+GET      /Authenticate                                                    @com.crackers.controllers.AuthenticationController.authenticate
 
 #SignUp
-#POST     /CreateUser                                                      @com.crackers.controllers.web.UserSettingWebController.createUser
+POST     /CreateUser                                                      @com.crackers.controllers.web.UserSettingWebController.createUser
 #PUT      /UpdateUser/:idUser                                              @com.crackers.controllers.web.UserSettingWebController.updateUser(idUser: String)
 
-#POST     /User                                                            @com.crackers.controllers.UserController.createUser(uniqueId: String)
+POST     /User                                                            @com.crackers.controllers.UserController.createUser(uniqueId: String)
 #PUT      /User                                                            @com.crackers.controllers.UserController.updateUser(uniqueId: String)
 
 #Password Changes
-#POST     /validateNewPassword                                             @com.crackers.controllers.UserController.validateNewPassword()
+POST     /validateNewPassword                                             @com.crackers.controllers.UserController.validateNewPassword()
 
-#POST     /createNewPassword                                               @com.crackers.controllers.UserController.createPassword()
+POST     /createNewPassword                                               @com.crackers.controllers.UserController.createPassword()
 
-#GET      /validateForgetUserMailId                                        @com.crackers.controllers.UserController.validateForgetUserMailId(email: String)
+GET      /validateForgetUserMailId                                        @com.crackers.controllers.UserController.validateForgetUserMailId(email: String)
 
-#POST     /createForgetPassword                                            @com.crackers.controllers.UserController.createForgetPassword()
+POST     /createForgetPassword                                            @com.crackers.controllers.UserController.createForgetPassword()
 
-#POST     /createResetPassword                                             @com.crackers.controllers.UserController.createResetPassword(uniqueId: String)	
+POST     /createResetPassword                                             @com.crackers.controllers.UserController.createResetPassword(uniqueId: String)	
 
 #Password Changes Web
-#GET      /createPassword/:idPassword/:email                               @com.crackers.controllers.web.PasswordController.createPassword(idPassword: Integer, email: String)
+GET      /createPassword/:idPassword/:email                               @com.crackers.controllers.web.PasswordController.createPassword(idPassword: Integer, email: String)
 
-#POST     /createNewPasswordWeb                                            @com.crackers.controllers.web.PasswordController.createNewLoginPassword()
+POST     /createNewPasswordWeb                                            @com.crackers.controllers.web.PasswordController.createNewLoginPassword()
 
-#GET      /forgetPassword/:idPassword/:email                               @com.crackers.controllers.web.PasswordController.forgotPassword(idPassword: Integer, email: String,errorType : Integer ?= 0)
+GET      /forgetPassword/:idPassword/:email                               @com.crackers.controllers.web.PasswordController.forgotPassword(idPassword: Integer, email: String,errorType : Integer ?= 0)
 
-#POST     /createForgetPasswordWeb                                         @com.crackers.controllers.web.PasswordController.createForgetLoginPassword()
+POST     /createForgetPasswordWeb                                         @com.crackers.controllers.web.PasswordController.createForgetLoginPassword()
 
-#GET      /resetPassword/:idPassword/:email                                @com.crackers.controllers.web.PasswordController.resetPassword(idPassword: Integer, email: String)
+GET      /resetPassword/:idPassword/:email                                @com.crackers.controllers.web.PasswordController.resetPassword(idPassword: Integer, email: String)
 
-#POST     /createResetPasswordWeb                                          @com.crackers.controllers.web.PasswordController.createResetLoginPassword()
+POST     /createResetPasswordWeb                                          @com.crackers.controllers.web.PasswordController.createResetLoginPassword()
 
-#GET      /forgotPassword                                                  @com.crackers.controllers.web.PasswordController.showForgotPassword()
+GET      /forgotPassword                                                  @com.crackers.controllers.web.PasswordController.showForgotPassword()
 
-#POST     /validateEmailForForgotPassword                                  @com.crackers.controllers.web.PasswordController.validateEmailForForgotPassword()
+POST     /validateEmailForForgotPassword                                  @com.crackers.controllers.web.PasswordController.validateEmailForForgotPassword()

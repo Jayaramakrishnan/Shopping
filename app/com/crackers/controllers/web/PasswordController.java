@@ -394,21 +394,9 @@ public class PasswordController extends BaseController
                     UserDto successDto = Json.fromJson(userInfoNode, UserDto.class);
                     CMSLogger.info(logger, "User id is " + successDto.getIdUser());
                     session().put(session().get(CommonConstants.UNIQUE_ID), successDto.getIdUser().toString());
-                    if (successDto.getFirstName() != null && successDto.getLastName() != null)
+                    if (successDto.getUserName() != null)
                     {
-                        session().put(CommonConstants.USER_NAME, successDto.getFirstName() + " " + successDto.getLastName());
-                        session().put(CommonConstants.USER_FIRST_NAME, successDto.getFirstName());
-                        session().put(CommonConstants.USER_LAST_NAME, successDto.getLastName());
-                    }
-                    else if (successDto.getFirstName() != null)
-                    {
-                        session().put(CommonConstants.USER_NAME, successDto.getFirstName());
-                        session().put(CommonConstants.USER_FIRST_NAME, successDto.getFirstName());
-                    }
-                    else if (successDto.getFirstName() != null)
-                    {
-                        session().put(CommonConstants.USER_NAME, successDto.getLastName());
-                        session().put(CommonConstants.USER_LAST_NAME, successDto.getLastName());
+                        session().put(CommonConstants.USER_NAME, successDto.getUserName());
                     }
                     Role userRole = CacheManager.getUserRoleFromCache(id);
                     session().put(CommonConstants.USER_ROLE_ID, userRole.getIdRole().toString());
@@ -529,21 +517,9 @@ public class PasswordController extends BaseController
                         String unique = session().get(CommonConstants.UNIQUE_ID);
                         CMSLogger.info(logger, "User id is " + successDto.getIdUser());
                         session().put(unique, successDto.getIdUser().toString());
-                        if (successDto.getFirstName() != null && successDto.getLastName() != null)
+                        if (successDto.getUserName() != null)
                         {
-                            session().put(CommonConstants.USER_NAME, successDto.getFirstName() + " " + successDto.getLastName());
-                            session().put(CommonConstants.USER_FIRST_NAME, successDto.getFirstName());
-                            session().put(CommonConstants.USER_LAST_NAME, successDto.getLastName());
-                        }
-                        else if (successDto.getFirstName() != null)
-                        {
-                            session().put(CommonConstants.USER_NAME, successDto.getFirstName());
-                            session().put(CommonConstants.USER_FIRST_NAME, successDto.getFirstName());
-                        }
-                        else if (successDto.getFirstName() != null)
-                        {
-                            session().put(CommonConstants.USER_NAME, successDto.getLastName());
-                            session().put(CommonConstants.USER_LAST_NAME, successDto.getLastName());
+                            session().put(CommonConstants.USER_NAME, successDto.getUserName());
                         }
                         Role userRole = CacheManager.getUserRoleFromCache(id);
                         session().put(CommonConstants.USER_ROLE_ID, userRole.getIdRole().toString());

@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.CMSLogger;
-import com.crackers.common.RestUrlAttribute;
 import com.crackers.dto.ContactDetailsDto;
 import com.crackers.dto.EmailDto;
 import com.crackers.dto.ImageDto;
@@ -93,32 +92,18 @@ public class UserSettingsElasticSearchIndexObserver
         }
         if (userDto.getUserSourceDto() != null && userDto.getUserSourceDto().getIdSource() != null)
         {
-            UserSource category = userSourceRepository.findOne(userDto.getUserSourceDto().getIdSource());
+            UserSource category = userSourceRepository.findOne(userDto.getUserSourceDto().getIdSource().longValue());
             userDto.setUserSourceDto(userSourceTranslator.translateToUserSourceDto(category));
         }
         if (userDto.getUserStateDto() != null && userDto.getUserStateDto().getIdUserState() != null)
         {
-            com.crackers.model.UserState category = userStateRepository.findOne(userDto.getUserStateDto().getIdUserState());
+            com.crackers.model.UserState category = userStateRepository.findOne(userDto.getUserStateDto().getIdUserState().longValue());
             userDto.setUserStateDto(userStateTranslator.translateToUserStateDto(category));
         }
         if (userDto.getIdImageColorCode() != null)
         {
             userDto.setImageColorCode(imageColorCodeRepository.getImageColorCode(userDto.getIdImageColorCode()));
         }
-        String fullName = RestUrlAttribute.EMPTY_QUOTES;
-        if (userDto.getFirstName() != null && userDto.getLastName() != null)
-        {
-            fullName = userDto.getFirstName() + userDto.getLastName();
-        }
-        else if (userDto.getFirstName() != null)
-        {
-            fullName = userDto.getFirstName();
-        }
-        else
-        {
-            fullName = userDto.getLastName();
-        }
-        userDto.setFullName(fullName);
         userDto.setRoleDto(roleTranslator.translateToRoleDto(userRoleRepository.getRoleByIdUser(idUser)));
         try
         {

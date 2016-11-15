@@ -189,17 +189,10 @@ public class LoginController extends BaseController
             {
                 UserDto successDto = Json.fromJson(userInfoNode, UserDto.class);
                 CMSLogger.info(logger, "User id is " + successDto.getIdUser());
-                session().put(session().get(CommonConstants.UNIQUE_ID), successDto.getIdUser().toString());
-                session().put(CommonConstants.USER_NAME, successDto.getFirstName() + " " + successDto.getLastName());
-                session().put(CommonConstants.USER_FIRST_NAME, successDto.getFirstName());
-                session().put(CommonConstants.USER_LAST_NAME, successDto.getLastName());
+                session().put(session().get(CommonConstants.UNIQUE_ID), successDto.getIdUser());
+                session().put(CommonConstants.USER_NAME, successDto.getUserName());
                 Role userRole = CacheManager.getUserRoleFromCache(id);
                 session().put(CommonConstants.USER_ROLE_ID, userRole.getIdRole().toString());
-                CMSLogger.debug(logger, "uniqueId:" + id);
-                CMSLogger.debug(logger, "***************UserRole*******************");
-                CMSLogger.debug(logger, "role" + userRole.getRole());
-                CMSLogger.debug(logger, "***************UserRole*******************");
-                // session().put("ROLE_"+session().get(CommonConstants.UNIQUE_ID), userRole.getIdRole().toString());//TODO have to remove after completing relationship
                 Cache.set(session().get(CommonConstants.UNIQUE_ID), successDto);
             }
             CMSLogger.info(logger, "User is valid, session has been created");

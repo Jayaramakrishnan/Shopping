@@ -9,8 +9,7 @@ public class UserVO
 {
 
     private String  idUser;
-    private String  firstName;
-    private String  lastName;
+    private String  userName;
     private Integer idRole;
     private String  role;
     private String  imageColorCode;
@@ -25,24 +24,14 @@ public class UserVO
         this.idUser = idUser;
     }
 
-    public String getFirstName()
+    public String getUserName()
     {
-        return firstName;
+        return userName;
     }
 
-    public void setFirstName(String firstName)
+    public void setUserName(String userName)
     {
-        this.firstName = firstName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
+        this.userName = userName;
     }
 
     public Integer getIdRole()
