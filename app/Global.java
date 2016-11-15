@@ -80,6 +80,7 @@ public class Global extends GlobalSettings
             return new SessionFactory("com.crackers.model.*");
         }
 
+        @Override
         @Bean
         @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
         public Session getSession() throws Exception
