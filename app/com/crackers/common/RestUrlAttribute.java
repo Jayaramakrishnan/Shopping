@@ -10,6 +10,7 @@ public class RestUrlAttribute
     public static final String  PROXY_USER                 = "proxy.user";
     public static final String  PROXY_PASSWORD             = "proxy.password";
     public static final String  AUTHORIZATION              = "Authorization";
+    public static final String  FORMS_AUTHENTICATION       = "FORM";
     // REST Timeout
     public static final Integer REST_WAIT_TIME             = 50000;
     // REST Url's

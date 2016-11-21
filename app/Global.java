@@ -1,14 +1,9 @@
-import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
-import org.springframework.data.neo4j.server.Neo4jServer;
-import org.springframework.data.neo4j.server.RemoteServer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import play.Application;
@@ -33,7 +28,7 @@ public class Global extends GlobalSettings
     {
         super.onStart(app);
         ctx.register(SpringDataJpaConfiguration.class);
-        ctx.scan("com.crackers");
+        ctx.scan("com");
         ctx.refresh();
         ctx.start();
     }
@@ -66,26 +61,18 @@ public class Global extends GlobalSettings
     public static class SpringDataJpaConfiguration extends Neo4jConfiguration
     {
 
-        @Override
         @Bean
-        public Neo4jServer neo4jServer()
+        public org.neo4j.ogm.config.Configuration getConfiguration()
         {
-            return new RemoteServer("http://localhost:7474", "neo4j", "root");
+            org.neo4j.ogm.config.Configuration cfg = new org.neo4j.ogm.config.Configuration();
+            cfg.driverConfiguration().setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver").setURI("http://localhost:7474").setCredentials("neo4j", "root");
+            return cfg;
         }
 
-        @Override
         @Bean
         public SessionFactory getSessionFactory()
         {
-            return new SessionFactory("com.crackers.model.*");
-        }
-
-        @Override
-        @Bean
-        @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-        public Session getSession() throws Exception
-        {
-            return super.getSession();
+            return new SessionFactory(getConfiguration(), "com.crackers.model");
         }
     }
 }
