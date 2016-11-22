@@ -1,7 +1,3 @@
-/**
- * @author rajagja
- * @date Nov 1, 2016
- */
 package com.crackers.controllers;
 
 import java.net.URLEncoder;
@@ -69,14 +65,13 @@ public class UserController extends BaseController
     @Resource
     private UserSettingsElasticSearchIndexObserver userSettingsElasticSearchIndexObserver;
 
+    @BodyParser.Of(BodyParser.Json.class)
     public Result createUser(String uniqueId)
     {
-        CMSLogger.info(logger, "User Controller Method Call:" + "createUser( )");
         JsonNode json = request().body().asJson();
         UserDto userDto = Json.fromJson(json, UserDto.class);
         if (uniqueId == null || userDto == null || userDto.getUserName() == null || userDto.getUserName().equals(RestUrlAttribute.EMPTY_QUOTES))
         {
-            CMSLogger.error(logger, "Invalid inputs", null);
             return badRequest();
         }
         Integer idUser = CacheManager.getIdUserFromCache(uniqueId);
@@ -87,7 +82,6 @@ public class UserController extends BaseController
         }
         if (userService.getUser(userDto.getUserName()) != 0)
         {
-            CMSLogger.error(logger, "User name allready exist.", null);
             return badRequest("User name all ready exist!!!");
         }
         UserDto userDtoCreated = new UserDto();
@@ -137,7 +131,7 @@ public class UserController extends BaseController
                                 baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
                             }
                             CMSLogger.info(logger, "baseUrl.substring(0, baseUrl.length());" + baseUrl);
-                            String createPasswordUrl = baseUrl ;// + com.crackers.controllers.web.routes.PasswordController.createPassword(password.getIdPassword(), password.getEncryptText()).url();
+                            String createPasswordUrl = baseUrl + com.crackers.controllers.web.routes.PasswordController.createPassword(password.getIdPassword(), password.getEncryptText()).url();
                             CMSLogger.info(logger, "createPasswordUrl" + createPasswordUrl);
                             URLEncoder.encode(createPasswordUrl, "UTF-8");
                             UserCredential userCredential = userService.getUserCredentialObject(userId);

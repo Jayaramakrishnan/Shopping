@@ -13,9 +13,12 @@ import com.google.common.collect.Lists;
 public class BeanUtil
 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BeanUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 
-    public static void copyBeanProperties(final Object source, final Object target, final Collection<String> includes) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    private BeanUtil() {
+    }
+
+    public static void copyBeanProperties(final Object source, final Object target, final Collection<String> includes) throws InvocationTargetException
     {
         final Collection<String> excludes = Lists.newArrayList();
         copyBeanPropertiesExclude(source, target, includes, excludes);
@@ -41,7 +44,7 @@ public class BeanUtil
             }
             catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
             {
-                LOGGER.error("Exception occurred while copying data from source to target", e);
+                logger.error("Exception occurred while copying data from source to target", e);
             }
         }
         BeanUtils.copyProperties(source, target, excludeList.toArray(new String[excludeList.size()]));

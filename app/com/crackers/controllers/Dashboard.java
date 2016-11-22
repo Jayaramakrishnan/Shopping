@@ -39,6 +39,7 @@ public class Dashboard extends BaseController
     public Integer                      idEntityType        = 0;
     public String                       redirectActivityUrl = RestUrlAttribute.EMPTY_QUOTES;
     public static String                idActivity          = RestUrlAttribute.EMPTY_QUOTES;
+    String                              zero                = "0";
     public static ClientConfigurationVO clientConfigurationSettings;
     public UserSessionSettings          userSessionSettings;
     @Resource
@@ -132,22 +133,22 @@ public class Dashboard extends BaseController
         String redirectionCompleteURL = requestData.get("redirectURL");
         String redirectIdActivity = requestData.get("idActivity");
         CMSLogger.info(logger, "selectedResourceId: " + selectedResourceId + " selectedGenericId: " + selectedGenericId + " selectedEntityTypeId: " + selectedEntityTypeId + "redirectionCompleteURL" + redirectionCompleteURL);
-        if (redirectionCompleteURL != null && !redirectionCompleteURL.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !redirectionCompleteURL.trim().equalsIgnoreCase("0"))
+        if (redirectionCompleteURL != null && !redirectionCompleteURL.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !redirectionCompleteURL.trim().equalsIgnoreCase(zero))
         {
-            if (redirectIdActivity != null && !redirectIdActivity.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !redirectIdActivity.trim().equalsIgnoreCase("0"))
+            if (redirectIdActivity != null && !redirectIdActivity.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !redirectIdActivity.trim().equalsIgnoreCase(zero))
             {
                 idActivity = redirectIdActivity;
                 redirectActivityUrl = redirectionCompleteURL;
             }
         }
-        else if (selectedGenericId != null && !selectedGenericId.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !selectedGenericId.trim().equalsIgnoreCase("0"))
+        else if (selectedGenericId != null && !selectedGenericId.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !selectedGenericId.trim().equalsIgnoreCase(zero))
         {
             idGeneric = selectedGenericId;
-            if (selectedResourceId != null && !selectedResourceId.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !selectedResourceId.trim().equalsIgnoreCase("0"))
+            if (selectedResourceId != null && !selectedResourceId.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !selectedResourceId.trim().equalsIgnoreCase(zero))
             {
                 idResource = selectedResourceId;
             }
-            if (selectedEntityTypeId != null && !selectedEntityTypeId.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !selectedEntityTypeId.trim().equalsIgnoreCase("0"))
+            if (selectedEntityTypeId != null && !selectedEntityTypeId.trim().equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES) && !selectedEntityTypeId.trim().equalsIgnoreCase(zero))
             {
                 idEntityType = Integer.parseInt(selectedEntityTypeId);
             }

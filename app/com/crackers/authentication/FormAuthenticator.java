@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.crackers.authentication;
 
 import java.security.InvalidKeyException;
@@ -37,7 +32,6 @@ public class FormAuthenticator implements Authenticator
     private PassEncryptUtil      passEncryptUtil;
     private static Logger        logger = Logger.getLogger(FormAuthenticator.class);
 
-    // Public method for Authenticate the user by Forms Authentication type.
     @Override
     public boolean authenticate(User user, String password) throws InvalidKeyException, NoSuchAlgorithmException
     {
@@ -47,32 +41,18 @@ public class FormAuthenticator implements Authenticator
             CMSLogger.error(logger, "Confoguration mismatch in FORM", new AccessDeninedException());
             return valid;
         }
-        // System.out.println("userName:" + user.getUserName());
-        /*
-         * Since the user name is registered, But also we have to verify their credentials. Pass the user name as input and get the credential object for validating.
-         */
         UserCredential userCredential = credentialRepository.getCredentialByUserName(user.getUserName());
-        // Check the registered user have credentials or not
         if (userCredential != null)
         {
             CMSLogger.info(logger, "User Have Credentials");
             CMSLogger.info(logger, "Get the credential informations");
-            /*
-             * Pass the password and saltkey from usercredential to Private method called encryptPassword to get hashed key.
-             */
             String hashedKey = passEncryptUtil.encryptPassword(password, userCredential.getSaltKey(), CommonConstants.ENCRYPTION_ALGORITHM);
-            /*
-             * Encrypted Hashed key is equal to the hashed key in credential object,Then the user is Valid user,else invalid.
-             */
             if (hashedKey.equals(userCredential.getHashedKey()))
             {
                 CMSLogger.info(logger, "Forms Authentication Successfully Compiled");
                 CMSLogger.info(logger, userCredential.getHashedKey() + "#@@@@@@@@@@@@@" + hashedKey);
                 valid = true;
             }
-            /*
-             * userCredential is null then the user is inValid or UnAuthorized user.
-             */
             else
             {
                 CMSLogger.error(logger, "Exception at Forms type Authentictaion.", new AccessDeninedException());

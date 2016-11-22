@@ -19,7 +19,7 @@ public class EmailTranslator
 
     private Logger logger = Logger.getLogger(EmailTranslator.class);
 
-    public List<EmailDto> translateListToEmailDto(List<Email> emails) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<EmailDto> translateListToEmailDto(List<Email> emails) throws InvocationTargetException
     {
         List<EmailDto> emailDtos = new ArrayList<>();
         if (emails == null)
@@ -39,7 +39,7 @@ public class EmailTranslator
         return emailDtos;
     }
 
-    public EmailDto translateToEmailDto(Email email) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public EmailDto translateToEmailDto(Email email) throws InvocationTargetException
     {
         EmailDto emailDto = new EmailDto();
         if (email == null)
@@ -53,7 +53,7 @@ public class EmailTranslator
         return emailDto;
     }
 
-    public Email translateDtoToEmail(EmailDto emailDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public Email translateDtoToEmail(EmailDto emailDto) throws InvocationTargetException
     {
         Email email = new Email();
         if (emailDto == null)
@@ -76,7 +76,7 @@ public class EmailTranslator
         return emailDto.getIdEmail();
     }
 
-    public EmailDto translateToEmailDto(Integer idEmail) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public EmailDto translateToEmailDto(Integer idEmail) throws InvocationTargetException
     {
         if (idEmail == null)
         {

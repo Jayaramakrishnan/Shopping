@@ -23,7 +23,7 @@ public class ContactDetailsTranslator
     @Resource
     private PersonTranslator personTranslator;
 
-    public ContactDetails translateToContactDetails(ContactDetailsDto contactDetailsDto) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public ContactDetails translateToContactDetails(ContactDetailsDto contactDetailsDto) throws InvocationTargetException
     {
         ContactDetails entityContactDetails = new ContactDetails();
         List<String> properties = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ContactDetailsTranslator
         return entityContactDetails;
     }
 
-    public ContactDetailsDto translateToDto(ContactDetails contactDetails) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public ContactDetailsDto translateToDto(ContactDetails contactDetails) throws InvocationTargetException
     {
         if (contactDetails == null)
         {
@@ -47,7 +47,7 @@ public class ContactDetailsTranslator
         return contactDetailsDto;
     }
 
-    public ContactDetailsDto translateToContactDetailsDto(ContactDetails contactDetails) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public ContactDetailsDto translateToContactDetailsDto(ContactDetails contactDetails) throws InvocationTargetException
     {
         if (contactDetails == null)
         {
@@ -61,7 +61,7 @@ public class ContactDetailsTranslator
         return contactDetailsDto;
     }
 
-    public List<ContactDetailsDto> translateToDto(List<ContactDetails> contactDetails) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<ContactDetailsDto> translateToDto(List<ContactDetails> contactDetails) throws InvocationTargetException
     {
         List<ContactDetailsDto> entityEmails = new ArrayList<>();
         List<ContactDetailsDto> entityEmailsFinal = new ArrayList<>();

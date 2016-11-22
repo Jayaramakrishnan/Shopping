@@ -15,8 +15,6 @@ public class UserCredential implements Serializable
     @GraphId
     @Property(name = "idUserCredential")
     public Long               idUserCredential;
-    @Property(name = "idUser")
-    public Long               idUser;
     @Property(name = "saltKey")
     public String             saltKey;
     @Property(name = "hashedKey")
@@ -90,16 +88,6 @@ public class UserCredential implements Serializable
     public void setHashedKey(String hashedKey)
     {
         this.hashedKey = hashedKey;
-    }
-
-    public Long getIdUser()
-    {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser)
-    {
-        this.idUser = idUser;
     }
 
     public String getSaltKey()

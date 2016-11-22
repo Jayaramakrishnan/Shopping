@@ -11,8 +11,8 @@ import com.crackers.model.ContactDetails;
 public interface UserContactDetailsRepository extends GraphRepository<ContactDetails>
 {
 
-    @Query("match (cd:ContactDetails) where cd.user.idUser= :id and cd.isDeleted= 0 return cd")
-    List<ContactDetails> getContactDetails(@Param("id") Integer idUser);
+    @Query("match (addresses)<-[:HAS_MULTIPLE_ADDRESSES]-(user:User) where user.idUser = {idUser} and addresses.isDeleted = 0 return addresses")
+    List<ContactDetails> getContactDetails(@Param("idUser") Integer idUser);
 
     @Query("match (cd:ContactDetails) where cd.isDeleted = 0")
     List<ContactDetails> getAllContactDetails();

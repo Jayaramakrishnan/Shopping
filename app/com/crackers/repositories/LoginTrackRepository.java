@@ -9,6 +9,6 @@ import com.crackers.model.LoginTrack;
 public interface LoginTrackRepository extends GraphRepository<LoginTrack>
 {
 
-    @Query("match (lt:LoginTrack) where lt.sessionToken like :uniqueId return lt")
+    @Query("match (lt:LoginTrack) where lt.sessionToken = {uniqueId} return lt")
     LoginTrack getLoginTrack(@Param("uniqueId") String uniqueId);
 }

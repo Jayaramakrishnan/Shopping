@@ -9,12 +9,12 @@ import com.crackers.model.UserCredential;
 public interface CredentialRepository extends GraphRepository<UserCredential>
 {
 
-    @Query("match (c:UserCredential) where c.idUser in (match (u:User) where LOWER(u.userName) = LOWER(:userName) and u.idUserState = 1 and u.isDeleted = 0 return u.idUser) return c")
+    @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where user.idUser in ({match (u:User) where LOWER(u.userName) = LOWER({userName}) and u.idUserState = 1 and u.isDeleted = 0 return u.idUser}) return password")
     UserCredential getCredentialByUserName(@Param("userName") String userName);
 
-    @Query("match (c:UserCredential) where c.idUser= :idUser return c.hashedKey")
-    String getCredentialByUserId(@Param("idUser") long idUser);
+    @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where user.idUser = {idUser} return password.hashedKey")
+    String getCredentialByUserId(@Param("idUser") Long idUser);
 
-    @Query("match (c:UserCredential) where c.idUser= :idUser and c.isDeleted = 0 return c")
-    UserCredential getCredentialObject(@Param("idUser") long idUser);
+    @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where user.idUser = {idUser} and password.isDeleted = 0 return password")
+    UserCredential getCredentialObject(@Param("idUser") Long idUser);
 }

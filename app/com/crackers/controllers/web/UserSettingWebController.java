@@ -56,7 +56,6 @@ public class UserSettingWebController extends BaseController
             if (json.isObject())
             {
                 UserDetailsVO userDetailsVO = Json.fromJson(json, UserDetailsVO.class);
-                // Setting values from Vo to Dto before service Call
                 UserDto userDto = new UserDto();
                 BeanUtil.copyBeanProperties(userDetailsVO, userDto, new ArrayList<>());
                 if (userDetailsVO.getIdRole() != null)
@@ -140,7 +139,6 @@ public class UserSettingWebController extends BaseController
                 }
                 CMSLogger.info(logger, "Vo and then Dto");
                 Object object = userDto;
-                CMSLogger.info(logger, "Final Dto to sent for the save:" + userDto);
                 WSRequestHolder requestHolder = RestHelper.checkProxyAndSetHeader(serviceUrl);
                 requestHolder.setQueryParameter(CommonConstants.UNIQUE_ID, session().get(CommonConstants.UNIQUE_ID));
                 CMSLogger.info(logger, "requestHolder in UserSettingWebController" + requestHolder);

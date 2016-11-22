@@ -15,7 +15,6 @@ public class Email implements java.io.Serializable
 
     private static final long serialVersionUID = 1L;
     private Integer           idEmail;
-    private User              user;
     private String            emailValue;
     private Integer           emailSource      = 1;
     private Short             isPrimary        = 1;
@@ -35,17 +34,6 @@ public class Email implements java.io.Serializable
     public void setIdEmail(Integer idEmail)
     {
         this.idEmail = idEmail;
-    }
-
-    @Property(name = "idUser")
-    public User getUser()
-    {
-        return this.user;
-    }
-
-    public void setUser(User user)
-    {
-        this.user = user;
     }
 
     @Property(name = "email")

@@ -11,9 +11,9 @@ import com.crackers.model.ApplicationConfig;
 public interface ApplicationConfigRepository extends GraphRepository<ApplicationConfig>
 {
 
-    @Query("match (ac:ApplicationConfig) where ac.configKey like :configKey return ac.configValue")
+    @Query("match (ac:ApplicationConfig) where ac.configKey = {configKey} return ac.configValue")
     String getConfigValueByKey(@Param("configKey") String configKey);
 
-    @Query("match (ac:ApplicationConfig) where ac.configKey in (:configKey) return ac.configKey, ac.configValue")
+    @Query("match (ac:ApplicationConfig) where ac.configKey in [{configKey}] return ac.configKey, ac.configValue")
     List<Object[]> getConfigValuesByKeys(@Param("configKey") List<String> configKey);
 }

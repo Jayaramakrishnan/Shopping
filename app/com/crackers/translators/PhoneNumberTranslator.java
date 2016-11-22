@@ -19,7 +19,7 @@ public class PhoneNumberTranslator
 
     private Logger logger = Logger.getLogger(PhoneNumberTranslator.class);
 
-    public List<PhoneNumberDto> translateListToPhoneNumberDto(List<PhoneNumber> phoneNumbers) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<PhoneNumberDto> translateListToPhoneNumberDto(List<PhoneNumber> phoneNumbers) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Inside PhoneNumberTranslator : getPhoneNumber()");
         List<PhoneNumberDto> phoneNumberDtos = new ArrayList<>();
@@ -42,7 +42,7 @@ public class PhoneNumberTranslator
         return phoneNumberDtos;
     }
 
-    public PhoneNumberDto translateToPhoneNumberDto(PhoneNumber phoneNumber) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneNumberDto translateToPhoneNumberDto(PhoneNumber phoneNumber) throws InvocationTargetException
     {
         PhoneNumberDto phoneNumberDto = new PhoneNumberDto();
         if (phoneNumber == null)
@@ -58,7 +58,7 @@ public class PhoneNumberTranslator
         return phoneNumberDto;
     }
 
-    public PhoneNumber translateDtoToPhoneNumber(PhoneNumberDto phoneNumberDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneNumber translateDtoToPhoneNumber(PhoneNumberDto phoneNumberDto) throws InvocationTargetException
     {
         PhoneNumber phoneNumber = new PhoneNumber();
         if (phoneNumberDto == null)
@@ -83,7 +83,7 @@ public class PhoneNumberTranslator
         return phoneNumberDto.getIdPhoneNumber();
     }
 
-    public PhoneNumberDto translateToPhoneNumberDto(Integer idPhoneNumber) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public PhoneNumberDto translateToPhoneNumberDto(Integer idPhoneNumber) throws InvocationTargetException
     {
         if (idPhoneNumber == null)
         {

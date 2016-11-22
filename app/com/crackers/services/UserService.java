@@ -112,7 +112,7 @@ public class UserService
         return userDto;
     }
 
-    public UserDto createUser(int idUser, UserDto userDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserDto createUser(int idUser, UserDto userDto) throws InvocationTargetException
     {
         User user = personTranslator.translateToPerson(userDto);
         User createdUser = userManager.createUser(idUser, user);
@@ -128,7 +128,7 @@ public class UserService
         return userManager.getUser(userName);
     }
 
-    public UserDto updateUserDetails(Integer idUser, int idCurrentUser, UserDto userDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserDto updateUserDetails(Integer idUser, int idCurrentUser, UserDto userDto) throws InvocationTargetException
     {
         User user = personTranslator.translateToPerson(userDto);
         User createdUser = userManager.updateUser(idUser, idCurrentUser, user);
@@ -138,7 +138,7 @@ public class UserService
         return dto;
     }
 
-    public List<PhoneNumberDto> getPhoneNumberList(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<PhoneNumberDto> getPhoneNumberList(Integer idUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService getPhoneNumberList method");
         List<PhoneNumber> phoneNumber = userManager.getUserPhoneNumbers(idUser);
@@ -155,7 +155,7 @@ public class UserService
         return dtos;
     }
 
-    public PhoneNumberDto createPhoneNumber(Integer idUser, int idCurrentUser, PhoneNumberDto phoneNumberDto) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public PhoneNumberDto createPhoneNumber(Integer idUser, int idCurrentUser, PhoneNumberDto phoneNumberDto) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService createPhoneNumberList method");
         PhoneNumber phoneNumbergiven = phoneNumberTranslator.translateDtoToPhoneNumber(phoneNumberDto);
@@ -163,7 +163,7 @@ public class UserService
         return phoneNumberTranslator.translateToPhoneNumberDto(updatedPhoneNumber);
     }
 
-    public PhoneNumberDto updatePhoneNumberList(Integer idUser, int idCurrentUser, PhoneNumberDto phoneNumberDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneNumberDto updatePhoneNumberList(Integer idUser, int idCurrentUser, PhoneNumberDto phoneNumberDto) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService updatePhoneNumberList method");
         PhoneNumber phoneNumbergiven = phoneNumberTranslator.translateDtoToPhoneNumber(phoneNumberDto);
@@ -176,14 +176,14 @@ public class UserService
         return phoneNumberUpdated;
     }
 
-    public List<EmailDto> getEmailList(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<EmailDto> getEmailList(Integer idUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService's:" + "getEmailList" + "(" + idUser + ")");
         List<Email> emails = userManager.getUserEmails(idUser);
         return emailTranslator.translateListToEmailDto(emails);
     }
 
-    public EmailDto updateEmailList(Integer idUser, int idCurrentUser, EmailDto emailDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public EmailDto updateEmailList(Integer idUser, int idCurrentUser, EmailDto emailDto) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService updateEmailList method");
         Email email = emailTranslator.translateDtoToEmail(emailDto);
@@ -191,7 +191,7 @@ public class UserService
         return emailTranslator.translateToEmailDto(updatedEmail);
     }
 
-    public EmailDto createEmail(Integer idUser, int idCurrentUser, EmailDto emailDto) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public EmailDto createEmail(Integer idUser, int idCurrentUser, EmailDto emailDto) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService createEmail method");
         CMSLogger.debug(logger, "Calling UserService's:" + "createEmail" + "(" + idUser + "," + emailDto + "," + idCurrentUser + ")");
@@ -200,11 +200,9 @@ public class UserService
         return emailTranslator.translateToEmailDto(updatedPhoneNumber);
     }
 
-    public UserDto updateUser(int idUser, UserDto userDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto updateUser(int idUser, UserDto userDto) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
-        CMSLogger.info(logger, "Calling UserService updateUser method");
-        CMSLogger.debug(logger, "Calling UserService:" + "updateUser" + "(" + userDto + ")");
-        CMSLogger.info(logger, "Am switch User value" + userDto.getChangedList());
+        CMSLogger.info(logger, "Calling UserService updateUser method " + userDto.getChangedList());
         Handler h1 = userHandler;
         Handler h2 = userImageHandler;
         Handler h3 = userEmailHandler;
@@ -225,7 +223,7 @@ public class UserService
         return dto;
     }
 
-    public List<ContactDetailsDto> getContactDetailsList(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<ContactDetailsDto> getContactDetailsList(Integer idUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService getEmailList method");
         CMSLogger.debug(logger, "Calling UserService's:" + "getEmailList" + "(" + idUser + ")");
@@ -233,7 +231,7 @@ public class UserService
         return contactDetailsTranslator.translateToDto(emails);
     }
 
-    public ContactDetailsDto updateContactDetailsList(Integer idUser, Integer idCurrentUser, ContactDetailsDto contactDetailsDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public ContactDetailsDto updateContactDetailsList(Integer idUser, Integer idCurrentUser, ContactDetailsDto contactDetailsDto) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService updateContactDetailsList method");
         CMSLogger.debug(logger, "Calling UserService's:" + "updateContactDetailsList" + "(" + idUser + "," + contactDetailsDto + "," + idCurrentUser + ")");
@@ -242,7 +240,7 @@ public class UserService
         return contactDetailsTranslator.translateToContactDetailsDto(updatedContactDetails);
     }
 
-    public ContactDetailsDto createContactDetails(Integer idUser, Integer idCurrentUser, ContactDetailsDto exteEntityDto) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public ContactDetailsDto createContactDetails(Integer idUser, Integer idCurrentUser, ContactDetailsDto exteEntityDto) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService createContactDetails method");
         CMSLogger.debug(logger, "Calling UserService's:" + "createContactDetails" + "(" + idUser + "," + exteEntityDto + "," + idCurrentUser + ")");
@@ -251,7 +249,7 @@ public class UserService
         return contactDetailsTranslator.translateToContactDetailsDto(updatedContactDetails);
     }
 
-    public ImageDto getUserImageById(Integer idUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public ImageDto getUserImageById(Integer idUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Calling UserService getImage method");
         return imageService.getImageDto(idUser);

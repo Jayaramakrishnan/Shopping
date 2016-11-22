@@ -15,7 +15,7 @@ import com.crackers.model.Role;
 public class RoleTranslator
 {
 
-    public List<RoleDto> translateListToRoleDto(List<Role> roles) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<RoleDto> translateListToRoleDto(List<Role> roles) throws InvocationTargetException
     {
         List<RoleDto> roleDtos = new ArrayList<>();
         if (roles == null)
@@ -33,7 +33,7 @@ public class RoleTranslator
         return roleDtos;
     }
 
-    public RoleDto translateToRoleDto(Role role) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public RoleDto translateToRoleDto(Role role) throws InvocationTargetException
     {
         RoleDto roleDto = new RoleDto();
         if (role == null)
@@ -44,7 +44,7 @@ public class RoleTranslator
         return roleDto;
     }
 
-    public Role translateDtoToRole(RoleDto roleDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public Role translateDtoToRole(RoleDto roleDto) throws InvocationTargetException
     {
         Role role = new Role();
         if (roleDto == null)
@@ -64,7 +64,7 @@ public class RoleTranslator
         return roleDto.getIdRole();
     }
 
-    public RoleDto translateToRoleDto(Integer idRole) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public RoleDto translateToRoleDto(Integer idRole) throws InvocationTargetException
     {
         if (idRole == null)
         {

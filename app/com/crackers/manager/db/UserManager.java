@@ -151,7 +151,7 @@ public class UserManager
         return userRepository.getUser(userName);
     }
 
-    public UserDto getUserMasterDto(UserDto userDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserDto getUserMasterDto(UserDto userDto) throws InvocationTargetException
     {
         if (userDto.getRoleDto() != null && userDto.getRoleDto().getIdRole() != null)
         {
@@ -171,14 +171,14 @@ public class UserManager
         return userDto;
     }
 
-    public UserDto updateUserImageDetails(final Integer idUser, ImageDto imageDto, int idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException
+    public UserDto updateUserImageDetails(Integer idUser, ImageDto imageDto, int idCurrentUser) throws InvocationTargetException, IOException
     {
         CMSLogger.info(logger, "Id User:" + idUser);
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         Image entityImage = imageTranslator.translateDtoToImage(imageDto);
         Image image = imageRepository.getImageById(idUser);
-        Image created = new Image();
-        UserDto userDto = new UserDto();
+        Image created;
+        UserDto userDto;
         if (image != null)
         {
             CMSLogger.info(logger, "The record already present");
@@ -214,7 +214,7 @@ public class UserManager
         return phoneNumberRepository.getUserPhoneNumbers(idUser);
     }
 
-    public PhoneNumber updatePhoneNumber(Integer idUser, PhoneNumber phoneNumbergiven, int idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneNumber updatePhoneNumber(Integer idUser, PhoneNumber phoneNumbergiven, int idCurrentUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "PhoneNumber already exist");
         PhoneNumber phoneNumber = phoneNumberRepository.findOne(phoneNumbergiven.getIdPhoneNumber().longValue());
@@ -242,7 +242,7 @@ public class UserManager
         return emailRepository.getUsersMailId(idUser);
     }
 
-    public Email updateEmail(Integer idUser, Email email, int idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public Email updateEmail(Integer idUser, Email email, int idCurrentUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Email already exist");
         Email mail = emailRepository.findOne(email.getIdEmail().longValue());
@@ -329,10 +329,8 @@ public class UserManager
         return emailRepository.save(email);
     }
 
-    public User updateUser(Integer idUser, int idCurrentUser, User user) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public User updateUser(Integer idUser, int idCurrentUser, User user) throws InvocationTargetException
     {
-        CMSLogger.info(logger, "Calling UserManager's:" + "updateUserDetails" + "(" + user + ")");
-        CMSLogger.debug(logger, "Check the UserTitle for duplicate entry");
         User oldUser = userRepository.findOne(idUser.longValue());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         BeanUtil.copyBeanProperties(user, oldUser, new ArrayList<>());
@@ -346,7 +344,7 @@ public class UserManager
         return userContactDetailsRepository.getContactDetails(idUser);
     }
 
-    public ContactDetails updateContactDetails(Integer idUser, ContactDetails contactDetails, Integer idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public ContactDetails updateContactDetails(Integer idUser, ContactDetails contactDetails, Integer idCurrentUser) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Starts  updateIndividualAddressDetails");
         logger.debug("Calling :" + "updateUserContactDetails" + "(" + idUser + "," + contactDetails + "," + idCurrentUser + ")");
@@ -366,7 +364,7 @@ public class UserManager
         return updated;
     }
 
-    public ContactDetails createContactDetails(Integer idUser, ContactDetails contactDetails, Integer idCurrentUser) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public ContactDetails createContactDetails(Integer idUser, ContactDetails contactDetails, Integer idCurrentUser) throws InvocationTargetException
     {
         ContactDetails entityContactDetails = new ContactDetails();
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
@@ -535,7 +533,7 @@ public class UserManager
         return passwordRepository.getPasswordExpiredObject(idPassword);
     }
 
-    public PhoneTypeDto getPhoneType(Integer idPhoneType) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneTypeDto getPhoneType(Integer idPhoneType) throws InvocationTargetException
     {
         return phoneTypeTranslator.translateToPhoneTypeDto(phoneTypeRepository.findOne(idPhoneType.longValue()));
     }

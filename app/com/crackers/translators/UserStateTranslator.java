@@ -33,7 +33,7 @@ public class UserStateTranslator
         return userStateDtos;
     }
 
-    public UserStateDto translateToUserStateDto(UserState userState) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserStateDto translateToUserStateDto(UserState userState) throws InvocationTargetException
     {
         UserStateDto userStateDto = new UserStateDto();
         if (userState == null)
@@ -44,7 +44,7 @@ public class UserStateTranslator
         return userStateDto;
     }
 
-    public UserState translateDtoToUserState(UserStateDto userStateDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserState translateDtoToUserState(UserStateDto userStateDto) throws InvocationTargetException
     {
         UserState userState = new UserState();
         if (userStateDto == null)

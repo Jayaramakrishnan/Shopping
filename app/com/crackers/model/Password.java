@@ -18,7 +18,6 @@ public class Password implements java.io.Serializable
     private Integer           idPassword;
     private String            encryptText;
     private String            email;
-    private Integer           idUser;
     private String            saltKey;
     private Short             isDeleted;
     private Short             isExpired;
@@ -57,17 +56,6 @@ public class Password implements java.io.Serializable
     public void setEmail(String email)
     {
         this.email = email;
-    }
-
-    @Property(name = "idUser")
-    public Integer getIdUser()
-    {
-        return this.idUser;
-    }
-
-    public void setIdUser(Integer idUser)
-    {
-        this.idUser = idUser;
     }
 
     @Property(name = "saltKey")

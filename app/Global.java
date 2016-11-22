@@ -1,3 +1,4 @@
+import org.apache.log4j.xml.DOMConfigurator;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import play.Application;
 import play.GlobalSettings;
+import play.api.mvc.EssentialFilter;
+import play.filters.gzip.GzipFilter;
 
 /**
  * Application wide behaviour. We establish a Spring application context for the dependency injection system and configure Spring Data.
@@ -27,6 +30,7 @@ public class Global extends GlobalSettings
     public void onStart(final Application app)
     {
         super.onStart(app);
+        initLog4jCongiguration();
         ctx.register(SpringDataJpaConfiguration.class);
         ctx.scan("com");
         ctx.refresh();
@@ -69,10 +73,23 @@ public class Global extends GlobalSettings
             return cfg;
         }
 
+        @Override
         @Bean
         public SessionFactory getSessionFactory()
         {
             return new SessionFactory(getConfiguration(), "com.crackers.model");
         }
+    }
+
+    private void initLog4jCongiguration()
+    {
+        String log4jFileFullPah = "conf/log4j.xml";
+        DOMConfigurator.configure(log4jFileFullPah);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends EssentialFilter> Class<T>[] filters()
+    {
+        return new Class[] { GzipFilter.class };
     }
 }

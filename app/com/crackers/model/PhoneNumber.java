@@ -15,7 +15,6 @@ public class PhoneNumber implements java.io.Serializable
 
     private static final long serialVersionUID  = 1L;
     private Integer           idPhoneNumber;
-    private User              user;
     private String            phoneNumberValue;
     private Integer           phoneNumberSource = 1;
     private Integer           idPhoneType;
@@ -35,17 +34,6 @@ public class PhoneNumber implements java.io.Serializable
     public void setIdPhoneNumber(Integer isdPhoneNumber)
     {
         this.idPhoneNumber = isdPhoneNumber;
-    }
-
-    @Property(name = "idUser")
-    public User getUser()
-    {
-        return this.user;
-    }
-
-    public void setUser(User user)
-    {
-        this.user = user;
     }
 
     @Property(name = "phoneNumber")

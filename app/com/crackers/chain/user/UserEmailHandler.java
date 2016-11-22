@@ -28,7 +28,7 @@ public class UserEmailHandler extends Handler
     private UserService    userService;
 
     @Override
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
         CMSLogger.info(logger, "Inside EMAIL");
         if (changedList.equalsIgnoreCase(EMAIL) && userDto.getEmailDtos() != null)

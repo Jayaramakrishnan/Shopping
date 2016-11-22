@@ -31,18 +31,15 @@ public class UserPhoneHandler extends Handler
     private UserService    userService;
 
     @Override
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
         CMSLogger.info(logger, "Inside PHONE");
-        CMSLogger.info(logger, "Inside PhoneNumberHandler");
         if (changedList.equalsIgnoreCase(PHONE) && userDto.getPhoneNumberDtos() != null)
         {
             Integer userId = CryptoBinderUtil.getDecryptId(userDto.getIdUser());
             CMSLogger.info(logger, "Inside UserPhoneNumberHandler" + userDto.getIdUser());
             List<PhoneNumberDto> dtosFromDB = userService.getPhoneNumberList(userId);
             List<PhoneNumberDto> externalEntityDtosGiven = userDto.getPhoneNumberDtos();
-            CMSLogger.info(logger, "LIST Form DB:::::::" + dtosFromDB);
-            CMSLogger.info(logger, "LIST from User:::::" + externalEntityDtosGiven);
             Iterator<PhoneNumberDto> externalIteratorFromDb = dtosFromDB.iterator();
             List<PhoneNumberDto> externalEntityDtoChanged = new ArrayList<>();
             CMSLogger.info(logger, "Size of user PhoneNumber list:" + userDto.getPhoneNumberDtos().size());
@@ -90,12 +87,10 @@ public class UserPhoneHandler extends Handler
                 }
                 for (PhoneNumberDto exteEntityDto : externalEntityDtosGiven)
                 {
-                    CMSLogger.info(logger, "***********Inside create phoneNumber*************");
                     if (exteEntityDto != null && exteEntityDto.getIdPhoneNumber() == null && exteEntityDto.getPhoneNumber() != null)
                     {
                         CMSLogger.info(logger, "This is new user PhoneNumber!!!!!!!!!!");
                         PhoneNumberDto externalEntityDto = userService.createPhoneNumber(userId, idCurrentUser, exteEntityDto);
-                        CMSLogger.info(logger, "userPhoneNumberDto" + externalEntityDto);
                         externalEntityDtoChanged.add(externalEntityDto);
                     }
                 }

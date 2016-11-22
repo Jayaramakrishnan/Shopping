@@ -15,7 +15,6 @@ public class ContactDetails implements java.io.Serializable
 
     private static final long serialVersionUID = 1L;
     private Integer           idContactDetails;
-    private User              user;
     private Integer           streetSource;
     private String            street;
     private Integer           citySource;
@@ -42,17 +41,6 @@ public class ContactDetails implements java.io.Serializable
     public void setIdContactDetails(Integer idContactDetails)
     {
         this.idContactDetails = idContactDetails;
-    }
-
-    @Property(name = "idUser")
-    public User getUser()
-    {
-        return user;
-    }
-
-    public void setUser(User user)
-    {
-        this.user = user;
     }
 
     @Property(name = "street")

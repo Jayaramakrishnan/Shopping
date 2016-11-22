@@ -30,11 +30,11 @@ public interface UserRoleRepository extends GraphRepository<UserRole>
     List<Object[]> getUserFunction(@Param("idUser") Integer idUser);
 
     @Query("select count(cri) from CaseResourceInvestigator cri where cri.idUser.idUser = :idUser and cri.cases.status.idStatus != :idStatus and cri.isDeleted = 0")
-    public Long getIndividualCaseInvestigator(@Param("idUser") Integer idUser, @Param("idStatus") Integer idStatus);
+    Long getIndividualCaseInvestigator(@Param("idUser") Integer idUser, @Param("idStatus") Integer idStatus);
 
     // Need to UnComment for Information
     @Query("select count(cri) from InformationResourceInvestigator cri where cri.user.idUser = :idUser and cri.information.status.idStatus != :idStatus and cri.isDeleted = 0 ")
-    public Long getIndividualInformationInvestigator(@Param("idUser") Integer idUser, @Param("idStatus") Integer idStatus);
+    Long getIndividualInformationInvestigator(@Param("idUser") Integer idUser, @Param("idStatus") Integer idStatus);
 
     @Query("select ur.user from UserRole ur where ur.role.idRole= :manager and ur.isDeleted= 0")
     List<User> getManagers(@Param("manager") Integer accessConstants);
@@ -42,19 +42,19 @@ public interface UserRoleRepository extends GraphRepository<UserRole>
     @Query("select ur.user.idUser, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource and ur.isDeleted = 0 and rfa.isDeleted = 0 and ur.user.isDeleted = 0 and ur.user.idUserState =1")
     List<Object[]> getUserResourceAccess(@Param("idFunctionalResource") Integer integer);
 
-    @Query("select ur.user.idUser,ur.role.idRole, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa inner join ur.user u inner join u.userClub uc where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and uc.idClub  in (:idClub) and uc.isDeleted = 0  and ur.isDeleted= 0")
+    @Query("select ur.user.idUser,ur.role.idRole, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa inner join ur.user u inner join u.userClub uc where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and uc.idClub  in (:idClub) and uc.isDeleted = 0  and ur.isDeleted= 0 and rfa.isDeleted = 0")
     List<Object[]> getUserFilteredByClub(@Param("idFunctionalResource") Integer integer, @Param("idFunctionalAccess") Integer access, @Param("idClub") List<Integer> idClub);
 
     @Query("select ur from UserRole ur where  ur.user.idUser = :idUser")
     UserRole getUserRoles(@Param("idUser") Integer idUser);
 
     @Query("select r.role from UserRole r where r.user.idUser = :idUser and r.isDeleted = 0")
-    public Role getRoleByIdUser(@Param("idUser") Integer idUser);
+    Role getRoleByIdUser(@Param("idUser") Integer idUser);
 
-    @Query("select ur.user.idUser,ur.role.idRole, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and ur.isDeleted= 0")
+    @Query("select ur.user.idUser,ur.role.idRole, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and ur.isDeleted= 0 and rfa.isDeleted = 0")
     List<Object[]> getUserFilteredByClubForIncident(@Param("idFunctionalResource") Integer integer, @Param("idFunctionalAccess") Integer access);
 
-    @Query("select ur.user.idUser,ur.role.idRole, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and ur.user.idUser = :idUser and ur.isDeleted= 0")
+    @Query("select ur.user.idUser,ur.role.idRole, rfa.functionalResource.idFunctionalResource, rfa.functionalAccess.idFunctionalAccess from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and ur.user.idUser = :idUser and ur.isDeleted= 0 and rfa.isDeleted = 0")
     List<Object[]> getMyclubAccessForUser(@Param("idFunctionalResource") Integer integer, @Param("idFunctionalAccess") Integer access, @Param("idUser") Integer idUser);
 
     @Query("select ur.user.idUser from UserRole ur where ur.role.idRole in (:idRole) and ur.isDeleted = 0")
@@ -63,8 +63,8 @@ public interface UserRoleRepository extends GraphRepository<UserRole>
     @Query("select ur.role.idRole,ur.role.role from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource and ur.isDeleted = 0 and rfa.isDeleted = 0")
     List<Object[]> getRoleResourceAccess(@Param("idFunctionalResource") Integer integer);
 
-    @Query("select ur.user.idUser from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and ur.user.idUser = :idUser and ur.isDeleted= 0 and ur.user.isDeleted = 0 and ur.user.idUserState =1")
-    List<Integer> getUserMyResourceAccess(@Param("idFunctionalResource") Integer integer, @Param("idFunctionalAccess") Integer access, @Param("idUser") Integer idUser);
+    @Query("select ur.user.idUser from UserRole ur inner join ur.role r inner join r.roleFunctionalAccess rfa inner join ur.user u inner join u.userClub uc where rfa.functionalResource.idFunctionalResource = :idFunctionalResource  and rfa.functionalAccess.idFunctionalAccess= :idFunctionalAccess and rfa.isDeleted = 0 and ur.user.idUser = :idUser and uc.idClub  in (:idClub) and ur.isDeleted= 0 and ur.user.isDeleted = 0 and ur.user.idUserState =1 and uc.isDeleted = 0")
+    List<Integer> getUserMyResourceAccess(@Param("idFunctionalResource") Integer integer, @Param("idFunctionalAccess") Integer access, @Param("idUser") Integer idUser, @Param("idClub") List<Integer> idClub);
 
     @Query("select ur.user.idUser from UserRole ur inner join ur.user u inner join u.userClub uc  where ur.role.idRole in (:idRole) and uc.idClub in (:idClub) and u.idUserState = 1 and uc.isDeleted = 0 and ur.isDeleted = 0")
     List<Integer> getUserByClubAndRoles(@Param("idRole") List<Integer> arrayList, @Param("idClub") Integer idClub);

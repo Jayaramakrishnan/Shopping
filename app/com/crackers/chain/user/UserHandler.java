@@ -18,16 +18,16 @@ import com.crackers.util.CryptoBinderUtil;
 public class UserHandler extends Handler
 {
 
-    private static Logger  logger = Logger.getLogger(UserHandler.class);
-    protected final String USER   = "user";
+    private static Logger logger = Logger.getLogger(UserHandler.class);
+    private String        user   = "user";
     @Resource
-    private UserService    userService;
+    private UserService   userService;
 
     @Override
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
         CMSLogger.info(logger, "Inside UserHandler");
-        if (changedList.equalsIgnoreCase(USER))
+        if (changedList.equalsIgnoreCase(user))
         {
             return userService.updateUserDetails(CryptoBinderUtil.getDecryptId(userDto.getIdUser()), idCurrentUser, userDto);
         }

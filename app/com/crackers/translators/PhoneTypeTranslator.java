@@ -19,7 +19,7 @@ public class PhoneTypeTranslator
 
     private static Logger logger = Logger.getLogger(PhoneTypeTranslator.class);
 
-    public PhoneTypeDto translateToPhoneTypeDto(PhoneType phoneType) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneTypeDto translateToPhoneTypeDto(PhoneType phoneType) throws InvocationTargetException
     {
         if (phoneType == null)
         {
@@ -40,7 +40,7 @@ public class PhoneTypeTranslator
         return statusDto.getIdPhoneType();
     }
 
-    public PhoneTypeDto translateToPhoneTypeDto(Integer idPhoneType) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public PhoneTypeDto translateToPhoneTypeDto(Integer idPhoneType) throws InvocationTargetException
     {
         if (idPhoneType == null)
         {
@@ -51,7 +51,7 @@ public class PhoneTypeTranslator
         return statusDto;
     }
 
-    public PhoneType translateDtoToPhoneType(PhoneTypeDto phoneTypeDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public PhoneType translateDtoToPhoneType(PhoneTypeDto phoneTypeDto) throws InvocationTargetException
     {
         if (phoneTypeDto == null)
         {
@@ -63,7 +63,7 @@ public class PhoneTypeTranslator
         return phoneType;
     }
 
-    public List<PhoneTypeDto> translateListToPhoneTypeDto(List<PhoneType> phoneType) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<PhoneTypeDto> translateListToPhoneTypeDto(List<PhoneType> phoneType) throws InvocationTargetException
     {
         if (phoneType == null)
         {

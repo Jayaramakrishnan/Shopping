@@ -25,7 +25,7 @@ public class PersonTranslator
     @Resource
     private UserStateTranslator  userStateTranslator;
 
-    public User translateToPerson(UserDto userDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public User translateToPerson(UserDto userDto) throws InvocationTargetException
     {
         User user = new User();
         if (userDto == null)
@@ -50,7 +50,7 @@ public class PersonTranslator
         return user;
     }
 
-    public UserDto translateUserToDto(User user) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserDto translateUserToDto(User user) throws InvocationTargetException
     {
         if (user == null)
         {

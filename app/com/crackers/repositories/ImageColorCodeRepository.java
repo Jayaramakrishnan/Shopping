@@ -11,7 +11,7 @@ import com.crackers.model.ImageColorCode;
 public interface ImageColorCodeRepository extends GraphRepository<ImageColorCode>
 {
 
-    @Query("match (icc:ImageColorCode) where icc.idImageColorCode = :idImageColorCode and icc.isDeleted = 0 return icc.imageColorCode")
+    @Query("match (icc:ImageColorCode) where icc.idImageColorCode = {idImageColorCode} and icc.isDeleted = 0 return icc.imageColorCode")
     String getImageColorCode(@Param("idImageColorCode") Integer idImageColorCode);
 
     @Query("match (icc:ImageColorCode) where icc.isDeleted = 0 return icc")

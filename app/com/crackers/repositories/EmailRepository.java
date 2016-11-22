@@ -11,21 +11,18 @@ import com.crackers.model.Email;
 public interface EmailRepository extends GraphRepository<Email>
 {
 
-    @Query("match (e:Email) where e.user.idUser = :createdBy and e.isPrimary = 1 and e.isDeleted = 0 return e")
-    Email getCreatedByMailId(@Param("createdBy") Integer createdBy);
+    @Query("match (email)<-[:HAS_AN_EMAIL]-(user:User) where user.idUser = {idUser} and email.isPrimary = 1 and email.isDeleted = 0 return email")
+    Email getCreatedByMailId(@Param("idUser") Integer idUser);
 
-    @Query("match (e:Email) where e.user.idUser = :idUser and e.isDeleted = 0 return e")
+    @Query("match (email)<-[:HAS_AN_EMAIL]-(user:User) where user.idUser = {idUser} and email.isDeleted = 0 return email")
     List<Email> getUsersMailId(@Param("idUser") Integer idUser);
 
-    @Query("match (e:Email) where e.user.idUser = :idUser and e.isPrimary = 1 and e.isDeleted = 0 return e")
-    Email getPrimaryMail(@Param("idUser") Integer idUser);
-
-    @Query("match (e:Email) where LOWER(e.email) like LOWER(:email) and e.user.idUserState = 1 and e.user.isDeleted = 0 and e.isDeleted = 0 return e.user.idUser")
+    @Query("match (email)<-[:HAS_AN_EMAIL]-(user:User) where LOWER(email.email) like LOWER({email}) and user.idUserState = 1 and user.isDeleted = 0 and email.isDeleted = 0 return user.idUser")
     Integer validateNewUserMailId(@Param("email") String email);
 
-    @Query("match (e:Email) where e.user.idUserState=1 and e.user.idUser = :idUser and e.isPrimary = 1 and e.user.isDeleted = 0 and e.isDeleted = 0 return e.email")
+    @Query("match (email)<-[:HAS_AN_EMAIL]-(user:User) where user.idUserState = 1 and user.idUser = {idUser} and email.isPrimary = 1 and user.isDeleted = 0 and email.isDeleted = 0 return email.email")
     String getEmailByIdUser(@Param("idUser") Integer idUser);
 
-    @Query("match (e:Email) where e.isDeleted = 0 return e")
-    List<Email> getEMails();
+    @Query("match (emails:Email) where e.isDeleted = 0 return emails")
+    List<Email> getEmails();
 }

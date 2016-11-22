@@ -1,7 +1,3 @@
-/**
- * @author rajagja
- * @date Nov 1, 2016
- */
 package com.crackers.common;
 
 import java.sql.Timestamp;

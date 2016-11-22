@@ -27,6 +27,7 @@ libraryDependencies ++= Seq(
   "org.springframework" % "spring-test" % "3.2.5.RELEASE",
   "log4j" % "log4j" % "1.2.17",
   "org.hibernate" % "hibernate-core" % "4.3.8.Final",
+  "org.hibernate" % "hibernate-envers" % "4.3.5.Final",
   "org.codehaus.jackson" % "jackson-core-asl" % "1.9.13",
   "org.codehaus.jackson" % "jackson-mapper-asl" % "1.9.13",
   "net.sf.uadetector" % "uadetector-core" % "0.9.18",

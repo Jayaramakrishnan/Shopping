@@ -22,7 +22,7 @@ public abstract class Handler
         this.sucessor = sucessor;
     }
 
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
         CMSLogger.info(logger, "Inside Handler");
         if (sucessor != null)

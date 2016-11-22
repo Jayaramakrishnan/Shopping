@@ -15,7 +15,7 @@ import com.crackers.model.UserSource;
 public class UserSourceTranslator
 {
 
-    public List<UserSourceDto> translateListToUserSourceDto(List<UserSource> userSources) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public List<UserSourceDto> translateListToUserSourceDto(List<UserSource> userSources) throws InvocationTargetException
     {
         List<UserSourceDto> userSourceDtos = new ArrayList<>();
         if (userSources == null)
@@ -33,7 +33,7 @@ public class UserSourceTranslator
         return userSourceDtos;
     }
 
-    public UserSourceDto translateToUserSourceDto(UserSource userSource) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserSourceDto translateToUserSourceDto(UserSource userSource) throws InvocationTargetException
     {
         UserSourceDto userSourceDto = new UserSourceDto();
         if (userSource == null)
@@ -44,7 +44,7 @@ public class UserSourceTranslator
         return userSourceDto;
     }
 
-    public UserSource translateDtoToUserSource(UserSourceDto userSourceDto) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserSource translateDtoToUserSource(UserSourceDto userSourceDto) throws InvocationTargetException
     {
         UserSource userSource = new UserSource();
         if (userSourceDto == null)
@@ -64,7 +64,7 @@ public class UserSourceTranslator
         return userSourceDto.getIdSource();
     }
 
-    public UserSourceDto translateToUserSourceDto(Integer idUserSource) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public UserSourceDto translateToUserSourceDto(Integer idUserSource) throws InvocationTargetException
     {
         if (idUserSource == null)
         {

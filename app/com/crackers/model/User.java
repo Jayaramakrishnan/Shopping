@@ -1,14 +1,14 @@
 package com.crackers.model;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 
 /**
  * User entity. @author MyEclipse Persistence Tools
@@ -17,33 +17,35 @@ import com.google.common.collect.Sets;
 public class User implements java.io.Serializable
 {
 
-    private static final long   serialVersionUID = 1L;
-    private Integer             idUser;
-    private String              name;
-    private String              userName;
-    private Integer             idSource;
-    private String              title;
-    private String              bioData;
-    private Integer             idUserState;
-    private Short               isDeleted;
-    private Integer             idImageColorCode;
-    private Integer             createdBy;
-    private Timestamp           createdOn;
-    private Integer             updatedBy;
-    private Timestamp           updatedOn;
-    private Timestamp           lastUpdatedOn;
+    private static final long    serialVersionUID = 1L;
+    private Integer              idUser;
+    private String               name;
+    private String               userName;
+    private Integer              idSource;
+    private String               title;
+    private String               bioData;
+    private Integer              idUserState;
+    private Short                isDeleted;
+    private Integer              idImageColorCode;
+    private Integer              createdBy;
+    private Timestamp            createdOn;
+    private Integer              updatedBy;
+    private Timestamp            updatedOn;
+    private Timestamp            lastUpdatedOn;
     @Relationship(type = "HAS_AN_EMAIL", direction = Relationship.OUTGOING)
-    private Email               email;
+    private Email                email;
     @Relationship(type = "HAS_MULTIPLE_PHONE_NUMBERS", direction = Relationship.OUTGOING)
-    private Set<PhoneNumber>    phoneNumbers     = Sets.newHashSet();
+    private List<PhoneNumber>    phoneNumbers     = Lists.newArrayList();
     @Relationship(type = "HAS_MULTIPLE_ADDRESSES", direction = Relationship.OUTGOING)
-    private Set<ContactDetails> addresses        = Sets.newHashSet();
+    private List<ContactDetails> addresses        = Lists.newArrayList();
     @Relationship(type = "HAS_AN_IMAGE", direction = Relationship.OUTGOING)
-    private Image               image;
+    private Image                image;
     @Relationship(type = "HAS_A_PASSWORD", direction = Relationship.OUTGOING)
-    private UserCredential      password;
+    private UserCredential       password;
     @Relationship(type = "HAS_A_ROLE", direction = Relationship.OUTGOING)
-    private UserRole            userRole;
+    private UserRole             userRole;
+    @Relationship(type = "HAS_PREVIOUS_PASSWORDS", direction = Relationship.OUTGOING)
+    private Password             previousPassword;
 
     @GraphId
     @Property(name = "idUser")

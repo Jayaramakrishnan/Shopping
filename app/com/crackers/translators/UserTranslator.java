@@ -18,7 +18,7 @@ public class UserTranslator
 
     private static Logger logger = Logger.getLogger(UserTranslator.class);
 
-    public UserDto translateToUserDto(User user) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    public UserDto translateToUserDto(User user) throws InvocationTargetException
     {
         CMSLogger.info(logger, "Inside translateToUserDto");
         UserDto userDto = new UserDto();
@@ -40,7 +40,7 @@ public class UserTranslator
         return userDto;
     }
 
-    public User translateToUser(Integer idUser) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+    public User translateToUser(Integer idUser) throws InvocationTargetException
     {
         /*
          * Checking whether the idUser is null.

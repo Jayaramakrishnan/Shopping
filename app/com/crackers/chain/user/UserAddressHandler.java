@@ -28,7 +28,7 @@ public class UserAddressHandler extends Handler
     private UserService    userService;
 
     @Override
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
         CMSLogger.info(logger, "Inside CONTACT_DETAILS");
         CMSLogger.info(logger, "Inside ContactDetailsHandler");
