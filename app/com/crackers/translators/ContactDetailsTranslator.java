@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -20,15 +18,12 @@ public class ContactDetailsTranslator
 {
 
     private static Logger    logger = Logger.getLogger(ContactDetailsTranslator.class);
-    @Resource
-    private PersonTranslator personTranslator;
 
     public ContactDetails translateToContactDetails(ContactDetailsDto contactDetailsDto) throws InvocationTargetException
     {
         ContactDetails entityContactDetails = new ContactDetails();
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(contactDetailsDto, entityContactDetails, properties);
-        entityContactDetails.setUser(personTranslator.translateToPerson(contactDetailsDto.getUserDto()));
         CMSLogger.info(logger, " Contact Details is translated");
         return entityContactDetails;
     }
@@ -42,7 +37,6 @@ public class ContactDetailsTranslator
         ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(contactDetails, contactDetailsDto, properties);
-        contactDetailsDto.setUserDto(personTranslator.translateUserToDto(contactDetails.getUser()));
         CMSLogger.info(logger, " Contact Details is translated");
         return contactDetailsDto;
     }
@@ -56,7 +50,6 @@ public class ContactDetailsTranslator
         ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(contactDetails, contactDetailsDto, properties);
-        contactDetailsDto.setUserDto(personTranslator.translateUserToDto(contactDetails.getUser()));
         CMSLogger.info(logger, " Contact Details is translated");
         return contactDetailsDto;
     }
@@ -71,7 +64,6 @@ public class ContactDetailsTranslator
             ContactDetails numberDto = eIterator.next();
             ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
             BeanUtil.copyBeanProperties(numberDto, contactDetailsDto, new ArrayList<>());
-            contactDetailsDto.setUserDto(personTranslator.translateUserToDto(numberDto.getUser()));
             entityEmails.add(contactDetailsDto);
         }
         entityEmailsFinal.addAll(entityEmails);

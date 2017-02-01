@@ -17,73 +17,67 @@ import com.crackers.model.Email;
 public class EmailTranslator
 {
 
-    private Logger logger = Logger.getLogger(EmailTranslator.class);
+	private Logger				logger	= Logger.getLogger(EmailTranslator.class);
 
-    public List<EmailDto> translateListToEmailDto(List<Email> emails) throws InvocationTargetException
-    {
-        List<EmailDto> emailDtos = new ArrayList<>();
-        if (emails == null)
-        {
-            return emailDtos;
-        }
-        Iterator<Email> emailIterator = emails.iterator();
-        PersonTranslator personTranslator = new PersonTranslator();
-        while (emailIterator.hasNext())
-        {
-            Email email1 = emailIterator.next();
-            EmailDto emailDto = new EmailDto();
-            BeanUtil.copyBeanProperties(email1, emailDto, new ArrayList<>());
-            emailDto.setUserDto(personTranslator.translateUserToDto(email1.getUser()));
-            emailDtos.add(emailDto);
-        }
-        return emailDtos;
-    }
+	public List<EmailDto> translateListToEmailDto(List<Email> emails) throws InvocationTargetException
+	{
+		List<EmailDto> emailDtos = new ArrayList<>();
+		if (emails == null)
+		{
+			return emailDtos;
+		}
+		Iterator<Email> emailIterator = emails.iterator();
+		while (emailIterator.hasNext())
+		{
+			Email email1 = emailIterator.next();
+			EmailDto emailDto = new EmailDto();
+			BeanUtil.copyBeanProperties(email1, emailDto, new ArrayList<>());
+			emailDtos.add(emailDto);
+		}
+		return emailDtos;
+	}
 
-    public EmailDto translateToEmailDto(Email email) throws InvocationTargetException
-    {
-        EmailDto emailDto = new EmailDto();
-        if (email == null)
-        {
-            return emailDto;
-        }
-        PersonTranslator personTranslator = new PersonTranslator();
-        CMSLogger.info(logger, "EmailDto:" + emailDto);
-        BeanUtil.copyBeanProperties(email, emailDto, new ArrayList<>());
-        emailDto.setUserDto(personTranslator.translateUserToDto(email.getUser()));
-        return emailDto;
-    }
+	public EmailDto translateToEmailDto(Email email) throws InvocationTargetException
+	{
+		EmailDto emailDto = new EmailDto();
+		if (email == null)
+		{
+			return emailDto;
+		}
+		CMSLogger.info(logger, "EmailDto:" + emailDto);
+		BeanUtil.copyBeanProperties(email, emailDto, new ArrayList<>());
+		return emailDto;
+	}
 
-    public Email translateDtoToEmail(EmailDto emailDto) throws InvocationTargetException
-    {
-        Email email = new Email();
-        if (emailDto == null)
-        {
-            return email;
-        }
-        CMSLogger.info(logger, "EmailDto:" + emailDto);
-        PersonTranslator personTranslator = new PersonTranslator();
-        BeanUtil.copyBeanProperties(emailDto, email, new ArrayList<>());
-        email.setUser(personTranslator.translateToPerson(emailDto.getUserDto()));
-        return email;
-    }
+	public Email translateDtoToEmail(EmailDto emailDto) throws InvocationTargetException
+	{
+		Email email = new Email();
+		if (emailDto == null)
+		{
+			return email;
+		}
+		CMSLogger.info(logger, "EmailDto:" + emailDto);
+		BeanUtil.copyBeanProperties(emailDto, email, new ArrayList<>());
+		return email;
+	}
 
-    public Integer getEmailId(EmailDto emailDto)
-    {
-        if (emailDto == null)
-        {
-            return null;
-        }
-        return emailDto.getIdEmail();
-    }
+	public Integer getEmailId(EmailDto emailDto)
+	{
+		if (emailDto == null)
+		{
+			return null;
+		}
+		return emailDto.getIdEmail();
+	}
 
-    public EmailDto translateToEmailDto(Integer idEmail) throws InvocationTargetException
-    {
-        if (idEmail == null)
-        {
-            return null;
-        }
-        EmailDto emailDto = new EmailDto();
-        emailDto.setIdEmail(idEmail);
-        return emailDto;
-    }
+	public EmailDto translateToEmailDto(Integer idEmail) throws InvocationTargetException
+	{
+		if (idEmail == null)
+		{
+			return null;
+		}
+		EmailDto emailDto = new EmailDto();
+		emailDto.setIdEmail(idEmail);
+		return emailDto;
+	}
 }

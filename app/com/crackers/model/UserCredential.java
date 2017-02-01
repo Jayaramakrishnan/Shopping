@@ -11,102 +11,114 @@ import org.neo4j.ogm.annotation.Property;
 public class UserCredential implements Serializable
 {
 
-    private static final long serialVersionUID = 1L;
-    @GraphId
-    @Property(name = "idUserCredential")
-    public Long               idUserCredential;
-    @Property(name = "saltKey")
-    public String             saltKey;
-    @Property(name = "hashedKey")
-    public String             hashedKey;
-    @Property(name = "isDeleted")
-    private Short             isDeleted;
-    @Property(name = "createdBy")
-    private Integer           createdBy;
-    @Property(name = "createdOn")
-    private Timestamp         createdOn;
-    @Property(name = "updatedBy")
-    private Integer           updatedBy;
-    @Property(name = "updatedOn")
-    private Timestamp         updatedOn;
+	private static final long	serialVersionUID	= 1L;
+	@GraphId
+	@Property(name = "idUserCredential")
+	private Long				idUserCredential;
+	@Property(name = "idUser")
+	private Integer				idUser;
+	@Property(name = "saltKey")
+	private String				saltKey;
+	@Property(name = "hashedKey")
+	private String				hashedKey;
+	@Property(name = "isDeleted")
+	private Short				isDeleted;
+	@Property(name = "createdBy")
+	private Integer				createdBy;
+	@Property(name = "createdOn")
+	private Timestamp			createdOn;
+	@Property(name = "updatedBy")
+	private Integer				updatedBy;
+	@Property(name = "updatedOn")
+	private Timestamp			updatedOn;
 
-    public Short getIsDeleted()
-    {
-        return isDeleted;
-    }
+	public Short getIsDeleted()
+	{
+		return isDeleted;
+	}
 
-    public void setIsDeleted(Short isDeleted)
-    {
-        this.isDeleted = isDeleted;
-    }
+	public void setIsDeleted(Short isDeleted)
+	{
+		this.isDeleted = isDeleted;
+	}
 
-    public String getHashedKey()
-    {
-        return hashedKey;
-    }
+	public Integer getIdUser()
+	{
+		return idUser;
+	}
 
-    public Integer getCreatedBy()
-    {
-        return createdBy;
-    }
+	public void setIdUser(Integer idUser)
+	{
+		this.idUser = idUser;
+	}
 
-    public void setCreatedBy(Integer createdBy)
-    {
-        this.createdBy = createdBy;
-    }
+	public String getHashedKey()
+	{
+		return hashedKey;
+	}
 
-    public Timestamp getCreatedOn()
-    {
-        return createdOn;
-    }
+	public Integer getCreatedBy()
+	{
+		return createdBy;
+	}
 
-    public void setCreatedOn(Timestamp createdOn)
-    {
-        this.createdOn = createdOn;
-    }
+	public void setCreatedBy(Integer createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    public Integer getUpdatedBy()
-    {
-        return updatedBy;
-    }
+	public Timestamp getCreatedOn()
+	{
+		return createdOn;
+	}
 
-    public void setUpdatedBy(Integer updatedBy)
-    {
-        this.updatedBy = updatedBy;
-    }
+	public void setCreatedOn(Timestamp createdOn)
+	{
+		this.createdOn = createdOn;
+	}
 
-    public Timestamp getUpdatedOn()
-    {
-        return updatedOn;
-    }
+	public Integer getUpdatedBy()
+	{
+		return updatedBy;
+	}
 
-    public void setUpdatedOn(Timestamp updatedOn)
-    {
-        this.updatedOn = updatedOn;
-    }
+	public void setUpdatedBy(Integer updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    public void setHashedKey(String hashedKey)
-    {
-        this.hashedKey = hashedKey;
-    }
+	public Timestamp getUpdatedOn()
+	{
+		return updatedOn;
+	}
 
-    public String getSaltKey()
-    {
-        return saltKey;
-    }
+	public void setUpdatedOn(Timestamp updatedOn)
+	{
+		this.updatedOn = updatedOn;
+	}
 
-    public void setSaltKey(String saltKey)
-    {
-        this.saltKey = saltKey;
-    }
+	public void setHashedKey(String hashedKey)
+	{
+		this.hashedKey = hashedKey;
+	}
 
-    public Long getIdUserCredential()
-    {
-        return idUserCredential;
-    }
+	public String getSaltKey()
+	{
+		return saltKey;
+	}
 
-    public void setIdUserCredential(Long idUserCredential)
-    {
-        this.idUserCredential = idUserCredential;
-    }
+	public void setSaltKey(String saltKey)
+	{
+		this.saltKey = saltKey;
+	}
+
+	public Long getIdUserCredential()
+	{
+		return idUserCredential;
+	}
+
+	public void setIdUserCredential(Long idUserCredential)
+	{
+		this.idUserCredential = idUserCredential;
+	}
 }

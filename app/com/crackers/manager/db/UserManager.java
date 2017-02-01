@@ -195,7 +195,6 @@ public class UserManager
         else
         {
             CMSLogger.info(logger, "The New Record");
-            entityImage.setUser(userTranslator.translateToUser(idUser));
             entityImage.setIsDeleted((short) 0);
             entityImage.setCreatedOn(ts);
             entityImage.setCreatedBy(idCurrentUser);
@@ -222,7 +221,6 @@ public class UserManager
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         phoneNumber.setUpdatedBy(idUser);
         phoneNumber.setUpdatedOn(ts);
-        phoneNumber.setUser(userRepository.findOne(idUser.longValue()));
         return phoneNumberRepository.save(phoneNumber);
     }
 
@@ -233,7 +231,6 @@ public class UserManager
         phoneNumbergiven.setCreatedBy(idCurrentUser);
         phoneNumbergiven.setCreatedOn(ts);
         phoneNumbergiven.setIsDeleted((short) 0);
-        phoneNumbergiven.setUser(userRepository.findOne(idUser.longValue()));
         return phoneNumberRepository.save(phoneNumbergiven);
     }
 
@@ -255,7 +252,7 @@ public class UserManager
         else if (email != null && email.getIsPrimary() != null && !(email.getIsPrimary().equals(mail.getIsPrimary())) && email.getIsPrimary() == 1 && mail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM)))
         {
             CMSLogger.info(logger, "This is FORM mail id");
-            Email primaryMail = emailRepository.getPrimaryMail(idUser);
+            Email primaryMail = emailRepository.getCreatedByMailId(idUser);
             if (primaryMail != null)
             {
                 if (primaryMail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM)))
@@ -264,7 +261,6 @@ public class UserManager
                     primaryMail.setIsPrimary((short) 0);
                     primaryMail.setUpdatedBy(idCurrentUser);
                     primaryMail.setUpdatedOn(ts);
-                    primaryMail.setUser(userRepository.findOne(idUser.longValue()));
                     emailRepository.save(primaryMail);
                 }
                 else
@@ -294,7 +290,6 @@ public class UserManager
         BeanUtil.copyBeanProperties(email, mail, new ArrayList<>());
         mail.setUpdatedBy(idCurrentUser);
         mail.setUpdatedOn(ts);
-        mail.setUser(userRepository.findOne(idUser.longValue()));
         return emailRepository.save(mail);
     }
 
@@ -304,7 +299,7 @@ public class UserManager
         if (email != null && email.getIsPrimary() != null && !(email.getIsPrimary().equals(1)))
         {
             CMSLogger.info(logger, "Given mail id is primary");
-            Email primaryMail = emailRepository.getPrimaryMail(idUser);
+            Email primaryMail = emailRepository.getCreatedByMailId(idUser);
             if (primaryMail != null)
             {
                 if (primaryMail.getEmailSource().equals(com.crackers.enums.UserSource.getCode(com.crackers.enums.UserSource.FORM)))
@@ -312,7 +307,6 @@ public class UserManager
                     primaryMail.setIsPrimary((short) 0);
                     primaryMail.setUpdatedBy(idCurrentUser);
                     primaryMail.setUpdatedOn(ts);
-                    primaryMail.setUser(userRepository.findOne(idUser.longValue()));
                     emailRepository.save(primaryMail);
                 }
                 else
@@ -325,7 +319,6 @@ public class UserManager
         email.setCreatedBy(idCurrentUser);
         email.setCreatedOn(ts);
         email.setIsDeleted((short) 0);
-        email.setUser(userRepository.findOne(idUser.longValue()));
         return emailRepository.save(email);
     }
 
@@ -355,7 +348,6 @@ public class UserManager
         contactDetailsgiven.setUpdatedBy(idCurrentUser);
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         contactDetailsgiven.setUpdatedOn(ts);
-        contactDetailsgiven.setUser(userRepository.findOne(idUser.longValue()));
         ContactDetails updated = userContactDetailsRepository.save(contactDetailsgiven);
         User individualEntity = userRepository.findOne(idUser.longValue());
         individualEntity.setUpdatedBy(idUser);
@@ -373,7 +365,6 @@ public class UserManager
         entityContactDetails.setCreatedBy(idCurrentUser);
         CMSLogger.info(logger, "individual entity id:" + idUser);
         BeanUtil.copyBeanProperties(contactDetails, entityContactDetails, new ArrayList<>());
-        entityContactDetails.setUser(userRepository.findOne(idUser.longValue()));
         ContactDetails created = userContactDetailsRepository.save(entityContactDetails);
         User individualEntity = userRepository.findOne(idUser.longValue());
         individualEntity.setUpdatedBy(idUser);
@@ -405,11 +396,11 @@ public class UserManager
     public synchronized Integer createForgetPassword(Integer idUser, UserDto userDto, String saltKey) throws InvalidKeyException, NoSuchAlgorithmException
     {
         String hashedKey = encryptPassword(userDto.getNewPassword(), saltKey, CommonConstants.ENCRYPTION_ALGORITHM);
-        UserCredential userCredential = credentialRepository.getCredentialObject(idUser);
+        UserCredential userCredential = credentialRepository.getCredentialObject(idUser.longValue());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
         if (userCredential != null)
         {
-            userCredential.setIdUser(idUser.longValue());
+            userCredential.setIdUser(idUser);
             userCredential.setSaltKey(saltKey);
             userCredential.setIsDeleted((short) 0);
             userCredential.setHashedKey(hashedKey);
@@ -421,7 +412,7 @@ public class UserManager
         {
             CMSLogger.info(logger, "User Credential new");
             userCredential = new UserCredential();
-            userCredential.setIdUser(idUser.longValue());
+            userCredential.setIdUser(idUser);
             userCredential.setSaltKey(saltKey);
             userCredential.setIsDeleted((short) 0);
             userCredential.setHashedKey(hashedKey);
@@ -452,7 +443,7 @@ public class UserManager
         String hashedKey = encryptPassword(password, CommonConstants.SALT_KEY, CommonConstants.ENCRYPTION_ALGORITHM);
         UserCredential userCredential = new UserCredential();
         Timestamp ts = dateStringUtil.getCurrentTimestamp();
-        userCredential.setIdUser((long) idUser);
+        userCredential.setIdUser(idUser);
         userCredential.setSaltKey(CommonConstants.SALT_KEY);
         userCredential.setIsDeleted((short) 0);
         userCredential.setHashedKey(hashedKey);

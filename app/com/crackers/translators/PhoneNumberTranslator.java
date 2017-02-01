@@ -28,7 +28,6 @@ public class PhoneNumberTranslator
             return phoneNumberDtos;
         }
         Iterator<PhoneNumber> phoneNumberIterator = phoneNumbers.iterator();
-        PersonTranslator personTranslator = new PersonTranslator();
         while (phoneNumberIterator.hasNext())
         {
             PhoneNumber phoneNumber1 = phoneNumberIterator.next();
@@ -36,7 +35,6 @@ public class PhoneNumberTranslator
             PhoneTypeTranslator phoneTypeTranslator = new PhoneTypeTranslator();
             BeanUtil.copyBeanProperties(phoneNumber1, phoneNumberDto, new ArrayList<>());
             phoneNumberDto.setPhoneTypeDto(phoneTypeTranslator.translateToPhoneTypeDto(phoneNumber1.getIdPhoneType()));
-            phoneNumberDto.setUserDto(personTranslator.translateUserToDto(phoneNumber1.getUser()));
             phoneNumberDtos.add(phoneNumberDto);
         }
         return phoneNumberDtos;
@@ -49,11 +47,9 @@ public class PhoneNumberTranslator
         {
             return phoneNumberDto;
         }
-        PersonTranslator personTranslator = new PersonTranslator();
         CMSLogger.info(logger, "PhoneNumberDto:" + phoneNumberDto);
         PhoneTypeTranslator phoneTypeTranslator = new PhoneTypeTranslator();
         BeanUtil.copyBeanProperties(phoneNumber, phoneNumberDto, new ArrayList<>());
-        phoneNumberDto.setUserDto(personTranslator.translateUserToDto(phoneNumber.getUser()));
         phoneNumberDto.setPhoneTypeDto(phoneTypeTranslator.translateToPhoneTypeDto(phoneNumber.getIdPhoneType()));
         return phoneNumberDto;
     }
@@ -65,12 +61,10 @@ public class PhoneNumberTranslator
         {
             return phoneNumber;
         }
-        PersonTranslator personTranslator = new PersonTranslator();
         CMSLogger.info(logger, "PhoneNumberDto:" + phoneNumberDto);
         PhoneTypeTranslator phoneTypeTranslator = new PhoneTypeTranslator();
         BeanUtil.copyBeanProperties(phoneNumberDto, phoneNumber, new ArrayList<>());
         phoneNumber.setIdPhoneType(phoneTypeTranslator.getPhoneTypeId(phoneNumberDto.getPhoneTypeDto()));
-        phoneNumber.setUser(personTranslator.translateToPerson(phoneNumberDto.getUserDto()));
         return phoneNumber;
     }
 

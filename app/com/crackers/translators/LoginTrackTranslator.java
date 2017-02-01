@@ -24,7 +24,7 @@ public class LoginTrackTranslator
         {
             BeanUtil.copyBeanProperties(loginTrackDto, loginTrack, new ArrayList<String>());
         }
-        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+        catch (IllegalArgumentException | InvocationTargetException e)
         {
             CMSLogger.error(logger, "Error while copying bean util in Login Track", e);
         }

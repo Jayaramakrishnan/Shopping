@@ -84,7 +84,7 @@ public class LoginController extends BaseController
             }
         }
         // return ok(index.render("", Dashboard.clientConfigurationSettings, url));
-        return ok();
+        return ok("Hello neo4j");
     }
 
     @SessionHandler

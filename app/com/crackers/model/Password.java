@@ -14,102 +14,114 @@ import org.neo4j.ogm.annotation.Property;
 public class Password implements java.io.Serializable
 {
 
-    private static final long serialVersionUID = 1L;
-    private Integer           idPassword;
-    private String            encryptText;
-    private String            email;
-    private String            saltKey;
-    private Short             isDeleted;
-    private Short             isExpired;
-    private Integer           createdBy;
-    private Timestamp         createdOn;
+	private static final long	serialVersionUID	= 1L;
+	private Integer				idPassword;
+	private Integer				idUser;
+	private String				encryptText;
+	private String				email;
+	private String				saltKey;
+	private Short				isDeleted;
+	private Short				isExpired;
+	private Integer				createdBy;
+	private Timestamp			createdOn;
 
-    @GraphId
-    @Property(name = "idPassword")
-    public Integer getIdPassword()
-    {
-        return this.idPassword;
-    }
+	@GraphId
+	@Property(name = "idPassword")
+	public Integer getIdPassword()
+	{
+		return this.idPassword;
+	}
 
-    public void setIdPassword(Integer idPassword)
-    {
-        this.idPassword = idPassword;
-    }
+	public void setIdPassword(Integer idPassword)
+	{
+		this.idPassword = idPassword;
+	}
 
-    @Property(name = "encryptText")
-    public String getEncryptText()
-    {
-        return this.encryptText;
-    }
+	@Property(name = "idUser")
+	public Integer getIdUser()
+	{
+		return idUser;
+	}
 
-    public void setEncryptText(String encryptText)
-    {
-        this.encryptText = encryptText;
-    }
+	public void setIdUser(Integer idUser)
+	{
+		this.idUser = idUser;
+	}
 
-    @Property(name = "email")
-    public String getEmail()
-    {
-        return this.email;
-    }
+	@Property(name = "encryptText")
+	public String getEncryptText()
+	{
+		return this.encryptText;
+	}
 
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
+	public void setEncryptText(String encryptText)
+	{
+		this.encryptText = encryptText;
+	}
 
-    @Property(name = "saltKey")
-    public String getSaltKey()
-    {
-        return this.saltKey;
-    }
+	@Property(name = "email")
+	public String getEmail()
+	{
+		return this.email;
+	}
 
-    public void setSaltKey(String saltKey)
-    {
-        this.saltKey = saltKey;
-    }
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
 
-    @Property(name = "isDeleted")
-    public Short getIsDeleted()
-    {
-        return this.isDeleted;
-    }
+	@Property(name = "saltKey")
+	public String getSaltKey()
+	{
+		return this.saltKey;
+	}
 
-    public void setIsDeleted(Short isDeleted)
-    {
-        this.isDeleted = isDeleted;
-    }
+	public void setSaltKey(String saltKey)
+	{
+		this.saltKey = saltKey;
+	}
 
-    @Property(name = "isExpired")
-    public Short getIsExpired()
-    {
-        return isExpired;
-    }
+	@Property(name = "isDeleted")
+	public Short getIsDeleted()
+	{
+		return this.isDeleted;
+	}
 
-    public void setIsExpired(Short isExpired)
-    {
-        this.isExpired = isExpired;
-    }
+	public void setIsDeleted(Short isDeleted)
+	{
+		this.isDeleted = isDeleted;
+	}
 
-    @Property(name = "createdBy")
-    public Integer getCreatedBy()
-    {
-        return this.createdBy;
-    }
+	@Property(name = "isExpired")
+	public Short getIsExpired()
+	{
+		return isExpired;
+	}
 
-    public void setCreatedBy(Integer createdBy)
-    {
-        this.createdBy = createdBy;
-    }
+	public void setIsExpired(Short isExpired)
+	{
+		this.isExpired = isExpired;
+	}
 
-    @Property(name = "createdOn")
-    public Timestamp getCreatedOn()
-    {
-        return this.createdOn;
-    }
+	@Property(name = "createdBy")
+	public Integer getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    public void setCreatedOn(Timestamp createdOn)
-    {
-        this.createdOn = createdOn;
-    }
+	public void setCreatedBy(Integer createdBy)
+	{
+		this.createdBy = createdBy;
+	}
+
+	@Property(name = "createdOn")
+	public Timestamp getCreatedOn()
+	{
+		return this.createdOn;
+	}
+
+	public void setCreatedOn(Timestamp createdOn)
+	{
+		this.createdOn = createdOn;
+	}
 }
