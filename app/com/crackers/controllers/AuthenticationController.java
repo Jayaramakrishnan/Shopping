@@ -104,7 +104,7 @@ public class AuthenticationController extends BaseController
                     try
                     {
                         LoginTrackDto loginTrackDto = new LoginTrackDto();
-                        loginTrackDto.setUser(userInfo);
+//                        loginTrackDto.setUser(userInfo);
                         loginTrackDto.setUserDevice(request().getHeader(CommonConstants.USER_DEVICE_STRING));
                         loginTrackDto.setUserAgent(request().getHeader(CommonConstants.USER_AGENT_STRING));
                         loginTrackDto.setClientIp(request().getHeader(CommonConstants.CLIENT_IP_STRING));

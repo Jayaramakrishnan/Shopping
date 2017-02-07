@@ -4,23 +4,8 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import net.sf.uadetector.ReadableUserAgent;
-import net.sf.uadetector.UserAgentStringParser;
-import net.sf.uadetector.service.UADetectorServiceFactory;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
-
-import play.Play;
-import play.cache.Cache;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.libs.F.Function;
-import play.libs.F.Promise;
-import play.libs.Json;
-import play.libs.ws.WSRequestHolder;
-import play.libs.ws.WSResponse;
-import play.mvc.Result;
 
 import com.crackers.common.CMSLogger;
 import com.crackers.common.CommonConstants;
@@ -37,10 +22,19 @@ import com.crackers.util.CacheManager;
 import com.crackers.vo.ClientConfigurationVO;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import views.html.index;
-import views.html.mobileLoginPage;
-import views.html.redirectDashboard;
-import views.html.sessioncheck;
+import net.sf.uadetector.ReadableUserAgent;
+import net.sf.uadetector.UserAgentStringParser;
+import net.sf.uadetector.service.UADetectorServiceFactory;
+import play.Play;
+import play.cache.Cache;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.libs.F.Function;
+import play.libs.F.Promise;
+import play.libs.Json;
+import play.libs.ws.WSRequestHolder;
+import play.libs.ws.WSResponse;
+import play.mvc.Result;
 
 @Component
 public class LoginController extends BaseController
@@ -70,18 +64,6 @@ public class LoginController extends BaseController
         if (Dashboard.clientConfigurationSettings == null)
         {
             loadClientConfiguration();
-        }
-        if (request() != null && request().getHeader(CommonConstants.USER_AGENT_STRING) != null)
-        {
-            CMSLogger.info(logger, "userAgent: " + request().getHeader(CommonConstants.USER_AGENT_STRING));
-            UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
-            ReadableUserAgent agent = parser.parse(request().getHeader(CommonConstants.USER_AGENT_STRING));
-            if (agent.getDeviceCategory().getName().equals(CommonConstants.USER_DEVICE_SMART_PHONE))
-            {
-                logger.info("Device:" + agent.getDeviceCategory().getName());
-                // return ok(mobileLoginPage.render("", Dashboard.clientConfigurationSettings, url));
-                return ok();
-            }
         }
         // return ok(index.render("", Dashboard.clientConfigurationSettings, url));
         return ok("Hello neo4j");
@@ -239,41 +221,34 @@ public class LoginController extends BaseController
     }
 
     /**
-     * Loads the client configuration like client code, rest base url, etc.,
+     * Loads the client configuration like rest base url, appName etc.,
      * 
-     * @param clientConfigurationSettings
      */
     public Result loadClientConfiguration()
     {
-        String[] keys = { "client", "version", "restbase.url", "websocket.url", "rte", "is.websocket.enabled", "sessionTimeout", "APP_START_YEAR", "applicationNameInheader", "applicationNameInLogin", "isApplicationLogoAvailable", "applicationTitleName", "date.format",
-                "autoSaveTimeout", "isTimeRequired", "allTheseWords", "isTLSOn", "isSendEmailOn" };
+        String[] keys = { "version", "restbase.url", "sessionTimeout", "appStartYear", "applicationNameInheader",
+        		"applicationNameInLogin", "isApplicationLogoAvailable", "applicationTitleName", "date.format",
+                "autoSaveTimeout", "isTLSOn", "isSendEmailOn" };
         Dashboard.clientConfigurationSettings = new ClientConfigurationVO();
         try
         {
             if (applicationConfigRepository.getConfigValueByKey("read_from_conf").equalsIgnoreCase("0"))
             {
                 CMSLogger.info(logger, "Loading configuration from database");
-                Dashboard.clientConfigurationSettings.setClient(applicationConfigRepository.getConfigValueByKey(keys[0]));
-                Dashboard.clientConfigurationSettings.setVersion(applicationConfigRepository.getConfigValueByKey(keys[1]));
-                Dashboard.clientConfigurationSettings.setRestBaseUrl(applicationConfigRepository.getConfigValueByKey(keys[2]));
+                Dashboard.clientConfigurationSettings.setVersion(applicationConfigRepository.getConfigValueByKey(keys[0]));
+                Dashboard.clientConfigurationSettings.setRestBaseUrl(applicationConfigRepository.getConfigValueByKey(keys[1]));
                 RestUrlAttribute.REST_BASE_URL = applicationConfigRepository.getConfigValueByKey(keys[2]);
-                Dashboard.clientConfigurationSettings.setWebsocketUrl(applicationConfigRepository.getConfigValueByKey(keys[3]));
-                Dashboard.clientConfigurationSettings.setRte(applicationConfigRepository.getConfigValueByKey(keys[4]));
-                Dashboard.clientConfigurationSettings.setIsWebsocketEnabled(applicationConfigRepository.getConfigValueByKey(keys[5]));
-                Dashboard.clientConfigurationSettings.setSessionTimeout(applicationConfigRepository.getConfigValueByKey(keys[6]));
-                Dashboard.clientConfigurationSettings.setYear(applicationConfigRepository.getConfigValueByKey(keys[7]));
-                Dashboard.clientConfigurationSettings.setApplicationNameInheader(applicationConfigRepository.getConfigValueByKey(keys[8]));
-                Dashboard.clientConfigurationSettings.setApplicationNameInLogin(applicationConfigRepository.getConfigValueByKey(keys[9]));
-                Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(applicationConfigRepository.getConfigValueByKey(keys[10])));
-                Dashboard.clientConfigurationSettings.setApplicationTitleName(applicationConfigRepository.getConfigValueByKey(keys[11]));
-                CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[12]);
+                Dashboard.clientConfigurationSettings.setSessionTimeout(applicationConfigRepository.getConfigValueByKey(keys[3]));
+                Dashboard.clientConfigurationSettings.setYear(applicationConfigRepository.getConfigValueByKey(keys[4]));
+                Dashboard.clientConfigurationSettings.setApplicationNameInheader(applicationConfigRepository.getConfigValueByKey(keys[5]));
+                Dashboard.clientConfigurationSettings.setApplicationNameInLogin(applicationConfigRepository.getConfigValueByKey(keys[6]));
+                Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(applicationConfigRepository.getConfigValueByKey(keys[7])));
+                Dashboard.clientConfigurationSettings.setApplicationTitleName(applicationConfigRepository.getConfigValueByKey(keys[8]));
+                CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[9]);
                 Dashboard.clientConfigurationSettings.setDateFormat(CommonConstants.DATE_FORMAT);
-                Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[13])));
-                CommonConstants.IS_TIME_REQUIRED = applicationConfigRepository.getConfigValueByKey(keys[14]);
-                Dashboard.clientConfigurationSettings.setOnlyWords(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[15])));
-                Dashboard.clientConfigurationSettings.setIsTimeRequired(CommonConstants.IS_TIME_REQUIRED);
-                Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[16]));
-                Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[17])));
+                Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[10])));
+                Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[11]));
+                Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[12])));
                 return ok("Client configuration Updated Successfully");
             }
         }
@@ -282,27 +257,20 @@ public class LoginController extends BaseController
             CMSLogger.error(logger, "error loading the configuration", exception);
         }
         CMSLogger.info(logger, "Loading configuration from conf file");
-        Dashboard.clientConfigurationSettings.setClient(Play.application().configuration().getString(keys[0]));
-        Dashboard.clientConfigurationSettings.setVersion(Play.application().configuration().getString(keys[1]));
-        Dashboard.clientConfigurationSettings.setRestBaseUrl(Play.application().configuration().getString(keys[2]));
+        Dashboard.clientConfigurationSettings.setVersion(Play.application().configuration().getString(keys[0]));
+        Dashboard.clientConfigurationSettings.setRestBaseUrl(Play.application().configuration().getString(keys[1]));
         RestUrlAttribute.REST_BASE_URL = Play.application().configuration().getString(keys[2]);
-        Dashboard.clientConfigurationSettings.setWebsocketUrl(Play.application().configuration().getString(keys[3]));
-        Dashboard.clientConfigurationSettings.setRte(Play.application().configuration().getString(keys[4]));
-        Dashboard.clientConfigurationSettings.setIsWebsocketEnabled(Play.application().configuration().getString(keys[5]));
-        Dashboard.clientConfigurationSettings.setSessionTimeout(Play.application().configuration().getString(keys[6]));
-        Dashboard.clientConfigurationSettings.setYear(Play.application().configuration().getString(keys[7]));
-        Dashboard.clientConfigurationSettings.setApplicationNameInheader(Play.application().configuration().getString(keys[8]));
-        Dashboard.clientConfigurationSettings.setApplicationNameInLogin(Play.application().configuration().getString(keys[9]));
-        Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(Play.application().configuration().getString(keys[10])));
-        Dashboard.clientConfigurationSettings.setApplicationTitleName(Play.application().configuration().getString(keys[11]));
-        CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[12]);
+        Dashboard.clientConfigurationSettings.setSessionTimeout(Play.application().configuration().getString(keys[3]));
+        Dashboard.clientConfigurationSettings.setYear(Play.application().configuration().getString(keys[4]));
+        Dashboard.clientConfigurationSettings.setApplicationNameInheader(Play.application().configuration().getString(keys[5]));
+        Dashboard.clientConfigurationSettings.setApplicationNameInLogin(Play.application().configuration().getString(keys[6]));
+        Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(Play.application().configuration().getString(keys[7])));
+        Dashboard.clientConfigurationSettings.setApplicationTitleName(Play.application().configuration().getString(keys[8]));
+        CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[9]);
         Dashboard.clientConfigurationSettings.setDateFormat(CommonConstants.DATE_FORMAT);
-        Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(Play.application().configuration().getString(keys[13])));
-        CommonConstants.IS_TIME_REQUIRED = applicationConfigRepository.getConfigValueByKey(keys[14]);
-        Dashboard.clientConfigurationSettings.setOnlyWords(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[15])));
-        Dashboard.clientConfigurationSettings.setIsTimeRequired(CommonConstants.IS_TIME_REQUIRED);
-        Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[16]));
-        Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[17])));
+        Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(Play.application().configuration().getString(keys[10])));
+        Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[11]));
+        Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[12])));
         return ok("Client configuration Updated Successfully");
     }
 }

@@ -2,17 +2,8 @@ package com.crackers.controllers;
 
 import javax.annotation.Resource;
 
-import net.sf.uadetector.ReadableUserAgent;
-import net.sf.uadetector.UserAgentStringParser;
-import net.sf.uadetector.service.UADetectorServiceFactory;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
-
-import play.cache.Cache;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Result;
 
 import com.crackers.common.CMSLogger;
 import com.crackers.common.CommonConstants;
@@ -25,9 +16,13 @@ import com.crackers.vo.ClientConfigurationVO;
 import com.crackers.vo.UserSessionSettings;
 import com.crackers.vo.UserVO;
 
-import views.html.desktopDashboard;
-import views.html.mobileDashboard;
-import views.html.tabletDashboard;
+import net.sf.uadetector.ReadableUserAgent;
+import net.sf.uadetector.UserAgentStringParser;
+import net.sf.uadetector.service.UADetectorServiceFactory;
+import play.cache.Cache;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.mvc.Result;
 
 @Component
 public class Dashboard extends BaseController

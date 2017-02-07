@@ -11,9 +11,7 @@ public class UserDto implements Cloneable
     private ImageDto                imageDto;
     private UserSourceDto           userSourceDto;
     private Short                   isDeleted;
-    private String                  smaAccountName;
     private String                  uniqueId;
-    private Integer                 uniqueIdSource;
     private String                  title;
     private String                  bioData;
     private List<ContactDetailsDto> contactDetailsDtos;
@@ -21,9 +19,6 @@ public class UserDto implements Cloneable
     private List<EmailDto>          emailDtos;
     private List<String>            changedList;
     private UserStateDto            userStateDto;
-    private Integer                 firstNameSource;
-    private Integer                 lastNameSource;
-    private Integer                 bioDataSource;
     private Long                    count;
     private String                  oldPassword;
     private String                  newPassword;
@@ -93,16 +88,6 @@ public class UserDto implements Cloneable
         this.isDeleted = isDeleted;
     }
 
-    public String getSmaAccountName()
-    {
-        return smaAccountName;
-    }
-
-    public void setSmaAccountName(String smaAccountName)
-    {
-        this.smaAccountName = smaAccountName;
-    }
-
     public String getUniqueId()
     {
         return uniqueId;
@@ -111,16 +96,6 @@ public class UserDto implements Cloneable
     public void setUniqueId(String uniqueId)
     {
         this.uniqueId = uniqueId;
-    }
-
-    public Integer getUniqueIdSource()
-    {
-        return uniqueIdSource;
-    }
-
-    public void setUniqueIdSource(Integer uniqueIdSource)
-    {
-        this.uniqueIdSource = uniqueIdSource;
     }
 
     public String getTitle()
@@ -191,36 +166,6 @@ public class UserDto implements Cloneable
     public void setUserStateDto(UserStateDto userStateDto)
     {
         this.userStateDto = userStateDto;
-    }
-
-    public Integer getFirstNameSource()
-    {
-        return firstNameSource;
-    }
-
-    public void setFirstNameSource(Integer firstNameSource)
-    {
-        this.firstNameSource = firstNameSource;
-    }
-
-    public Integer getLastNameSource()
-    {
-        return lastNameSource;
-    }
-
-    public void setLastNameSource(Integer lastNameSource)
-    {
-        this.lastNameSource = lastNameSource;
-    }
-
-    public Integer getBioDataSource()
-    {
-        return bioDataSource;
-    }
-
-    public void setBioDataSource(Integer bioDataSource)
-    {
-        this.bioDataSource = bioDataSource;
     }
 
     public Long getCount()

@@ -10,195 +10,194 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import com.google.common.collect.Lists;
 
-/**
- * User entity. @author MyEclipse Persistence Tools
- */
 @NodeEntity(label = "User")
 public class User implements java.io.Serializable
 {
 
-    private static final long    serialVersionUID = 1L;
-    private Integer              idUser;
-    private String               name;
-    private String               userName;
-    private Integer              idSource;
-    private String               title;
-    private String               bioData;
-    private Integer              idUserState;
-    private Short                isDeleted;
-    private Integer              idImageColorCode;
-    private Integer              createdBy;
-    private Timestamp            createdOn;
-    private Integer              updatedBy;
-    private Timestamp            updatedOn;
-    private Timestamp            lastUpdatedOn;
-    @Relationship(type = "HAS_AN_EMAIL", direction = Relationship.OUTGOING)
-    private Email                email;
-    @Relationship(type = "HAS_MULTIPLE_PHONE_NUMBERS", direction = Relationship.OUTGOING)
-    private List<PhoneNumber>    phoneNumbers     = Lists.newArrayList();
-    @Relationship(type = "HAS_MULTIPLE_ADDRESSES", direction = Relationship.OUTGOING)
-    private List<ContactDetails> addresses        = Lists.newArrayList();
-    @Relationship(type = "HAS_AN_IMAGE", direction = Relationship.OUTGOING)
-    private Image                image;
-    @Relationship(type = "HAS_A_PASSWORD", direction = Relationship.OUTGOING)
-    private UserCredential       password;
-    @Relationship(type = "HAS_A_ROLE", direction = Relationship.OUTGOING)
-    private UserRole             userRole;
-    @Relationship(type = "HAS_PREVIOUS_PASSWORDS", direction = Relationship.OUTGOING)
-    private Password             previousPassword;
+	private static final long		serialVersionUID	= 1L;
+	private Integer					idUser;
+	private String					name;
+	private String					userName;
+	private Integer					idSource;
+	private String					title;
+	private String					bioData;
+	private Integer					idUserState;
+	private Short					isDeleted;
+	private Integer					idImageColorCode;
+	private Integer					createdBy;
+	private Timestamp				createdOn;
+	private Integer					updatedBy;
+	private Timestamp				updatedOn;
+	private Timestamp				lastUpdatedOn;
+	@Relationship(type = "HAS_AN_EMAIL", direction = Relationship.OUTGOING)
+	private Email					email;
+	@Relationship(type = "HAS_MULTIPLE_PHONE_NUMBERS", direction = Relationship.OUTGOING)
+	private List<PhoneNumber>		phoneNumbers		= Lists.newArrayList();
+	@Relationship(type = "HAS_MULTIPLE_ADDRESSES", direction = Relationship.OUTGOING)
+	private List<ContactDetails>	addresses			= Lists.newArrayList();
+	@Relationship(type = "HAS_AN_IMAGE", direction = Relationship.OUTGOING)
+	private Image					image;
+	@Relationship(type = "HAS_A_PASSWORD", direction = Relationship.OUTGOING)
+	private UserCredential			password;
+	@Relationship(type = "HAS_A_ROLE", direction = Relationship.OUTGOING)
+	private UserRole				userRole;
+	@Relationship(type = "HAS_PREVIOUS_PASSWORDS", direction = Relationship.OUTGOING)
+	private List<Password>			previousPassword	= Lists.newArrayList();
+	@Relationship(type = "HAS_LOGIN_TRACKS", direction = Relationship.OUTGOING)
+	private List<LoginTrack>		loginTrack			= Lists.newArrayList();
 
-    @GraphId
-    @Property(name = "idUser")
-    public Integer getIdUser()
-    {
-        return this.idUser;
-    }
+	@GraphId
+	@Property(name = "idUser")
+	public Integer getIdUser()
+	{
+		return this.idUser;
+	}
 
-    public void setIdUser(Integer idUser)
-    {
-        this.idUser = idUser;
-    }
+	public void setIdUser(Integer idUser)
+	{
+		this.idUser = idUser;
+	}
 
-    @Property(name = "name")
-    public String getName()
-    {
-        return this.name;
-    }
+	@Property(name = "name")
+	public String getName()
+	{
+		return this.name;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 
-    @Property(name = "userName")
-    public String getUserName()
-    {
-        return this.userName;
-    }
+	@Property(name = "userName")
+	public String getUserName()
+	{
+		return this.userName;
+	}
 
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-    }
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
 
-    @Property(name = "imageColorCode")
-    public Integer getIdImageColorCode()
-    {
-        return idImageColorCode;
-    }
+	@Property(name = "imageColorCode")
+	public Integer getIdImageColorCode()
+	{
+		return idImageColorCode;
+	}
 
-    public void setIdImageColorCode(Integer idImageColorCode)
-    {
-        this.idImageColorCode = idImageColorCode;
-    }
+	public void setIdImageColorCode(Integer idImageColorCode)
+	{
+		this.idImageColorCode = idImageColorCode;
+	}
 
-    @Property(name = "idUserSource")
-    public Integer getIdSource()
-    {
-        return idSource;
-    }
+	@Property(name = "idUserSource")
+	public Integer getIdSource()
+	{
+		return idSource;
+	}
 
-    public void setIdSource(Integer idSource)
-    {
-        this.idSource = idSource;
-    }
+	public void setIdSource(Integer idSource)
+	{
+		this.idSource = idSource;
+	}
 
-    @Property(name = "title")
-    public String getTitle()
-    {
-        return this.title;
-    }
+	@Property(name = "title")
+	public String getTitle()
+	{
+		return this.title;
+	}
 
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
 
-    @Property(name = "bioData")
-    public String getBioData()
-    {
-        return this.bioData;
-    }
+	@Property(name = "bioData")
+	public String getBioData()
+	{
+		return this.bioData;
+	}
 
-    public void setBioData(String bioData)
-    {
-        this.bioData = bioData;
-    }
+	public void setBioData(String bioData)
+	{
+		this.bioData = bioData;
+	}
 
-    @Property(name = "isDeleted")
-    public Short getIsDeleted()
-    {
-        return this.isDeleted;
-    }
+	@Property(name = "isDeleted")
+	public Short getIsDeleted()
+	{
+		return this.isDeleted;
+	}
 
-    public void setIsDeleted(Short isDeleted)
-    {
-        this.isDeleted = isDeleted;
-    }
+	public void setIsDeleted(Short isDeleted)
+	{
+		this.isDeleted = isDeleted;
+	}
 
-    @Property(name = "createdBy")
-    public Integer getCreatedBy()
-    {
-        return this.createdBy;
-    }
+	@Property(name = "createdBy")
+	public Integer getCreatedBy()
+	{
+		return this.createdBy;
+	}
 
-    public void setCreatedBy(Integer createdBy)
-    {
-        this.createdBy = createdBy;
-    }
+	public void setCreatedBy(Integer createdBy)
+	{
+		this.createdBy = createdBy;
+	}
 
-    @Property(name = "createdOn")
-    public Timestamp getCreatedOn()
-    {
-        return this.createdOn;
-    }
+	@Property(name = "createdOn")
+	public Timestamp getCreatedOn()
+	{
+		return this.createdOn;
+	}
 
-    public void setCreatedOn(Timestamp createdOn)
-    {
-        this.createdOn = createdOn;
-    }
+	public void setCreatedOn(Timestamp createdOn)
+	{
+		this.createdOn = createdOn;
+	}
 
-    @Property(name = "updatedBy")
-    public Integer getUpdatedBy()
-    {
-        return this.updatedBy;
-    }
+	@Property(name = "updatedBy")
+	public Integer getUpdatedBy()
+	{
+		return this.updatedBy;
+	}
 
-    public void setUpdatedBy(Integer updatedBy)
-    {
-        this.updatedBy = updatedBy;
-    }
+	public void setUpdatedBy(Integer updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
 
-    @Property(name = "updatedOn")
-    public Timestamp getUpdatedOn()
-    {
-        return this.updatedOn;
-    }
+	@Property(name = "updatedOn")
+	public Timestamp getUpdatedOn()
+	{
+		return this.updatedOn;
+	}
 
-    public void setUpdatedOn(Timestamp updatedOn)
-    {
-        this.updatedOn = updatedOn;
-    }
+	public void setUpdatedOn(Timestamp updatedOn)
+	{
+		this.updatedOn = updatedOn;
+	}
 
-    @Property(name = "idUserState")
-    public Integer getIdUserState()
-    {
-        return idUserState;
-    }
+	@Property(name = "idUserState")
+	public Integer getIdUserState()
+	{
+		return idUserState;
+	}
 
-    public void setIdUserState(Integer idUserState)
-    {
-        this.idUserState = idUserState;
-    }
+	public void setIdUserState(Integer idUserState)
+	{
+		this.idUserState = idUserState;
+	}
 
-    @Property(name = "lastUpdatedOn")
-    public Timestamp getLastUpdatedOn()
-    {
-        return lastUpdatedOn;
-    }
+	@Property(name = "lastUpdatedOn")
+	public Timestamp getLastUpdatedOn()
+	{
+		return lastUpdatedOn;
+	}
 
-    public void setLastUpdatedOn(Timestamp lastUpdatedOn)
-    {
-        this.lastUpdatedOn = lastUpdatedOn;
-    }
+	public void setLastUpdatedOn(Timestamp lastUpdatedOn)
+	{
+		this.lastUpdatedOn = lastUpdatedOn;
+	}
 }

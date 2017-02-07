@@ -129,8 +129,6 @@ public class UserManager
 
     public User createUser(Integer idUser, User user)
     {
-        CMSLogger.info(logger, "Calling UserManager's:" + "createUser" + "(" + user + ")");
-        CMSLogger.debug(logger, "Check the UserTitle for duplicate entry");
         Integer random = (int) (Math.random() * 17 + 1);
         ImageColorCode imageColorCode = imageColorCodeRepository.findOne(random.longValue());
         Timestamp ts = dateStringUtil.getCurrentTimestamp();

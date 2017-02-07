@@ -119,7 +119,6 @@ public class UserService
         UserDto cDto = personTranslator.translateUserToDto(createdUser);
         UserDto dto = userManager.getUserMasterDto(cDto);
         dto.setImageColorCode(imageColorCodeRepository.getImageColorCode(dto.getIdImageColorCode()));
-        CMSLogger.info(logger, "Translted UserDto is : " + dto.getUserName());
         return dto;
     }
 

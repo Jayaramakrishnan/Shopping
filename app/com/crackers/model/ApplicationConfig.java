@@ -6,15 +6,11 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-/**
- * ApplicationConfig entity. @author MyEclipse Persistence Tools
- */
 @NodeEntity(label = "ApplicationConfig")
 public class ApplicationConfig implements java.io.Serializable
 {
 
     private static final long serialVersionUID = 1L;
-    // Fields
     private Integer           idApplicationConfig;
     private String            configKey;
     private String            configValue;

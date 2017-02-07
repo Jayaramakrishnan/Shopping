@@ -18,10 +18,6 @@ public class UserDetailsVO
     private String                 source;
     private Integer                idUserState;
     private String                 state;
-    private Integer                firstNameSource;
-    private Integer                lastNameSource;
-    private Integer                bioDataSource;
-    private String                 smaAccountName;
     private String                 uniqueId;
     private Long                   count;
     private Integer                imageIsAvailable;
@@ -156,46 +152,6 @@ public class UserDetailsVO
     public void setState(String state)
     {
         this.state = state;
-    }
-
-    public Integer getFirstNameSource()
-    {
-        return firstNameSource;
-    }
-
-    public void setFirstNameSource(Integer firstNameSource)
-    {
-        this.firstNameSource = firstNameSource;
-    }
-
-    public Integer getLastNameSource()
-    {
-        return lastNameSource;
-    }
-
-    public void setLastNameSource(Integer lastNameSource)
-    {
-        this.lastNameSource = lastNameSource;
-    }
-
-    public Integer getBioDataSource()
-    {
-        return bioDataSource;
-    }
-
-    public void setBioDataSource(Integer bioDataSource)
-    {
-        this.bioDataSource = bioDataSource;
-    }
-
-    public String getSmaAccountName()
-    {
-        return smaAccountName;
-    }
-
-    public void setSmaAccountName(String smaAccountName)
-    {
-        this.smaAccountName = smaAccountName;
     }
 
     public String getUniqueId()

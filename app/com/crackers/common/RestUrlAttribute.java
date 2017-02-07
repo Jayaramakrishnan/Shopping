@@ -6,9 +6,6 @@ public class RestUrlAttribute
     public static String        REST_BASE_URL              = "";
     public static final String  AUTHENTICATE               = "authenticate.url";
     public static final String  USER_INFO                  = "userinfo.url";
-    public static final String  IS_PROXY                   = "is.proxy";
-    public static final String  PROXY_USER                 = "proxy.user";
-    public static final String  PROXY_PASSWORD             = "proxy.password";
     public static final String  AUTHORIZATION              = "Authorization";
     public static final String  FORMS_AUTHENTICATION       = "FORM";
     // REST Timeout

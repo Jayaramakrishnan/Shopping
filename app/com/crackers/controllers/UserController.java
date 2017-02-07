@@ -20,10 +20,6 @@ import org.apache.log4j.Logger;
 import org.apache.xerces.impl.dv.util.Base64;
 import org.springframework.stereotype.Component;
 
-import play.libs.Json;
-import play.mvc.BodyParser;
-import play.mvc.Result;
-
 import com.crackers.common.BeanUtil;
 import com.crackers.common.CMSLogger;
 import com.crackers.common.CommonConstants;
@@ -35,6 +31,7 @@ import com.crackers.dto.PasswordDto;
 import com.crackers.dto.UserDto;
 import com.crackers.dto.UserInfo;
 import com.crackers.es.observers.UserSettingsElasticSearchIndexObserver;
+import com.crackers.exceptions.RegistrationException;
 import com.crackers.model.EmailTemplate;
 import com.crackers.model.Password;
 import com.crackers.model.User;
@@ -46,6 +43,10 @@ import com.crackers.services.UserService;
 import com.crackers.util.CacheManager;
 import com.crackers.util.CryptoBinderUtil;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import play.libs.Json;
+import play.mvc.BodyParser;
+import play.mvc.Result;
 
 @Component
 public class UserController extends BaseController
@@ -284,7 +285,7 @@ public class UserController extends BaseController
                     baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
                 }
                 CMSLogger.info(logger, "baseUrl.substring(0, baseUrl.length());" + baseUrl);
-                String createPasswordUrl = baseUrl;// + com.crackers.controllers.web.routes.PasswordController.forgotPassword(password.getIdPassword(), encryptText, 0).url();
+                String createPasswordUrl = baseUrl + com.crackers.controllers.web.routes.PasswordController.forgotPassword(password.getIdPassword(), encryptText, 0).url();
                 CMSLogger.info(logger, "createPasswordUrl" + createPasswordUrl);
                 URLEncoder.encode(createPasswordUrl, "UTF-8");
                 Map<String, String> map = new HashMap<>();
@@ -444,5 +445,44 @@ public class UserController extends BaseController
             return internalServerError();
         }
         return ok(Json.toJson(userDto));
+    }
+    
+    public Result getUserInfo(String uniqueId) throws Exception
+    {
+        CMSLogger.info(logger, "Calling UserController getUserInfo method");
+        /*
+         * Retrieving the user id from the cache if user id doesn't exist then the given token is invalid and its doesn't have access to this user.
+         */
+        Integer idUser = CacheManager.getIdUserFromCache(uniqueId);
+        UserDto info = null;
+        /*
+         * Verifying the idUser is not null or valid logged in user
+         */
+        try
+        {
+            if (idUser != null)
+            {
+                info = userService.getUserList(idUser);
+                if (info == null)
+                {
+                    return noContent();
+                }
+            }
+            else
+            {
+                return unauthorized("userid is empty / token not valid");
+            }
+        }
+        catch (RegistrationException registrationException)
+        {
+            CMSLogger.error(logger, "Error while getting User Info", registrationException);
+            return unauthorized("User Object is null");
+        }
+        catch (Exception e)
+        {
+            CMSLogger.error(logger, "Error while getting User Info", e);
+            return internalServerError();
+        }
+        return ok(Json.toJson(info));
     }
 }

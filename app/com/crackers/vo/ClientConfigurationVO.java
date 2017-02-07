@@ -3,12 +3,8 @@ package com.crackers.vo;
 public class ClientConfigurationVO
 {
 
-    private String  client;
     private String  version;
     private String  restBaseUrl;
-    private String  websocketUrl;
-    private String  rte;
-    private String  isWebsocketEnabled;
     private String  sessionTimeout;
     private String  year;
     private String  applicationNameInLogin;
@@ -17,20 +13,8 @@ public class ClientConfigurationVO
     private String  applicationTitleName;
     private String  dateFormat;
     private Integer autoSaveTimeout;
-    private String  isTimeRequired;
-    private Integer onlyWords;
     private String  isTLSOn;
     private Integer isSendEmailOn;
-
-    public String getClient()
-    {
-        return client;
-    }
-
-    public void setClient(String client)
-    {
-        this.client = client;
-    }
 
     public String getVersion()
     {
@@ -50,36 +34,6 @@ public class ClientConfigurationVO
     public void setRestBaseUrl(String restBaseUrl)
     {
         this.restBaseUrl = restBaseUrl;
-    }
-
-    public String getWebsocketUrl()
-    {
-        return websocketUrl;
-    }
-
-    public void setWebsocketUrl(String websocketUrl)
-    {
-        this.websocketUrl = websocketUrl;
-    }
-
-    public String getRte()
-    {
-        return rte;
-    }
-
-    public void setRte(String rte)
-    {
-        this.rte = rte;
-    }
-
-    public String getIsWebsocketEnabled()
-    {
-        return isWebsocketEnabled;
-    }
-
-    public void setIsWebsocketEnabled(String isWebsocketEnabled)
-    {
-        this.isWebsocketEnabled = isWebsocketEnabled;
     }
 
     public String getSessionTimeout()
@@ -160,26 +114,6 @@ public class ClientConfigurationVO
     public void setAutoSaveTimeout(Integer autoSaveTimeout)
     {
         this.autoSaveTimeout = autoSaveTimeout;
-    }
-
-    public String getIsTimeRequired()
-    {
-        return isTimeRequired;
-    }
-
-    public void setIsTimeRequired(String isTimeRequired)
-    {
-        this.isTimeRequired = isTimeRequired;
-    }
-
-    public Integer getOnlyWords()
-    {
-        return onlyWords;
-    }
-
-    public void setOnlyWords(Integer onlyWords)
-    {
-        this.onlyWords = onlyWords;
     }
 
     public String getIsTLSOn()

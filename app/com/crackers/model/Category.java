@@ -6,15 +6,11 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-/**
- * Category entity. @author MyEclipse Persistence Tools
- */
 @NodeEntity(label = "Category")
 public class Category implements java.io.Serializable
 {
 
     private static final long serialVersionUID = 1L;
-    // Fields
     private Integer           idCategory;
     private String            categoryName;
     private Short             isDeleted;

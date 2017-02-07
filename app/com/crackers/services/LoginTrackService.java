@@ -44,25 +44,23 @@ public class LoginTrackService
 
     public void loginTrackLogout(String uniqueId, boolean isForSession)
     {
-        CMSLogger.info(logger, "Inside LoginTrackService: loginTrackLogout " + uniqueId);
+        CMSLogger.info(logger, "Inside LoginTrackService: loginTrackLogout " + uniqueId + isForSession);
         if (uniqueId == null || uniqueId.equals(RestUrlAttribute.EMPTY_QUOTES))
         {
-            CMSLogger.info(logger, "Am Null and not going to Clear Session when logging out ");
+            CMSLogger.info(logger, "UniqueId is Null and cannot Clear Session");
         }
-        LoginTrack loginTrackNew = loginTrackRepository.getLoginTrack(uniqueId);
-        CMSLogger.info(logger, "loginTrackNew" + loginTrackNew);
-        if (loginTrackNew != null)
+        LoginTrack loginTrack = loginTrackRepository.getLoginTrack(uniqueId);
+        if (loginTrack != null)
         {
             Date date = new Date();
             long time = date.getTime();
             Timestamp ts = new Timestamp(time);
-            loginTrackNew.setLoggedOut(ts);
+            loginTrack.setLoggedOut(ts);
             if (isForSession)
             {
-                loginTrackNew.setIsSessionExpired((short) 1);
+                loginTrack.setIsSessionExpired((short) 1);
             }
-            CMSLogger.info(logger, "going to track");
-            loginTrackManager.loginTrack(loginTrackNew);
+            loginTrackManager.loginTrack(loginTrack);
         }
     }
 }

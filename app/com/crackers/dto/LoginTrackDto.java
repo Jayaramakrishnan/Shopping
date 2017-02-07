@@ -2,13 +2,10 @@ package com.crackers.dto;
 
 import java.sql.Timestamp;
 
-import com.crackers.model.User;
-
 public class LoginTrackDto
 {
 
     private Integer   idLoginTrack;
-    private User      user;
     private String    userDevice;
     private String    userAgent;
     private String    email;
@@ -89,16 +86,6 @@ public class LoginTrackDto
     public void setIdLoginTrack(Integer idLoginTrack)
     {
         this.idLoginTrack = idLoginTrack;
-    }
-
-    public User getUser()
-    {
-        return user;
-    }
-
-    public void setUser(User user)
-    {
-        this.user = user;
     }
 
     public String getUserDevice()

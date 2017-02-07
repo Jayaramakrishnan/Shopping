@@ -3,18 +3,11 @@ package com.crackers.dto;
 public class ContactDetailsDto
 {
 
-    // Fields
     private Integer idContactDetails;
-    private UserDto userDto;
-    private Integer streetSource;
     private String  street;
-    private Integer citySource;
     private String  city;
-    private Integer stateSource;
     private String  state;
-    private Integer pincodeSource;
     private String  pincode;
-    private Integer websiteSource;
     private String  website;
     private Short   isDeleted;
 
@@ -26,16 +19,6 @@ public class ContactDetailsDto
     public void setIdContactDetails(Integer idContactDetails)
     {
         this.idContactDetails = idContactDetails;
-    }
-
-    public UserDto getUserDto()
-    {
-        return userDto;
-    }
-
-    public void setUserDto(UserDto userDto)
-    {
-        this.userDto = userDto;
     }
 
     public String getStreet()
@@ -96,55 +79,5 @@ public class ContactDetailsDto
     public void setIsDeleted(Short isDeleted)
     {
         this.isDeleted = isDeleted;
-    }
-
-    public Integer getStreetSource()
-    {
-        return streetSource;
-    }
-
-    public void setStreetSource(Integer streetSource)
-    {
-        this.streetSource = streetSource;
-    }
-
-    public Integer getCitySource()
-    {
-        return citySource;
-    }
-
-    public void setCitySource(Integer citySource)
-    {
-        this.citySource = citySource;
-    }
-
-    public Integer getStateSource()
-    {
-        return stateSource;
-    }
-
-    public void setStateSource(Integer stateSource)
-    {
-        this.stateSource = stateSource;
-    }
-
-    public Integer getPincodeSource()
-    {
-        return pincodeSource;
-    }
-
-    public void setPincodeSource(Integer pincodeSource)
-    {
-        this.pincodeSource = pincodeSource;
-    }
-
-    public Integer getWebsiteSource()
-    {
-        return websiteSource;
-    }
-
-    public void setWebsiteSource(Integer websiteSource)
-    {
-        this.websiteSource = websiteSource;
     }
 }

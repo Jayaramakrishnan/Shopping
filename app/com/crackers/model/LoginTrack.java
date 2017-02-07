@@ -2,15 +2,12 @@ package com.crackers.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
 /**
- * LoginTrack entity. @author MyEclipse Persistence Tools
+ * LoginTrack entity. 
  */
 @NodeEntity(label = "LoginTrack")
 public class LoginTrack implements java.io.Serializable
@@ -18,7 +15,6 @@ public class LoginTrack implements java.io.Serializable
 
     private static final long serialVersionUID = 1L;
     private Integer           idLoginTrack;
-    private Integer           idUser;
     private String            email;
     private String            userDevice;
     private String            userAgent;
@@ -41,18 +37,6 @@ public class LoginTrack implements java.io.Serializable
     public void setIdLoginTrack(Integer idLoginTrack)
     {
         this.idLoginTrack = idLoginTrack;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "idUser")
-    public Integer getIdUser()
-    {
-        return this.idUser;
-    }
-
-    public void setIdUser(Integer idUser)
-    {
-        this.idUser = idUser;
     }
 
     @Property(name = "userDevice")

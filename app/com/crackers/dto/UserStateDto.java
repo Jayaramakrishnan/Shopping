@@ -2,13 +2,9 @@ package com.crackers.dto;
 
 import java.sql.Timestamp;
 
-/**
- * UserSource entity. @author MyEclipse Persistence Tools
- */
 public class UserStateDto
 {
 
-    // Fields
     private Integer   idUserState;
     private String    state;
     private Integer   createdBy;

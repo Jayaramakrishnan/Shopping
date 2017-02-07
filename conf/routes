@@ -18,6 +18,7 @@ GET       /assets/*file               									   controllers.Assets.at(path="/p
 
 #SignIn
 GET      /Authenticate                                                    @com.crackers.controllers.AuthenticationController.authenticate
+GET      /userInfo                                                        @com.crackers.controllers.UserController.getUserInfo(uniqueId: String)
 
 #SignUp
 POST     /CreateUser                                                      @com.crackers.controllers.web.UserSettingWebController.createUser
@@ -53,3 +54,21 @@ POST     /createResetPasswordWeb                                          @com.c
 GET      /forgotPassword                                                  @com.crackers.controllers.web.PasswordController.showForgotPassword()
 
 POST     /validateEmailForForgotPassword                                  @com.crackers.controllers.web.PasswordController.validateEmailForForgotPassword()
+
+#Dashboard Listing
+# master category
+# single category -> sub categories
+
+
+
+
+
+
+
+
+
+
+
+
+
+

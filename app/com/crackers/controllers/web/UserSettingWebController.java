@@ -1,7 +1,3 @@
-/**
- * @author rajagja
- * @date Nov 1, 2016
- */
 package com.crackers.controllers.web;
 
 import java.util.ArrayList;
@@ -89,7 +85,6 @@ public class UserSettingWebController extends BaseController
                         PhoneNumberDto dto = new PhoneNumberDto();
                         if (phoneVoNode != null)
                         {
-                            CMSLogger.info(logger, "idPhoneNumber in WebController of UserSettingsWebController" + phoneVoNode.getIdPhoneNumber());
                             BeanUtil.copyBeanProperties(phoneVoNode, dto, new ArrayList<>());
                             PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
                             phoneTypeDto.setIdPhoneType(phoneVoNode.getIdPhoneType());
@@ -109,7 +104,6 @@ public class UserSettingWebController extends BaseController
                         EmailDto dto = new EmailDto();
                         if (emailVoNode != null)
                         {
-                            CMSLogger.info(logger, "idEmail in WebController of UserSettingsWebController" + emailVoNode.getIdEmail());
                             BeanUtil.copyBeanProperties(emailVoNode, dto, new ArrayList<>());
                         }
                         emailFinal.add(dto);
@@ -130,14 +124,12 @@ public class UserSettingWebController extends BaseController
                         ContactDetailsDto dto = new ContactDetailsDto();
                         if (contactDetailVoNode != null)
                         {
-                            CMSLogger.info(logger, "Street in WebController of UserSettingsWebController" + contactDetailVoNode.getStreet());
                             BeanUtil.copyBeanProperties(contactDetailVoNode, dto, new ArrayList<>());
                         }
                         contactDetailFinal.add(dto);
                     }
                     userDto.setContactDetailsDtos(contactDetailFinal);
                 }
-                CMSLogger.info(logger, "Vo and then Dto");
                 Object object = userDto;
                 WSRequestHolder requestHolder = RestHelper.checkProxyAndSetHeader(serviceUrl);
                 requestHolder.setQueryParameter(CommonConstants.UNIQUE_ID, session().get(CommonConstants.UNIQUE_ID));

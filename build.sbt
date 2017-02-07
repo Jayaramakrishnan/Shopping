@@ -39,5 +39,6 @@ libraryDependencies ++= Seq(
   "commons-lang" % "commons-lang" % "2.6",
   "net.sf.jt400" % "jt400" % "6.7",
   "org.elasticsearch" % "elasticsearch" % "1.7.3",
-  "com.google.code.gson" % "gson" % "2.3.1"
+  "com.google.code.gson" % "gson" % "2.3.1",
+  "org.projectlombok" % "lombok" % "1.16.12"
 )

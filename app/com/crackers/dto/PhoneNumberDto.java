@@ -4,7 +4,6 @@ public class PhoneNumberDto
 {
 
     private Integer      idPhoneNumber;
-    private UserDto      userDto;
     private String       phoneNumber;
     private PhoneTypeDto phoneTypeDto;
     private Short        isDeleted;
@@ -18,16 +17,6 @@ public class PhoneNumberDto
     public void setIdPhoneNumber(Integer idPhoneNumber)
     {
         this.idPhoneNumber = idPhoneNumber;
-    }
-
-    public UserDto getUserDto()
-    {
-        return userDto;
-    }
-
-    public void setUserDto(UserDto userDto)
-    {
-        this.userDto = userDto;
     }
 
     public String getPhoneNumber()
