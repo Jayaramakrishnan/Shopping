@@ -8,14 +8,11 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@NodeEntity(label = "SoundCrackers")
-public class SoundCrackers extends BaseCategory
+@NodeEntity(label = "Chakkars")
+public class Chakkars extends BaseCategory
 {
 
 	private static final long	serialVersionUID	= 1L;
-	@Property(name = "productType")
-	private String				productType;
-	// Big or Small
-	@Property(name = "walaSize")
-	private String				walaSize; 
+	@Property(name = "chakkarSize")
+	private String				chakkarSize;
 }

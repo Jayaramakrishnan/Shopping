@@ -27,6 +27,8 @@ public class BaseCategory implements Serializable
 	private String				productMeasurements;
 	@Property(name = "productDescription")
 	private String				productDescription;
+	@Property(name = "isFancy")
+	private String				isFancy;
 	@Relationship(type = "HAS_MULTIPLE_BRANDS", direction = Relationship.OUTGOING)
 	private List<ProductBrand>	productBrand		= Lists.newArrayList();
 }
