@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.common.CMSLogger;
 import com.crackers.common.CommonConstants;
+import com.crackers.common.CrackersLogger;
 import com.crackers.common.RestHelper;
 import com.crackers.common.RestUrlAttribute;
 import com.crackers.dto.UserDto;
@@ -16,7 +16,6 @@ import com.crackers.exceptions.AccessDeninedException;
 import com.crackers.interceptors.SessionHandler;
 import com.crackers.model.Role;
 import com.crackers.repositories.ApplicationConfigRepository;
-import com.crackers.repositories.UserRoleRepository;
 import com.crackers.services.LoginTrackService;
 import com.crackers.util.CacheManager;
 import com.crackers.vo.ClientConfigurationVO;
@@ -42,8 +41,6 @@ public class LoginController extends BaseController
 
     private static Logger               logger = Logger.getLogger(LoginController.class);
     @Resource
-    private UserRoleRepository          userRoleRepository;
-    @Resource
     private LoginTrackService           loginTrackService;
     @Resource
     private ApplicationConfigRepository applicationConfigRepository;
@@ -54,10 +51,10 @@ public class LoginController extends BaseController
         {
             if (request().getQueryString("url") != null && !request().getQueryString("url").equalsIgnoreCase(RestUrlAttribute.EMPTY_QUOTES))
             {
-                CMSLogger.info(logger, "Setting the redirect Url from Query string '" + request().getQueryString("url") + "'");
+                CrackersLogger.info(logger, "Setting the redirect Url from Query string '" + request().getQueryString("url") + "'");
                 session().put(CommonConstants.REDIRECT_URL, request().getQueryString("url"));
             }
-            CMSLogger.info(logger, "Session already exists for user: " + session().get(session().get(CommonConstants.UNIQUE_ID)));
+            CrackersLogger.info(logger, "Session already exists for user: " + session().get(session().get(CommonConstants.UNIQUE_ID)));
             return redirect("/DashBoard");
         }
         session().clear();
@@ -78,7 +75,7 @@ public class LoginController extends BaseController
             return ok();
         }
         loginTrackService.loginTrackLogout(request().getHeader("uniqueId"), true);
-        CMSLogger.info(logger, "User session has been expired. " + session());
+        CrackersLogger.info(logger, "User session has been expired. " + session());
         session().clear();
         // return ok(sessioncheck.render("Your session has been expired."));
         return ok();
@@ -89,7 +86,7 @@ public class LoginController extends BaseController
         String redirectUrl = RestUrlAttribute.EMPTY_QUOTES;
         try
         {
-            CMSLogger.info(logger, "Inside Login");
+            CrackersLogger.info(logger, "Inside Login");
             DynamicForm requestData = Form.form().bindFromRequest();
             redirectUrl = requestData.get("url");
             /**
@@ -100,7 +97,7 @@ public class LoginController extends BaseController
                 loadClientConfiguration();
             }
             String url = RestUrlAttribute.REST_BASE_URL + Play.application().configuration().getString(RestUrlAttribute.AUTHENTICATE);
-            CMSLogger.info(logger, "Invoking the url: " + url);
+            CrackersLogger.info(logger, "Invoking the url: " + url);
             WSRequestHolder requestHolder = RestHelper.checkProxyAndSetHeader(url);
             requestHolder.setHeader("username", requestData.get("username")).setHeader("password", requestData.get("password"));
             ReadableUserAgent agent = null;
@@ -144,10 +141,10 @@ public class LoginController extends BaseController
             long currentT = new Date().getTime();
             String previousT = String.valueOf(currentT);
             session("usertime", previousT);
-            CMSLogger.info(logger, "id :" + id);
+            CrackersLogger.info(logger, "id :" + id);
             session().put(CommonConstants.UNIQUE_ID, id);
             url = RestUrlAttribute.REST_BASE_URL + Play.application().configuration().getString(RestUrlAttribute.USER_INFO);
-            CMSLogger.info(logger, "Invoking the url: " + url);
+            CrackersLogger.info(logger, "Invoking the url: " + url);
             requestHolder = RestHelper.checkProxyAndSetHeader(url);
             requestHolder.setQueryParameter(CommonConstants.UNIQUE_ID, session().get(CommonConstants.UNIQUE_ID));
             Promise<JsonNode> userInfo = requestHolder.get().map(new Function<WSResponse, JsonNode>() {
@@ -160,29 +157,29 @@ public class LoginController extends BaseController
                     }
                     else
                     {
-                        CMSLogger.info(logger, "");
+                        CrackersLogger.info(logger, "");
                         return Json.parse("UNAUTHORIZED");
                     }
                 }
             });
             JsonNode userInfoNode = userInfo.get(RestUrlAttribute.REST_WAIT_TIME);
-            CMSLogger.info(logger, "User information has been retrieved");
+            CrackersLogger.info(logger, "User information has been retrieved");
             if (userInfoNode.isObject())
             {
                 UserDto successDto = Json.fromJson(userInfoNode, UserDto.class);
-                CMSLogger.info(logger, "User id is " + successDto.getIdUser());
+                CrackersLogger.info(logger, "User id is " + successDto.getIdUser());
                 session().put(session().get(CommonConstants.UNIQUE_ID), successDto.getIdUser());
                 session().put(CommonConstants.USER_NAME, successDto.getUserName());
                 Role userRole = CacheManager.getUserRoleFromCache(id);
-                session().put(CommonConstants.USER_ROLE_ID, userRole.getIdRole().toString());
+                session().put(CommonConstants.USER_ROLE_ID, userRole.getId().toString());
                 Cache.set(session().get(CommonConstants.UNIQUE_ID), successDto);
             }
-            CMSLogger.info(logger, "User is valid, session has been created");
+            CrackersLogger.info(logger, "User is valid, session has been created");
         }
         catch (Exception exception)
         {
             session().clear();
-            CMSLogger.error(logger, "Error while validating the user", exception);
+            CrackersLogger.error(logger, "Error while validating the user", exception);
             if (request().getHeader(CommonConstants.USER_AGENT_STRING) != null)
             {
                 UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
@@ -209,13 +206,13 @@ public class LoginController extends BaseController
 
     public Result logout()
     {
-        CMSLogger.info(logger, "User with session is logging out " + session());
+        CrackersLogger.info(logger, "User with session is logging out " + session());
         if (!(session().isEmpty()))
         {
             loginTrackService.loginTrackLogout(session().get(CommonConstants.UNIQUE_ID), false);
             CacheManager.removeAllFromCache(session().get(CommonConstants.UNIQUE_ID));
             session().clear();
-            CMSLogger.info(logger, "User with session cleared successfully " + session());
+            CrackersLogger.info(logger, "User with session cleared successfully " + session());
         }
         return redirect("/");
     }
@@ -234,43 +231,43 @@ public class LoginController extends BaseController
         {
             if (applicationConfigRepository.getConfigValueByKey("read_from_conf").equalsIgnoreCase("0"))
             {
-                CMSLogger.info(logger, "Loading configuration from database");
+                CrackersLogger.info(logger, "Loading configuration from database");
                 Dashboard.clientConfigurationSettings.setVersion(applicationConfigRepository.getConfigValueByKey(keys[0]));
                 Dashboard.clientConfigurationSettings.setRestBaseUrl(applicationConfigRepository.getConfigValueByKey(keys[1]));
-                RestUrlAttribute.REST_BASE_URL = applicationConfigRepository.getConfigValueByKey(keys[2]);
-                Dashboard.clientConfigurationSettings.setSessionTimeout(applicationConfigRepository.getConfigValueByKey(keys[3]));
-                Dashboard.clientConfigurationSettings.setYear(applicationConfigRepository.getConfigValueByKey(keys[4]));
-                Dashboard.clientConfigurationSettings.setApplicationNameInheader(applicationConfigRepository.getConfigValueByKey(keys[5]));
-                Dashboard.clientConfigurationSettings.setApplicationNameInLogin(applicationConfigRepository.getConfigValueByKey(keys[6]));
-                Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(applicationConfigRepository.getConfigValueByKey(keys[7])));
-                Dashboard.clientConfigurationSettings.setApplicationTitleName(applicationConfigRepository.getConfigValueByKey(keys[8]));
-                CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[9]);
+                RestUrlAttribute.REST_BASE_URL = applicationConfigRepository.getConfigValueByKey(keys[1]);
+                Dashboard.clientConfigurationSettings.setSessionTimeout(applicationConfigRepository.getConfigValueByKey(keys[2]));
+                Dashboard.clientConfigurationSettings.setYear(applicationConfigRepository.getConfigValueByKey(keys[3]));
+                Dashboard.clientConfigurationSettings.setApplicationNameInheader(applicationConfigRepository.getConfigValueByKey(keys[4]));
+                Dashboard.clientConfigurationSettings.setApplicationNameInLogin(applicationConfigRepository.getConfigValueByKey(keys[5]));
+                Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(applicationConfigRepository.getConfigValueByKey(keys[6])));
+                Dashboard.clientConfigurationSettings.setApplicationTitleName(applicationConfigRepository.getConfigValueByKey(keys[7]));
+                CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[8]);
                 Dashboard.clientConfigurationSettings.setDateFormat(CommonConstants.DATE_FORMAT);
-                Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[10])));
-                Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[11]));
-                Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[12])));
+                Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[9])));
+                Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[10]));
+                Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[11])));
                 return ok("Client configuration Updated Successfully");
             }
         }
         catch (Exception exception)
         {
-            CMSLogger.error(logger, "error loading the configuration", exception);
+            CrackersLogger.error(logger, "error loading the configuration", exception);
         }
-        CMSLogger.info(logger, "Loading configuration from conf file");
+        CrackersLogger.info(logger, "Loading configuration from conf file");
         Dashboard.clientConfigurationSettings.setVersion(Play.application().configuration().getString(keys[0]));
         Dashboard.clientConfigurationSettings.setRestBaseUrl(Play.application().configuration().getString(keys[1]));
-        RestUrlAttribute.REST_BASE_URL = Play.application().configuration().getString(keys[2]);
-        Dashboard.clientConfigurationSettings.setSessionTimeout(Play.application().configuration().getString(keys[3]));
-        Dashboard.clientConfigurationSettings.setYear(Play.application().configuration().getString(keys[4]));
-        Dashboard.clientConfigurationSettings.setApplicationNameInheader(Play.application().configuration().getString(keys[5]));
-        Dashboard.clientConfigurationSettings.setApplicationNameInLogin(Play.application().configuration().getString(keys[6]));
-        Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(Play.application().configuration().getString(keys[7])));
-        Dashboard.clientConfigurationSettings.setApplicationTitleName(Play.application().configuration().getString(keys[8]));
-        CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[9]);
+        RestUrlAttribute.REST_BASE_URL = Play.application().configuration().getString(keys[1]);
+        Dashboard.clientConfigurationSettings.setSessionTimeout(Play.application().configuration().getString(keys[2]));
+        Dashboard.clientConfigurationSettings.setYear(Play.application().configuration().getString(keys[3]));
+        Dashboard.clientConfigurationSettings.setApplicationNameInheader(Play.application().configuration().getString(keys[4]));
+        Dashboard.clientConfigurationSettings.setApplicationNameInLogin(Play.application().configuration().getString(keys[5]));
+        Dashboard.clientConfigurationSettings.setIsApplicationLogoAvailable(Short.parseShort(Play.application().configuration().getString(keys[6])));
+        Dashboard.clientConfigurationSettings.setApplicationTitleName(Play.application().configuration().getString(keys[7]));
+        CommonConstants.DATE_FORMAT = applicationConfigRepository.getConfigValueByKey(keys[8]);
         Dashboard.clientConfigurationSettings.setDateFormat(CommonConstants.DATE_FORMAT);
-        Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(Play.application().configuration().getString(keys[10])));
-        Dashboard.clientConfigurationSettings.setIsTLSOn(applicationConfigRepository.getConfigValueByKey(keys[11]));
-        Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(applicationConfigRepository.getConfigValueByKey(keys[12])));
+        Dashboard.clientConfigurationSettings.setAutoSaveTimeout(Integer.parseInt(Play.application().configuration().getString(keys[9])));
+        Dashboard.clientConfigurationSettings.setIsTLSOn(Play.application().configuration().getString(keys[10]));
+        Dashboard.clientConfigurationSettings.setIsSendEmailOn(Integer.parseInt(Play.application().configuration().getString(keys[11])));
         return ok("Client configuration Updated Successfully");
     }
 }

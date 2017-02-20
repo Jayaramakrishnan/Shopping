@@ -1,14 +1,12 @@
 package com.crackers.dto;
 
-import java.sql.Timestamp;
-
 public class UserStateDto
 {
 
     private Integer   idUserState;
     private String    state;
     private Integer   createdBy;
-    private Timestamp createdOn;
+    private Long createdOn;
 
     public Integer getCreatedBy()
     {
@@ -20,12 +18,12 @@ public class UserStateDto
         this.createdBy = createdBy;
     }
 
-    public Timestamp getCreatedOn()
+    public Long getCreatedOn()
     {
         return createdOn;
     }
 
-    public void setCreatedOn(Timestamp createdOn)
+    public void setCreatedOn(Long createdOn)
     {
         this.createdOn = createdOn;
     }

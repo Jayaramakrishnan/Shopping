@@ -3,7 +3,7 @@ package com.crackers.dto;
 public class UserInfo
 {
 
-    private Integer idUser;
+    private Long idUser;
     private String  firstName;
     private String  fullName;
     private String  lastName;
@@ -21,12 +21,12 @@ public class UserInfo
         this.fullName = fullName;
     }
 
-    public Integer getIdUser()
+    public Long getIdUser()
     {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser)
+    public void setIdUser(Long idUser)
     {
         this.idUser = idUser;
     }

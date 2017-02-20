@@ -20,13 +20,13 @@ public class ImageService
     @Resource
     private ImageTranslator imageTranslator;
 
-    public ImageDto getImageDto(Integer idUser) throws InvocationTargetException
+    public ImageDto getImageDto(Long idUser) throws InvocationTargetException
     {
         Image image = imageManager.getImage(idUser);
         return imageTranslator.translateImageToDto(image);
     }
 
-    public ImageDto getImageId(Integer idUser) throws InvocationTargetException
+    public ImageDto getImageId(Long idUser) throws InvocationTargetException
     {
         Image image = imageManager.getImage(idUser);
         return imageTranslator.translateImageToDtoById(image);

@@ -14,8 +14,8 @@ public class AutheticationService
     @Resource
     private AuthenticationManager authenticationManager;
 
-    public Object validate(UserDto userDto, String secrat) throws Exception
+    public Object validate(UserDto userDto, String password) throws Exception
     {
-        return authenticationManager.validate(userDto, secrat);
+        return authenticationManager.validate(userDto, password);
     }
 }

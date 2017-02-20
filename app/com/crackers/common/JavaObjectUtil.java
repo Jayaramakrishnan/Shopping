@@ -21,14 +21,14 @@ public class JavaObjectUtil
         {
             if (printToLog)
             {
-                CMSLogger.info(logger, "-------------------------START----------------------------------");
-                CMSLogger.info(logger, convertObjectToJson(object));
-                CMSLogger.info(logger, "--------------------------END-----------------------------------");
+                CrackersLogger.info(logger, "-------------------------START----------------------------------");
+                CrackersLogger.info(logger, convertObjectToJson(object));
+                CrackersLogger.info(logger, "--------------------------END-----------------------------------");
             }
         }
         catch (Exception exception)
         {
-            CMSLogger.error(logger, "Exception", exception);
+            CrackersLogger.error(logger, "Exception", exception);
         }
     }
 
@@ -43,15 +43,15 @@ public class JavaObjectUtil
             }
             catch (JsonGenerationException jsonGenerationException)
             {
-                CMSLogger.error(logger, "JsonGenerationException occured while print object", jsonGenerationException);
+                CrackersLogger.error(logger, "JsonGenerationException occured while print object", jsonGenerationException);
             }
             catch (JsonMappingException jsonMappingException)
             {
-                CMSLogger.error(logger, "JsonMappingException occured while print object", jsonMappingException);
+                CrackersLogger.error(logger, "JsonMappingException occured while print object", jsonMappingException);
             }
             catch (IOException ioException)
             {
-                CMSLogger.error(logger, "IOException occured while print object", ioException);
+                CrackersLogger.error(logger, "IOException occured while print object", ioException);
             }
         }
         return object.toString();

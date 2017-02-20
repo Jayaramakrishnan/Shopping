@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.UserDto;
 import com.crackers.exceptions.UnparseableDateTimeStringException;
 import com.crackers.manager.db.UserManager;
@@ -24,11 +24,11 @@ public class UserImageHandler extends Handler
     private UserManager   userManager;
 
     @Override
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Long idUser, UserDto userDto, Long idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
         if (changedList.equalsIgnoreCase(image) && userDto.getImageDto() != null)
         {
-            CMSLogger.info(logger, "Inside IMAGE");
+            CrackersLogger.info(logger, "Inside IMAGE");
             return userManager.updateUserImageDetails(CryptoBinderUtil.getDecryptId(userDto.getIdUser()), userDto.getImageDto(), idCurrentUser);
         }
         return super.handleRequest(idUser, userDto, idCurrentUser, changedList);

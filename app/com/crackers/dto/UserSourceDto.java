@@ -1,14 +1,12 @@
 package com.crackers.dto;
 
-import java.sql.Timestamp;
-
 public class UserSourceDto
 {
 
     private Integer   idSource;
     private String    source;
     private Integer   createdBy;
-    private Timestamp createdOn;
+    private Long createdOn;
 
     public Integer getIdSource()
     {
@@ -40,12 +38,12 @@ public class UserSourceDto
         this.createdBy = createdBy;
     }
 
-    public Timestamp getCreatedOn()
+    public Long getCreatedOn()
     {
         return createdOn;
     }
 
-    public void setCreatedOn(Timestamp createdOn)
+    public void setCreatedOn(Long createdOn)
     {
         this.createdOn = createdOn;
     }

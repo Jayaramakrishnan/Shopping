@@ -7,10 +7,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import play.cache.Cache;
-
 import com.crackers.model.Role;
 import com.crackers.model.User;
+
+import play.cache.Cache;
 
 @Component
 public class CacheManager
@@ -23,15 +23,15 @@ public class CacheManager
     public static final String FUNCTION_ACCESS = "FUNCTION_ACCESS_";
 
     // Set, get remove and refresh id user in cache
-    public static void setIdUserToCache(String uniqueId, Integer idUser)
+    public static void setIdUserToCache(String uniqueId, Long idUser)
     {
         Cache.set(ID_USER + uniqueId, idUser);
     }
 
-    public static Integer getIdUserFromCache(String uniqueId)
+    public static Long getIdUserFromCache(String uniqueId)
     {
         Object idUser = Cache.get(ID_USER + uniqueId);
-        return (Integer) idUser;
+        return (Long) idUser;
     }
 
     public static void removeIdUserFromCache(String uniqueId)
@@ -112,7 +112,7 @@ public class CacheManager
     }
 
     // Set, get remove and refresh user token in cache
-    public static void addUserTokenToCache(Integer idUser, String token)
+    public static void addUserTokenToCache(Long idUser, String token)
     {
         List<String> tokens = getUserTokenFromCache(idUser);
         if (tokens == null)
@@ -127,7 +127,7 @@ public class CacheManager
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> getUserTokenFromCache(Integer idUser)
+    public static List<String> getUserTokenFromCache(Long idUser)
     {
         Object obj = Cache.get(USER_TOKEN + idUser);
         return (List<String>) obj;
@@ -135,7 +135,7 @@ public class CacheManager
 
     public static void removeUserTokenForIdUserFromCache(String uniqueId)
     {
-        Integer idUser = getIdUserFromCache(uniqueId);
+    	Long idUser = getIdUserFromCache(uniqueId);
         List<String> tokens = getUserTokenFromCache(idUser);
         tokens.remove(uniqueId);
         if (tokens.size() == 0)
@@ -148,7 +148,7 @@ public class CacheManager
         }
     }
 
-    public static void refreshUserTokenCache(Integer idUser)
+    public static void refreshUserTokenCache(Long idUser)
     {
         addUserTokenToCache(idUser, null);
     }
@@ -171,7 +171,7 @@ public class CacheManager
         removeIdUserFromCache(uniqueId);
     }
 
-    public static void removeAllForIdUserFromCache(Integer idUser)
+    public static void removeAllForIdUserFromCache(Long idUser)
     {
         List<String> tokens = getUserTokenFromCache(idUser);
         Iterator<String> tokensIterator = tokens.iterator();

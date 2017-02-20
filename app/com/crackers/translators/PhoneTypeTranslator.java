@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.PhoneTypeDto;
 import com.crackers.model.PhoneType;
 
@@ -26,7 +26,7 @@ public class PhoneTypeTranslator
             return null;
         }
         PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
-        CMSLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
+        CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
         BeanUtil.copyBeanProperties(phoneType, phoneTypeDto, null);
         return phoneTypeDto;
     }
@@ -58,7 +58,7 @@ public class PhoneTypeTranslator
             return null;
         }
         PhoneType phoneType = new PhoneType();
-        CMSLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
+        CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
         BeanUtil.copyBeanProperties(phoneTypeDto, phoneType, null);
         return phoneType;
     }
@@ -75,7 +75,7 @@ public class PhoneTypeTranslator
         {
             PhoneType phoneType1 = phoneTypeIterator.next();
             PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
-            CMSLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
+            CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
             BeanUtil.copyBeanProperties(phoneType1, phoneTypeDto, null);
             phoneTypeDtos.add(phoneTypeDto);
         }

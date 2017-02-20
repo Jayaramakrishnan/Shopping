@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.PhoneNumberDto;
 import com.crackers.dto.UserDto;
 import com.crackers.exceptions.UnparseableDateTimeStringException;
@@ -31,21 +31,21 @@ public class UserPhoneHandler extends Handler
     private UserService    userService;
 
     @Override
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Long idUser, UserDto userDto, Long idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
-        CMSLogger.info(logger, "Inside PHONE");
+        CrackersLogger.info(logger, "Inside PHONE");
         if (changedList.equalsIgnoreCase(PHONE) && userDto.getPhoneNumberDtos() != null)
         {
-            Integer userId = CryptoBinderUtil.getDecryptId(userDto.getIdUser());
-            CMSLogger.info(logger, "Inside UserPhoneNumberHandler" + userDto.getIdUser());
+        	Long userId = CryptoBinderUtil.getDecryptId(userDto.getIdUser());
+            CrackersLogger.info(logger, "Inside UserPhoneNumberHandler" + userDto.getIdUser());
             List<PhoneNumberDto> dtosFromDB = userService.getPhoneNumberList(userId);
             List<PhoneNumberDto> externalEntityDtosGiven = userDto.getPhoneNumberDtos();
             Iterator<PhoneNumberDto> externalIteratorFromDb = dtosFromDB.iterator();
             List<PhoneNumberDto> externalEntityDtoChanged = new ArrayList<>();
-            CMSLogger.info(logger, "Size of user PhoneNumber list:" + userDto.getPhoneNumberDtos().size());
+            CrackersLogger.info(logger, "Size of user PhoneNumber list:" + userDto.getPhoneNumberDtos().size());
             if (externalEntityDtosGiven.isEmpty())
             {
-                CMSLogger.info(logger, "Full empty the list of phoneNumbers");
+                CrackersLogger.info(logger, "Full empty the list of phoneNumbers");
                 while (externalIteratorFromDb.hasNext())
                 {
                     PhoneNumberDto phoneNumberDto = externalIteratorFromDb.next();
@@ -61,24 +61,24 @@ public class UserPhoneHandler extends Handler
                     while (externalIteratorFromDb.hasNext())
                     {
                         int i = 0;
-                        CMSLogger.info(logger, "Inside PhoneNumber iterator of DB ");
+                        CrackersLogger.info(logger, "Inside PhoneNumber iterator of DB ");
                         PhoneNumberDto phoneNumberDto = externalIteratorFromDb.next();
                         for (PhoneNumberDto exteEntityDto : externalEntityDtosGiven)
                         {
-                            CMSLogger.info(logger, "Inside PhoneNumber iterator of user" + (phoneNumberDto.getIdPhoneNumber().equals(exteEntityDto.getIdPhoneNumber())));
+                            CrackersLogger.info(logger, "Inside PhoneNumber iterator of user" + (phoneNumberDto.getIdPhoneNumber().equals(exteEntityDto.getIdPhoneNumber())));
                             if (phoneNumberDto.getIdPhoneNumber().equals(exteEntityDto.getIdPhoneNumber()))
                             {
-                                CMSLogger.info(logger, "This is old user PhoneNumber!!!!!!!!!!");
+                                CrackersLogger.info(logger, "This is old user PhoneNumber!!!!!!!!!!");
                                 i++;
                                 PhoneNumberDto externalEntityDto = new PhoneNumberDto();
-                                CMSLogger.info(logger, "Update the phoneNumber");
+                                CrackersLogger.info(logger, "Update the phoneNumber");
                                 externalEntityDto = userService.updatePhoneNumberList(userId, idCurrentUser, exteEntityDto);
                                 externalEntityDtoChanged.add(externalEntityDto);
                             }
                         }
                         if (i == 0)
                         {
-                            CMSLogger.info(logger, "Delete the given phoneNumbers");
+                            CrackersLogger.info(logger, "Delete the given phoneNumbers");
                             phoneNumberDto.setIsDeleted((short) 1);
                             PhoneNumberDto dto = userService.updatePhoneNumberList(userId, idCurrentUser, phoneNumberDto);
                             externalEntityDtoChanged.add(dto);
@@ -89,7 +89,7 @@ public class UserPhoneHandler extends Handler
                 {
                     if (exteEntityDto != null && exteEntityDto.getIdPhoneNumber() == null && exteEntityDto.getPhoneNumber() != null)
                     {
-                        CMSLogger.info(logger, "This is new user PhoneNumber!!!!!!!!!!");
+                        CrackersLogger.info(logger, "This is new user PhoneNumber!!!!!!!!!!");
                         PhoneNumberDto externalEntityDto = userService.createPhoneNumber(userId, idCurrentUser, exteEntityDto);
                         externalEntityDtoChanged.add(externalEntityDto);
                     }

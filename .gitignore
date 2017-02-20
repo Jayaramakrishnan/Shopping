@@ -7,3 +7,8 @@ target
 /.settings
 /RUNNING_PID
 *.orig
+.sbtserver/master.log
+.sbtserver/connections/activator-c3273858-969c-4750-8f0d-2fa13fce5410.log
+.sbtserver/connections/master.log
+project/.sbtserver
+project/.sbtserver.lock

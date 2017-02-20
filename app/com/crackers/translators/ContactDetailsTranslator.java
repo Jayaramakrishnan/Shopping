@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.ContactDetailsDto;
 import com.crackers.model.ContactDetails;
 
@@ -24,7 +24,7 @@ public class ContactDetailsTranslator
         ContactDetails entityContactDetails = new ContactDetails();
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(contactDetailsDto, entityContactDetails, properties);
-        CMSLogger.info(logger, " Contact Details is translated");
+        CrackersLogger.info(logger, " Contact Details is translated");
         return entityContactDetails;
     }
 
@@ -37,7 +37,7 @@ public class ContactDetailsTranslator
         ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(contactDetails, contactDetailsDto, properties);
-        CMSLogger.info(logger, " Contact Details is translated");
+        CrackersLogger.info(logger, " Contact Details is translated");
         return contactDetailsDto;
     }
 
@@ -50,7 +50,7 @@ public class ContactDetailsTranslator
         ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(contactDetails, contactDetailsDto, properties);
-        CMSLogger.info(logger, " Contact Details is translated");
+        CrackersLogger.info(logger, " Contact Details is translated");
         return contactDetailsDto;
     }
 

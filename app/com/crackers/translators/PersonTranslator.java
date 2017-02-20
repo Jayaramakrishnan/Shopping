@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.UserDto;
 import com.crackers.model.User;
 import com.crackers.util.CryptoBinderUtil;
@@ -32,12 +32,12 @@ public class PersonTranslator
         {
             return user;
         }
-        CMSLogger.info(logger, "Iduser in Person Translator before decrypting: " + userDto.getIdUser());
+        CrackersLogger.info(logger, "Iduser in Person Translator before decrypting: " + userDto.getIdUser());
         List<String> properties = new ArrayList<>();
         BeanUtil.copyBeanProperties(userDto, user, properties);
         if (userDto.getIdUser() != null)
         {
-            user.setIdUser(CryptoBinderUtil.getDecryptId(userDto.getIdUser()));
+            user.setId(CryptoBinderUtil.getDecryptId(userDto.getIdUser()));
         }
         if (userDto.getUserSourceDto() != null && userDto.getUserSourceDto().getIdSource() != null)
         {
@@ -58,9 +58,9 @@ public class PersonTranslator
         }
         UserDto userDto = new UserDto();
         BeanUtil.copyBeanProperties(user, userDto, new ArrayList<>());
-        if (user.getIdUser() != null)
+        if (user.getId() != null)
         {
-            userDto.setIdUser(CryptoBinderUtil.getEncryptId(user.getIdUser().toString()));
+            userDto.setIdUser(CryptoBinderUtil.getEncryptId(user.getId().toString()));
         }
         userDto.setUserSourceDto(userSourceTranslator.translateToUserSourceDto(user.getIdSource()));
         userDto.setUserStateDto(userStateTranslator.translateToUserStateDto(user.getIdUserState()));

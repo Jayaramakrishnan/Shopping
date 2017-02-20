@@ -13,7 +13,7 @@ public interface UserRepository extends GraphRepository<User>
 {
 
     @Query("match (u:User) where u.idUser = {idUser} and u.isDeleted = 0 return u")
-    User validateById(@Param("idUser") Integer idUser);
+    User validateById(@Param("idUser") Long idUser);
 
     @Query("match (u:User) where LOWER(u.userName) = LOWER({userName}) and u.idUserState = 1 and u.isDeleted = 0 return u")
     User validateByUserName(@Param("userName") String userName);
@@ -28,7 +28,7 @@ public interface UserRepository extends GraphRepository<User>
     Long getUserCount(@Param("idUserState") Integer idUserState);
 
     @Query("match (u:User) where u.idUser = {idUser} and u.idUserState = 1 and u.isDeleted = 0 return u")
-    User checkValidUser(@Param("idUser") Integer idUser);
+    User checkValidUser(@Param("idUser") Long idUser);
 
     @Query("match (u:User) where u.idUserState = {idUserState} and u.idUser in [{idUser}] and u.isDeleted = 0 and (LOWER(u.name) =~ LOWER(('.*' + {keyword} + '.*')) or LOWER(u.userName) =~ LOWER(('.*' + {keyword} + '.*'))) return u order by u.name ASC")
     List<User> getAssigneeUserListName(@Param("idUserState") Integer idUserState, @Param("idUser") List<Integer> idUser, Pageable pageable, @Param("keyword") String keyword);
@@ -43,5 +43,5 @@ public interface UserRepository extends GraphRepository<User>
     List<User> getUsers(@Param("isDeleted") Short isDeleted, Pageable pageable);
 
     @Query("match (u:User) where u.idUser = {idUser} return u.name")
-    String getUserName(@Param("idUser") Integer idUser);
+    String getUserName(@Param("idUser") Long idUser);
 }

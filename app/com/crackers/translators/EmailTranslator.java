@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.EmailDto;
 import com.crackers.model.Email;
 
@@ -44,7 +44,7 @@ public class EmailTranslator
 		{
 			return emailDto;
 		}
-		CMSLogger.info(logger, "EmailDto:" + emailDto);
+		CrackersLogger.info(logger, "EmailDto:" + emailDto);
 		BeanUtil.copyBeanProperties(email, emailDto, new ArrayList<>());
 		return emailDto;
 	}
@@ -56,7 +56,7 @@ public class EmailTranslator
 		{
 			return email;
 		}
-		CMSLogger.info(logger, "EmailDto:" + emailDto);
+		CrackersLogger.info(logger, "EmailDto:" + emailDto);
 		BeanUtil.copyBeanProperties(emailDto, email, new ArrayList<>());
 		return email;
 	}

@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.common.RestUrlAttribute;
 import com.crackers.exceptions.UnSupportedAuthenticationException;
 import com.crackers.repositories.ApplicationConfigRepository;
@@ -23,7 +23,7 @@ public class AuthenticationFactory
     public Authenticator getAuthenticatorFactory() throws UnSupportedAuthenticationException
     {
         String auth = applicationConfigRepository.getConfigValueByKey("Auth setting");
-        CMSLogger.info(logger, "Auth type:" + auth);
+        CrackersLogger.info(logger, "Auth type:" + auth);
         if (auth.equals(RestUrlAttribute.FORMS_AUTHENTICATION))
         {
             return formAuthenticator;

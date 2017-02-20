@@ -7,14 +7,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import play.Play;
-import play.mvc.Result;
-import play.libs.Json;
-import play.libs.ws.WSRequestHolder;
-
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
 import com.crackers.common.CommonConstants;
+import com.crackers.common.CrackersLogger;
 import com.crackers.common.RestCallService;
 import com.crackers.common.RestHelper;
 import com.crackers.common.RestUrlAttribute;
@@ -34,6 +29,11 @@ import com.crackers.vo.UserDetailsVO;
 import com.crackers.vo.WSError;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import play.Play;
+import play.libs.Json;
+import play.libs.ws.WSRequestHolder;
+import play.mvc.Result;
+
 @Component
 public class UserSettingWebController extends BaseController
 {
@@ -45,10 +45,10 @@ public class UserSettingWebController extends BaseController
         try
         {
             JsonNode json = request().body().asJson();
-            CMSLogger.info(logger, "Inside postUserService of UserSettingWebController");
+            CrackersLogger.info(logger, "Inside postUserService of UserSettingWebController");
             String baseUrl = RestUrlAttribute.REST_BASE_URL;
             String serviceUrl = baseUrl.concat(Play.application().configuration().getString(RestUrlAttribute.NEW_USER_POST));
-            CMSLogger.info(logger, "serviceUrl createNewUser" + serviceUrl);
+            CrackersLogger.info(logger, "serviceUrl createNewUser" + serviceUrl);
             if (json.isObject())
             {
                 UserDetailsVO userDetailsVO = Json.fromJson(json, UserDetailsVO.class);
@@ -133,14 +133,14 @@ public class UserSettingWebController extends BaseController
                 Object object = userDto;
                 WSRequestHolder requestHolder = RestHelper.checkProxyAndSetHeader(serviceUrl);
                 requestHolder.setQueryParameter(CommonConstants.UNIQUE_ID, session().get(CommonConstants.UNIQUE_ID));
-                CMSLogger.info(logger, "requestHolder in UserSettingWebController" + requestHolder);
+                CrackersLogger.info(logger, "requestHolder in UserSettingWebController" + requestHolder);
                 JsonNode userCreatedNode = RestCallService.callPostRestService(requestHolder, object);
                 if (userCreatedNode.isObject())
                 {
                     Object objectWsObject = Json.fromJson(userCreatedNode, Object.class);
                     if (objectWsObject instanceof WSError)
                     {
-                        CMSLogger.info(logger, "Errorr message");
+                        CrackersLogger.info(logger, "Errorr message");
                         WSError wsError = (WSError) objectWsObject;
                         if (wsError.getIdWSError().equals(400))
                         {
@@ -164,7 +164,7 @@ public class UserSettingWebController extends BaseController
         }
         catch (Exception exception)
         {
-            CMSLogger.error(logger, "Error while creating new User", exception);
+            CrackersLogger.error(logger, "Error while creating new User", exception);
         }
         return internalServerError();
     }

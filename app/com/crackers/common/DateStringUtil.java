@@ -1,15 +1,13 @@
 package com.crackers.common;
 
-import java.sql.Timestamp;
-
 import org.springframework.stereotype.Component;
 
 @Component
 public class DateStringUtil
 {
 
-    public Timestamp getCurrentTimestamp()
+    public static Long getCurrentLong()
     {
-        return new Timestamp(System.currentTimeMillis());
+        return new Long(System.currentTimeMillis());
     }
 }

@@ -9,7 +9,7 @@ import com.crackers.model.UserCredential;
 public interface CredentialRepository extends GraphRepository<UserCredential>
 {
 
-    @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where user.idUser in ({match (u:User) where LOWER(u.userName) = LOWER({userName}) and u.idUserState = 1 and u.isDeleted = 0 return u.idUser}) return password")
+    @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where LOWER(user.userName) = LOWER({userName}) and user.idUserState = 1 and user.isDeleted = 0 return password")
     UserCredential getCredentialByUserName(@Param("userName") String userName);
 
     @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where user.idUser = {idUser} return password.hashedKey")
@@ -17,4 +17,7 @@ public interface CredentialRepository extends GraphRepository<UserCredential>
 
     @Query("match (password)<-[:HAS_A_PASSWORD]-(user:User) where user.idUser = {idUser} and password.isDeleted = 0 return password")
     UserCredential getCredentialObject(@Param("idUser") Long idUser);
+    
+    @Query("match (uc:UserCredential) where uc.idUserCredential = {idUserCredential} return uc")
+    UserCredential getCredentialById(@Param("idUserCredential") Integer idUserCredential);
 }

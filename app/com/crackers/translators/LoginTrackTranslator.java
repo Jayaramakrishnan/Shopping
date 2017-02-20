@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.LoginTrackDto;
 import com.crackers.model.LoginTrack;
 
@@ -26,7 +26,7 @@ public class LoginTrackTranslator
         }
         catch (IllegalArgumentException | InvocationTargetException e)
         {
-            CMSLogger.error(logger, "Error while copying bean util in Login Track", e);
+            CrackersLogger.error(logger, "Error while copying bean util in Login Track", e);
         }
         return loginTrack;
     }

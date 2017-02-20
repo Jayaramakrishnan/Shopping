@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.UserDto;
 import com.crackers.exceptions.UnparseableDateTimeStringException;
 
@@ -22,12 +22,12 @@ public abstract class Handler
         this.sucessor = sucessor;
     }
 
-    public UserDto handleRequest(Integer idUser, UserDto userDto, Integer idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
+    public UserDto handleRequest(Long idUser, UserDto userDto, Long idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
     {
-        CMSLogger.info(logger, "Inside Handler");
+        CrackersLogger.info(logger, "Inside Handler");
         if (sucessor != null)
         {
-            CMSLogger.info(logger, "Going to call sucessor");
+            CrackersLogger.info(logger, "Going to call sucessor");
             sucessor.handleRequest(idUser, userDto, idCurrentUser, changedList);
         }
         return userDto;

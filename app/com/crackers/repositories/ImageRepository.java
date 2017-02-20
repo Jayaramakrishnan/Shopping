@@ -13,10 +13,10 @@ public interface ImageRepository extends GraphRepository<Image>
 {
 
     @Query("match (image)<-[:HAS_AN_IMAGE]-(user:User) where user.idUser = {idUser} and image.isDeleted = 0 return image")
-    Image getImageById(@Param("idUser") Integer idUser);
+    Image getImageById(@Param("idUser") Long idUser);
 
     @Query("match (image)<-[:HAS_AN_IMAGE]-(user:User) where user.idUser = {idUser} and image.isDeleted = 0 return image")
-    List<Image> getImages(@Param("idUser") List<Integer> idUser);
+    List<Image> getImages(@Param("idUser") List<Long> idUser);
 
     @Query("match (ei:Image) where ei.idImage = {idImage} and ei.isDeleted = 0 return ei")
     Image getImage(@Param("idImage") Integer idImage);

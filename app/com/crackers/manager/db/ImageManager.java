@@ -14,7 +14,7 @@ public class ImageManager
     @Resource
     private ImageRepository imageRepository;
 
-    public Image getImage(Integer idUser)
+    public Image getImage(Long idUser)
     {
         return imageRepository.getImageById(idUser);
     }

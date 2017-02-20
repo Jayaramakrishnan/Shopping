@@ -2,7 +2,7 @@ package com.crackers.common;
 
 import org.apache.log4j.Logger;
 
-public final class CMSLogger
+public final class CrackersLogger
 {
 
     public static void info(Logger logger, String message)
@@ -11,8 +11,6 @@ public final class CMSLogger
         {
             logger.info(message);
         }
-        else
-        {}
     }
 
     public static void warn(Logger logger, String message, Exception exception)
@@ -33,8 +31,6 @@ public final class CMSLogger
         {
             logger.debug(message);
         }
-        else
-        {}
     }
 
     public static void error(Logger logger, String message, Exception exception)

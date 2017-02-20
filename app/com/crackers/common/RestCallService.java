@@ -2,12 +2,12 @@ package com.crackers.common;
 
 import org.apache.log4j.Logger;
 
+import com.crackers.vo.WSError;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.libs.ws.WSRequestHolder;
-
-import com.crackers.vo.WSError;
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class RestCallService
 {
@@ -38,7 +38,7 @@ public class RestCallService
             }
             else if (response.getStatus() == BAD_REQUEST)
             {
-                CMSLogger.error(Logger.getLogger(RestHelper.class), response.getBody(), null);
+                CrackersLogger.error(logger, response.getBody(), null);
                 WSError wsError = new WSError();
                 wsError.setIdWSError(response.getStatus());
                 wsError.setWsError(response.getBody());
@@ -46,7 +46,7 @@ public class RestCallService
             }
             else
             {
-                CMSLogger.error(Logger.getLogger(RestHelper.class), response.getBody(), null);
+                CrackersLogger.error(logger, response.getBody(), null);
                 WSError wsError = new WSError();
                 wsError.setIdWSError(response.getStatus());
                 wsError.setWsError("Un expected error");
@@ -58,7 +58,7 @@ public class RestCallService
 
     public static JsonNode callPostRestService(WSRequestHolder requestHolder, Object object)
     {
-        CMSLogger.info(logger, "Creating class " + object.getClass().getName());
+        CrackersLogger.info(logger, "Creating class " + object.getClass().getName());
         JsonNode jsonNode = Json.toJson(object);
         Promise<JsonNode> entity = requestHolder.post(jsonNode).map(response -> {
             if (response.getStatus() == OK)
@@ -84,7 +84,7 @@ public class RestCallService
                 WSError wsError = new WSError();
                 wsError.setIdWSError(response.getStatus());
                 wsError.setWsError(response.getBody());
-                CMSLogger.error(Logger.getLogger(RestHelper.class), response.getBody(), null);
+                CrackersLogger.error(logger, response.getBody(), null);
                 return Json.toJson(wsError);
             }
         });
@@ -93,7 +93,7 @@ public class RestCallService
 
     public static JsonNode callPutRestService(WSRequestHolder requestHolder, Object object)
     {
-        CMSLogger.info(logger, "Updating class " + object.getClass().getName());
+        CrackersLogger.info(logger, "Updating class " + object.getClass().getName());
         JsonNode jsonNode = Json.toJson(object);
         Promise<JsonNode> entity = requestHolder.put(jsonNode).map(response -> {
             if (response.getStatus() == OK)
@@ -109,7 +109,7 @@ public class RestCallService
                 WSError wsError = new WSError();
                 wsError.setIdWSError(response.getStatus());
                 wsError.setWsError(response.getBody());
-                CMSLogger.error(Logger.getLogger(RestHelper.class), response.getBody(), null);
+                CrackersLogger.error(logger, response.getBody(), null);
                 return Json.toJson(wsError);
             }
         });

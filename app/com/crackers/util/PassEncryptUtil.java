@@ -10,7 +10,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 
 @Component
 public class PassEncryptUtil
@@ -20,7 +20,7 @@ public class PassEncryptUtil
 
     public String encryptPassword(String data, String secret, String algorithm) throws NoSuchAlgorithmException, InvalidKeyException
     {
-        CMSLogger.info(logger, "Validation By  " + algorithm);
+        CrackersLogger.info(logger, "Validation By  " + algorithm);
         SecretKeySpec signingKey = new SecretKeySpec(secret.getBytes(), algorithm);
         Mac mac = Mac.getInstance(algorithm);
         mac.init(signingKey);

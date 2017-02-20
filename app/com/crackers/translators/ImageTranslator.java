@@ -61,7 +61,7 @@ public class ImageTranslator
         {
             return imageDto;
         }
-        imageDto.setIdImage(image.getIdImage());
+        imageDto.setIdImage(image.getId());
         return imageDto;
     }
 }

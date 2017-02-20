@@ -2,9 +2,9 @@ package com.crackers.util;
 
 import org.apache.log4j.Logger;
 
-import play.api.libs.Crypto;
+import com.crackers.common.CrackersLogger;
 
-import com.crackers.common.CMSLogger;
+import play.api.libs.Crypto;
 
 public class CryptoBinderUtil
 {
@@ -22,25 +22,25 @@ public class CryptoBinderUtil
             }
             catch (Exception e)
             {
-                CMSLogger.error(logger, "Exception while getting Encrypting by id", e);
+                CrackersLogger.error(logger, "Exception while getting Encrypting by id", e);
             }
         }
         return encryptId;
     }
 
-    public static Integer getDecryptId(String id)
+    public static Long getDecryptId(String id)
     {
-        Integer idDecrypt = null;
+    	Long idDecrypt = null;
         if (id != null)
         {
             try
             {
                 String decryptId = Crypto.decryptAES(id);
-                idDecrypt = Integer.parseInt(decryptId);
+                idDecrypt = Long.parseLong(decryptId);
             }
             catch (Exception e)
             {
-                CMSLogger.error(logger, "Exception while getting Decrypting by id", e);
+                CrackersLogger.error(logger, "Exception while getting Decrypting by id", e);
                 return null;
             }
         }
@@ -58,7 +58,7 @@ public class CryptoBinderUtil
             }
             catch (Exception e)
             {
-                CMSLogger.error(logger, "Exception while getting Decrypting by id", e);
+                CrackersLogger.error(logger, "Exception while getting Decrypting by id", e);
             }
         }
         return idDecrypt;

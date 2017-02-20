@@ -1,21 +1,23 @@
 package com.crackers.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 
 import com.google.common.collect.Lists;
 
+import lombok.Data;
+
 @NodeEntity(label = "User")
+@Data
 public class User implements java.io.Serializable
 {
 
 	private static final long		serialVersionUID	= 1L;
-	private Integer					idUser;
+	@GraphId
+	private Long					id;
 	private String					name;
 	private String					userName;
 	private Integer					idSource;
@@ -24,11 +26,11 @@ public class User implements java.io.Serializable
 	private Integer					idUserState;
 	private Short					isDeleted;
 	private Integer					idImageColorCode;
-	private Integer					createdBy;
-	private Timestamp				createdOn;
-	private Integer					updatedBy;
-	private Timestamp				updatedOn;
-	private Timestamp				lastUpdatedOn;
+	private Long					createdBy;
+	private Long					createdOn;
+	private Long					updatedBy;
+	private Long					updatedOn;
+	private Long					lastUpdatedOn;
 	@Relationship(type = "HAS_AN_EMAIL", direction = Relationship.OUTGOING)
 	private Email					email;
 	@Relationship(type = "HAS_MULTIPLE_PHONE_NUMBERS", direction = Relationship.OUTGOING)
@@ -40,164 +42,69 @@ public class User implements java.io.Serializable
 	@Relationship(type = "HAS_A_PASSWORD", direction = Relationship.OUTGOING)
 	private UserCredential			password;
 	@Relationship(type = "HAS_A_ROLE", direction = Relationship.OUTGOING)
-	private UserRole				userRole;
+	private Role					role;
 	@Relationship(type = "HAS_PREVIOUS_PASSWORDS", direction = Relationship.OUTGOING)
 	private List<Password>			previousPassword	= Lists.newArrayList();
 	@Relationship(type = "HAS_LOGIN_TRACKS", direction = Relationship.OUTGOING)
 	private List<LoginTrack>		loginTrack			= Lists.newArrayList();
 
-	@GraphId
-	@Property(name = "idUser")
-	public Integer getIdUser()
+	public List<PhoneNumber> getPhoneNumbers()
 	{
-		return this.idUser;
+		return phoneNumbers;
 	}
 
-	public void setIdUser(Integer idUser)
+	public void setPhoneNumbers(List<PhoneNumber> phoneNumbers)
 	{
-		this.idUser = idUser;
+		this.phoneNumbers.addAll(phoneNumbers);
 	}
 
-	@Property(name = "name")
-	public String getName()
+	public void setPhoneNumber(PhoneNumber phoneNumbers)
 	{
-		return this.name;
+		this.phoneNumbers.add(phoneNumbers);
 	}
 
-	public void setName(String name)
+	public List<ContactDetails> getAddresses()
 	{
-		this.name = name;
+		return addresses;
 	}
 
-	@Property(name = "userName")
-	public String getUserName()
+	public void setAddresses(List<ContactDetails> addresses)
 	{
-		return this.userName;
+		this.addresses.addAll(addresses);
 	}
 
-	public void setUserName(String userName)
+	public void setAddress(ContactDetails addresses)
 	{
-		this.userName = userName;
+		this.addresses.add(addresses);
 	}
 
-	@Property(name = "imageColorCode")
-	public Integer getIdImageColorCode()
+	public List<Password> getPreviousPassword()
 	{
-		return idImageColorCode;
+		return previousPassword;
 	}
 
-	public void setIdImageColorCode(Integer idImageColorCode)
+	public void setPreviousPasswords(List<Password> previousPassword)
 	{
-		this.idImageColorCode = idImageColorCode;
+		this.previousPassword.addAll(previousPassword);
 	}
 
-	@Property(name = "idUserSource")
-	public Integer getIdSource()
+	public void setPreviousPassword(Password previousPassword)
 	{
-		return idSource;
+		this.previousPassword.add(previousPassword);
 	}
 
-	public void setIdSource(Integer idSource)
+	public List<LoginTrack> getLoginTrack()
 	{
-		this.idSource = idSource;
+		return loginTrack;
 	}
 
-	@Property(name = "title")
-	public String getTitle()
+	public void setLoginTracks(List<LoginTrack> loginTrack)
 	{
-		return this.title;
+		this.loginTrack.addAll(loginTrack);
 	}
 
-	public void setTitle(String title)
+	public void setLoginTrack(LoginTrack loginTrack)
 	{
-		this.title = title;
-	}
-
-	@Property(name = "bioData")
-	public String getBioData()
-	{
-		return this.bioData;
-	}
-
-	public void setBioData(String bioData)
-	{
-		this.bioData = bioData;
-	}
-
-	@Property(name = "isDeleted")
-	public Short getIsDeleted()
-	{
-		return this.isDeleted;
-	}
-
-	public void setIsDeleted(Short isDeleted)
-	{
-		this.isDeleted = isDeleted;
-	}
-
-	@Property(name = "createdBy")
-	public Integer getCreatedBy()
-	{
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(Integer createdBy)
-	{
-		this.createdBy = createdBy;
-	}
-
-	@Property(name = "createdOn")
-	public Timestamp getCreatedOn()
-	{
-		return this.createdOn;
-	}
-
-	public void setCreatedOn(Timestamp createdOn)
-	{
-		this.createdOn = createdOn;
-	}
-
-	@Property(name = "updatedBy")
-	public Integer getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy)
-	{
-		this.updatedBy = updatedBy;
-	}
-
-	@Property(name = "updatedOn")
-	public Timestamp getUpdatedOn()
-	{
-		return this.updatedOn;
-	}
-
-	public void setUpdatedOn(Timestamp updatedOn)
-	{
-		this.updatedOn = updatedOn;
-	}
-
-	@Property(name = "idUserState")
-	public Integer getIdUserState()
-	{
-		return idUserState;
-	}
-
-	public void setIdUserState(Integer idUserState)
-	{
-		this.idUserState = idUserState;
-	}
-
-	@Property(name = "lastUpdatedOn")
-	public Timestamp getLastUpdatedOn()
-	{
-		return lastUpdatedOn;
-	}
-
-	public void setLastUpdatedOn(Timestamp lastUpdatedOn)
-	{
-		this.lastUpdatedOn = lastUpdatedOn;
+		this.loginTrack.add(loginTrack);
 	}
 }

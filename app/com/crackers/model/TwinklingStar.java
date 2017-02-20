@@ -17,6 +17,5 @@ public class TwinklingStar extends BaseCategory
 {
 
 	private static final long	serialVersionUID	= 1L;
-	@Property(name = "twinklingStarSize")
 	private String				twinklingStarSize;
 }

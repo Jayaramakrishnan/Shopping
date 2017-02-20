@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.crackers.common.BeanUtil;
-import com.crackers.common.CMSLogger;
+import com.crackers.common.CrackersLogger;
 import com.crackers.dto.PhoneNumberDto;
 import com.crackers.model.PhoneNumber;
 
@@ -21,7 +21,7 @@ public class PhoneNumberTranslator
 
     public List<PhoneNumberDto> translateListToPhoneNumberDto(List<PhoneNumber> phoneNumbers) throws InvocationTargetException
     {
-        CMSLogger.info(logger, "Inside PhoneNumberTranslator : getPhoneNumber()");
+        CrackersLogger.info(logger, "Inside PhoneNumberTranslator : getPhoneNumber()");
         List<PhoneNumberDto> phoneNumberDtos = new ArrayList<>();
         if (phoneNumbers == null)
         {
@@ -47,7 +47,7 @@ public class PhoneNumberTranslator
         {
             return phoneNumberDto;
         }
-        CMSLogger.info(logger, "PhoneNumberDto:" + phoneNumberDto);
+        CrackersLogger.info(logger, "PhoneNumberDto:" + phoneNumberDto);
         PhoneTypeTranslator phoneTypeTranslator = new PhoneTypeTranslator();
         BeanUtil.copyBeanProperties(phoneNumber, phoneNumberDto, new ArrayList<>());
         phoneNumberDto.setPhoneTypeDto(phoneTypeTranslator.translateToPhoneTypeDto(phoneNumber.getIdPhoneType()));
@@ -61,7 +61,7 @@ public class PhoneNumberTranslator
         {
             return phoneNumber;
         }
-        CMSLogger.info(logger, "PhoneNumberDto:" + phoneNumberDto);
+        CrackersLogger.info(logger, "PhoneNumberDto:" + phoneNumberDto);
         PhoneTypeTranslator phoneTypeTranslator = new PhoneTypeTranslator();
         BeanUtil.copyBeanProperties(phoneNumberDto, phoneNumber, new ArrayList<>());
         phoneNumber.setIdPhoneType(phoneTypeTranslator.getPhoneTypeId(phoneNumberDto.getPhoneTypeDto()));
