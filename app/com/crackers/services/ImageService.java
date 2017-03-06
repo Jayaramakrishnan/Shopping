@@ -12,23 +12,20 @@ import com.crackers.model.Image;
 import com.crackers.translators.ImageTranslator;
 
 @Component
-public class ImageService
-{
+public class ImageService {
 
-    @Resource
-    private ImageManager    imageManager;
-    @Resource
-    private ImageTranslator imageTranslator;
+	@Resource
+	private ImageManager	imageManager;
+	@Resource
+	private ImageTranslator	imageTranslator;
 
-    public ImageDto getImageDto(Long idUser) throws InvocationTargetException
-    {
-        Image image = imageManager.getImage(idUser);
-        return imageTranslator.translateImageToDto(image);
-    }
+	public ImageDto getImageDto(Long idUser) throws InvocationTargetException {
+		Image image = imageManager.getImage(idUser);
+		return imageTranslator.translateImageToDto(image);
+	}
 
-    public ImageDto getImageId(Long idUser) throws InvocationTargetException
-    {
-        Image image = imageManager.getImage(idUser);
-        return imageTranslator.translateImageToDtoById(image);
-    }
+	public ImageDto getImageId(Long idUser) throws InvocationTargetException {
+		Image image = imageManager.getImage(idUser);
+		return imageTranslator.translateImageToDtoById(image);
+	}
 }

@@ -1,28 +1,10 @@
 package com.crackers.dto;
 
-public class PhoneTypeDto
-{
+import lombok.Data;
 
-    private Integer idPhoneType;
-    private String  phoneType;
+@Data
+public class PhoneTypeDto {
 
-    public Integer getIdPhoneType()
-    {
-        return idPhoneType;
-    }
-
-    public void setIdPhoneType(Integer idPhoneType)
-    {
-        this.idPhoneType = idPhoneType;
-    }
-
-    public String getPhoneType()
-    {
-        return phoneType;
-    }
-
-    public void setPhoneType(String phoneType)
-    {
-        this.phoneType = phoneType;
-    }
+	private Long	id;
+	private String	phoneType;
 }

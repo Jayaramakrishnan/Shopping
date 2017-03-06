@@ -11,26 +11,22 @@ import com.crackers.exceptions.UnSupportedAuthenticationException;
 import com.crackers.repositories.ApplicationConfigRepository;
 
 @Component
-public class AuthenticationFactory
-{
+public class AuthenticationFactory {
 
-    private static Logger               logger = Logger.getLogger(AuthenticationFactory.class);
-    @Resource
-    private FormAuthenticator           formAuthenticator;
-    @Resource
-    private ApplicationConfigRepository applicationConfigRepository;
+	private static Logger				logger	= Logger.getLogger(AuthenticationFactory.class);
+	@Resource
+	private FormAuthenticator			formAuthenticator;
+	@Resource
+	private ApplicationConfigRepository	applicationConfigRepository;
 
-    public Authenticator getAuthenticatorFactory() throws UnSupportedAuthenticationException
-    {
-        String auth = applicationConfigRepository.getConfigValueByKey("Auth setting");
-        CrackersLogger.info(logger, "Auth type:" + auth);
-        if (auth.equals(RestUrlAttribute.FORMS_AUTHENTICATION))
-        {
-            return formAuthenticator;
-        }
-        else
-        {
-            throw new UnSupportedAuthenticationException();
-        }
-    }
+	public Authenticator getAuthenticatorFactory() throws UnSupportedAuthenticationException {
+		String auth = applicationConfigRepository.getConfigValueByKey("Auth setting");
+		CrackersLogger.info(logger, "Auth type:" + auth);
+		if (auth.equals(RestUrlAttribute.FORMS_AUTHENTICATION)) {
+			return formAuthenticator;
+		}
+		else {
+			throw new UnSupportedAuthenticationException();
+		}
+	}
 }

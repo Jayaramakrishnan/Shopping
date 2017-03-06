@@ -7,8 +7,7 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "ProductBrand")
-public class ProductBrand
-{
+public class ProductBrand {
 
 	@GraphId
 	private Integer	id;

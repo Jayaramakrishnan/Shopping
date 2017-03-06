@@ -12,8 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "FlowerPots")
-public class FlowerPots extends BaseCategory
-{
+public class FlowerPots extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	private String				potSize;

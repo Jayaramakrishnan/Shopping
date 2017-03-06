@@ -7,16 +7,14 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "PhoneNumber")
-public class PhoneNumber implements java.io.Serializable
-{
+public class PhoneNumber implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
-	private String				phoneNumberValue;
-	private Integer				phoneNumberSource	= 1;
-	private Integer				idPhoneType;
-	private Short				isDeleted			= 0;
+	private Long				id;
+	private String				phoneNumber;
+	private Long				idPhoneType;
+	private Short				isDeleted;
 	private Long				createdBy;
 	private Long				createdOn;
 	private Long				updatedBy;

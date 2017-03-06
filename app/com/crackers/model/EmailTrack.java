@@ -7,16 +7,15 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "EmailTrack")
-public class EmailTrack implements java.io.Serializable
-{
+public class EmailTrack implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Long				idGeneric;
 	private Long				idRecipient;
 	private String				email;
-	private Integer				idEmailTemplate;
+	private Long				idEmailTemplate;
 	private Short				isMailSend;
 	private Short				isDeleted;
 	private Long				createdBy;

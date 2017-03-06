@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "Image")
-public class Image implements java.io.Serializable
-{
+public class Image implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private User				user;
 	private byte[]				imageArr;
 	private Short				isDeleted;

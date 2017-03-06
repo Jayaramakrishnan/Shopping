@@ -3,8 +3,7 @@ package com.crackers.vo;
 import lombok.Data;
 
 @Data
-public class ClientConfigurationVO
-{
+public class ClientConfigurationVO {
 
 	private String	version;
 	private String	restBaseUrl;
@@ -18,4 +17,5 @@ public class ClientConfigurationVO
 	private Integer	autoSaveTimeout;
 	private String	isTLSOn;
 	private Integer	isSendEmailOn;
+	private Integer previousPasswordCheckCount;
 }

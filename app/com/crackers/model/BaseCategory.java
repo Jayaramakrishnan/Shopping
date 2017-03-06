@@ -11,12 +11,11 @@ import com.google.common.collect.Lists;
 import lombok.Data;
 
 @Data
-public class BaseCategory implements Serializable
-{
+public class BaseCategory implements Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Integer				productCode;
 	private String				productName;
 	private String				productMeasurements;

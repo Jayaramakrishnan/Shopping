@@ -13,8 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "TwinklingStar")
-public class TwinklingStar extends BaseCategory
-{
+public class TwinklingStar extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	private String				twinklingStarSize;

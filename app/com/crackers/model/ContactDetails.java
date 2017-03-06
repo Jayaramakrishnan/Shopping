@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "ContactDetails")
-public class ContactDetails implements java.io.Serializable
-{
+public class ContactDetails implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Integer				streetSource;
 	private String				street;
 	private Integer				citySource;

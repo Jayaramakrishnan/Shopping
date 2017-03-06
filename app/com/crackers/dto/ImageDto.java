@@ -1,28 +1,10 @@
 package com.crackers.dto;
 
-public class ImageDto
-{
+import lombok.Data;
 
-    private Integer idImage;
-    private byte[]  image;
+@Data
+public class ImageDto {
 
-    public Integer getIdImage()
-    {
-        return idImage;
-    }
-
-    public void setIdImage(Integer idImage)
-    {
-        this.idImage = idImage;
-    }
-
-    public byte[] getImage()
-    {
-        return image;
-    }
-
-    public void setImage(byte[] image)
-    {
-        this.image = image;
-    }
+	private Long	idImage;
+	private byte[]	image;
 }

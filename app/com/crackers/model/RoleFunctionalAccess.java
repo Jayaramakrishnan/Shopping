@@ -8,12 +8,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "RoleFunctionalAccess")
-public class RoleFunctionalAccess implements java.io.Serializable
-{
+public class RoleFunctionalAccess implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Integer				createdBy;
 	private Long				createdOn;
 	private Integer				updatedBy;

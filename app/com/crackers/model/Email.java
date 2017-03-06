@@ -7,15 +7,14 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "Email")
-public class Email implements java.io.Serializable
-{
+public class Email implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
-	private String				emailValue;
-	private Integer				emailSource			= 1;
-	private Short				isPrimary			= 1;
+	private Long				id;
+	private Long				idUser;
+	private String				email;
+	private Short				isPrimary;
 	private Short				isDeleted;
 	private Long				createdBy;
 	private Long				createdOn;

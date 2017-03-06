@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "KeywordTrack")
-public class KeywordTrack implements java.io.Serializable
-{
+public class KeywordTrack implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private String				form;
 	private String				keyword;
 	private Integer				idUser;

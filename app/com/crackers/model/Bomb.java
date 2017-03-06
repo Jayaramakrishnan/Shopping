@@ -12,8 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "Bomb")
-public class Bomb extends BaseCategory
-{
+public class Bomb extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	// Like Bullet or Atom Bomb

@@ -8,8 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "Chakkars")
-public class Chakkars extends BaseCategory
-{
+public class Chakkars extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	private String				chakkarSize;

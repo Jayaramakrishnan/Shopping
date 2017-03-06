@@ -12,13 +12,11 @@ import com.crackers.dto.UserDto;
 import com.crackers.exceptions.AccessDeninedException;
 import com.crackers.exceptions.RegistrationException;
 import com.crackers.model.User;
-import com.crackers.model.UserCredential;
 import com.crackers.repositories.CredentialRepository;
 import com.crackers.repositories.UserRepository;
 
 @Component
-public class AuthenticationManager
-{
+public class AuthenticationManager {
 
 	private static Logger			logger	= Logger.getLogger(AuthenticationManager.class);
 	@Resource
@@ -28,14 +26,12 @@ public class AuthenticationManager
 	@Resource
 	private AuthenticationFactory	authenticationFactory;
 
-	public User validate(UserDto userDto, String password) throws Exception
-	{
+	public User validate(UserDto userDto, String password) throws Exception {
 		CrackersLogger.info(logger, "Authentication manager starts verifying " + userDto.getUserName() + " password " + password);
 		/*
 		 * Verify the given inputs are null or not.if null it will return BadRequestException else it will process the input.
 		 */
-		if (userDto != null && password != null)
-		{
+		if (userDto != null && password != null) {
 			/*
 			 * Used to hold response status from authenticators.
 			 */
@@ -43,14 +39,11 @@ public class AuthenticationManager
 			/*
 			 * Check the Logged user is registered user or not. it will take user name as a input return the user object.
 			 */
-			UserCredential userCredential = credentialRepository.getCredentialById(1); 
-			CrackersLogger.info(logger, "Values " + userCredential.getIdUser());
 			User validUser = userRepository.validateByUserName(userDto.getUserName());
 			/*
 			 * Check the user object id is null or not.If it is not null process the inputs.
 			 */
-			if (validUser == null)
-			{
+			if (validUser == null) {
 				CrackersLogger.error(logger, "Not Registrated user", new RegistrationException());
 				/*
 				 * If user object is null, it return the RegistrationException.
@@ -68,15 +61,13 @@ public class AuthenticationManager
 			/*
 			 * It returns the user object, if he/she is authenticated user.
 			 */
-			if (valid)
-			{
+			if (valid) {
 				return validUser;
 			}
 			/*
 			 * It returns the AccessDeninedException, if he/she is UnAuthorized user.
 			 */
-			else
-			{
+			else {
 				CrackersLogger.error(logger, "AccessDenined user", new AccessDeninedException());
 				throw new AccessDeninedException();
 			}

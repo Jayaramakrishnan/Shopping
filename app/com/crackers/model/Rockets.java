@@ -13,12 +13,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "Rockets")
-public class Rockets extends BaseCategory
-{
+public class Rockets extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	// Whistle or Bomb or Parachute or Comets
-	private String				rocketType;		
+	private String				rocketType;
 	private String				rocketColor;
 	// Bursting like an Umbrela or with Sparkles and also about how much feet will it go and burst kind of stuffs
 	private String				additionalDescription;

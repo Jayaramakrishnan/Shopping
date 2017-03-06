@@ -15,8 +15,7 @@ import play.filters.gzip.GzipFilter;
 /**
  * Application wide behaviour. We establish a Spring application context for the dependency injection system and configure Spring Data.
  */
-public class Global extends GlobalSettings
-{
+public class Global extends GlobalSettings {
 
 	/**
 	 * Declare the application context to be used - a Java annotation based application context requiring no XML.
@@ -27,8 +26,7 @@ public class Global extends GlobalSettings
 	 * Sync the context lifecycle with Play's.
 	 */
 	@Override
-	public void onStart(final Application app)
-	{
+	public void onStart(final Application app) {
 		super.onStart(app);
 		initLog4jCongiguration();
 		ctx.register(SpringDataJpaConfiguration.class);
@@ -41,8 +39,7 @@ public class Global extends GlobalSettings
 	 * Sync the context lifecycle with Play's.
 	 */
 	@Override
-	public void onStop(final Application app)
-	{
+	public void onStop(final Application app) {
 		ctx.close();
 		super.onStop(app);
 	}
@@ -51,8 +48,7 @@ public class Global extends GlobalSettings
 	 * Controllers must be resolved through the application context. There is a special method of GlobalSettings that we can override to resolve a given controller. This resolution is required by the Play router.
 	 */
 	@Override
-	public <A> A getControllerInstance(Class<A> aClass)
-	{
+	public <A> A getControllerInstance(Class<A> aClass) {
 		return ctx.getBean(aClass);
 	}
 
@@ -62,12 +58,10 @@ public class Global extends GlobalSettings
 	@Configuration
 	@EnableNeo4jRepositories("com.crackers.repositories")
 	@EnableTransactionManagement
-	public static class SpringDataJpaConfiguration extends Neo4jConfiguration
-	{
+	public static class SpringDataJpaConfiguration extends Neo4jConfiguration {
 
 		@Bean
-		public org.neo4j.ogm.config.Configuration getConfiguration()
-		{
+		public org.neo4j.ogm.config.Configuration getConfiguration() {
 			org.neo4j.ogm.config.Configuration cfg = new org.neo4j.ogm.config.Configuration();
 			cfg.driverConfiguration().setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver").setURI("http://localhost:7474").setCredentials("neo4j", "iamwatiam");
 			return cfg;
@@ -75,21 +69,18 @@ public class Global extends GlobalSettings
 
 		@Override
 		@Bean
-		public SessionFactory getSessionFactory()
-		{
+		public SessionFactory getSessionFactory() {
 			return new SessionFactory(getConfiguration(), "com.crackers.model");
 		}
 	}
 
-	private void initLog4jCongiguration()
-	{
+	private void initLog4jCongiguration() {
 		String log4jFileFullPah = "conf/log4j.xml";
 		DOMConfigurator.configure(log4jFileFullPah);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends EssentialFilter> Class<T>[] filters()
-	{
+	public <T extends EssentialFilter> Class<T>[] filters() {
 		return new Class[] { GzipFilter.class };
 	}
 }

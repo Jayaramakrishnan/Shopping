@@ -14,71 +14,59 @@ import com.crackers.dto.PhoneTypeDto;
 import com.crackers.model.PhoneType;
 
 @Component
-public class PhoneTypeTranslator
-{
+public class PhoneTypeTranslator {
 
-    private static Logger logger = Logger.getLogger(PhoneTypeTranslator.class);
+	private static Logger logger = Logger.getLogger(PhoneTypeTranslator.class);
 
-    public PhoneTypeDto translateToPhoneTypeDto(PhoneType phoneType) throws InvocationTargetException
-    {
-        if (phoneType == null)
-        {
-            return null;
-        }
-        PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
-        CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
-        BeanUtil.copyBeanProperties(phoneType, phoneTypeDto, null);
-        return phoneTypeDto;
-    }
+	public PhoneTypeDto translateToPhoneTypeDto(PhoneType phoneType) throws InvocationTargetException {
+		if (phoneType == null) {
+			return null;
+		}
+		PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
+		CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
+		BeanUtil.copyBeanProperties(phoneType, phoneTypeDto, null);
+		return phoneTypeDto;
+	}
 
-    public Integer getPhoneTypeId(PhoneTypeDto statusDto)
-    {
-        if (statusDto == null)
-        {
-            return null;
-        }
-        return statusDto.getIdPhoneType();
-    }
+	public Long getPhoneTypeId(PhoneTypeDto phoneTypeDto) {
+		if (phoneTypeDto == null) {
+			return null;
+		}
+		return phoneTypeDto.getId();
+	}
 
-    public PhoneTypeDto translateToPhoneTypeDto(Integer idPhoneType) throws InvocationTargetException
-    {
-        if (idPhoneType == null)
-        {
-            return null;
-        }
-        PhoneTypeDto statusDto = new PhoneTypeDto();
-        statusDto.setIdPhoneType(idPhoneType);
-        return statusDto;
-    }
+	public PhoneTypeDto translateToPhoneTypeDto(Long idPhoneType) throws InvocationTargetException {
+		if (idPhoneType == null) {
+			return null;
+		}
+		PhoneTypeDto statusDto = new PhoneTypeDto();
+		statusDto.setId(idPhoneType);
+		return statusDto;
+	}
 
-    public PhoneType translateDtoToPhoneType(PhoneTypeDto phoneTypeDto) throws InvocationTargetException
-    {
-        if (phoneTypeDto == null)
-        {
-            return null;
-        }
-        PhoneType phoneType = new PhoneType();
-        CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
-        BeanUtil.copyBeanProperties(phoneTypeDto, phoneType, null);
-        return phoneType;
-    }
+	public PhoneType translateDtoToPhoneType(PhoneTypeDto phoneTypeDto) throws InvocationTargetException {
+		if (phoneTypeDto == null) {
+			return null;
+		}
+		PhoneType phoneType = new PhoneType();
+		CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
+		BeanUtil.copyBeanProperties(phoneTypeDto, phoneType, null);
+		return phoneType;
+	}
 
-    public List<PhoneTypeDto> translateListToPhoneTypeDto(List<PhoneType> phoneType) throws InvocationTargetException
-    {
-        if (phoneType == null)
-        {
-            return null;
-        }
-        List<PhoneTypeDto> phoneTypeDtos = new ArrayList<>();
-        Iterator<PhoneType> phoneTypeIterator = phoneType.iterator();
-        while (phoneTypeIterator.hasNext())
-        {
-            PhoneType phoneType1 = phoneTypeIterator.next();
-            PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
-            CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
-            BeanUtil.copyBeanProperties(phoneType1, phoneTypeDto, null);
-            phoneTypeDtos.add(phoneTypeDto);
-        }
-        return phoneTypeDtos;
-    }
+	public List<PhoneTypeDto> translateListToPhoneTypeDto(List<PhoneType> phoneType) throws InvocationTargetException {
+		if (phoneType == null) {
+			return null;
+		}
+		List<PhoneTypeDto> phoneTypeDtos = new ArrayList<>();
+		Iterator<PhoneType> phoneTypeIterator = phoneType.iterator();
+		while (phoneTypeIterator.hasNext()) {
+			PhoneType phoneType1 = phoneTypeIterator.next();
+			PhoneTypeDto phoneTypeDto = new PhoneTypeDto();
+			CrackersLogger.info(logger, "PhoneTypeDto:" + phoneTypeDto);
+			BeanUtil.copyBeanProperties(phoneType1, phoneTypeDto, null);
+			phoneTypeDtos.add(phoneTypeDto);
+		}
+		return phoneTypeDtos;
+	}
 }

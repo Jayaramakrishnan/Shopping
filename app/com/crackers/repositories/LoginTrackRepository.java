@@ -6,9 +6,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.crackers.model.LoginTrack;
 
-public interface LoginTrackRepository extends GraphRepository<LoginTrack>
-{
+public interface LoginTrackRepository extends GraphRepository<LoginTrack> {
 
-    @Query("match (lt:LoginTrack) where lt.sessionToken = {uniqueId} return lt")
-    LoginTrack getLoginTrack(@Param("uniqueId") String uniqueId);
+	@Query("match (lt:LoginTrack) where lt.sessionToken = {uniqueId} return lt")
+	LoginTrack getLoginTrack(@Param("uniqueId") String uniqueId);
 }

@@ -1,61 +1,12 @@
 package com.crackers.dto;
 
-public class PhoneNumberDto
-{
+import lombok.Data;
 
-    private Integer      idPhoneNumber;
-    private String       phoneNumber;
-    private PhoneTypeDto phoneTypeDto;
-    private Short        isDeleted;
-    private Integer      phoneNumberSource;
+@Data
+public class PhoneNumberDto {
 
-    public Integer getIdPhoneNumber()
-    {
-        return idPhoneNumber;
-    }
-
-    public void setIdPhoneNumber(Integer idPhoneNumber)
-    {
-        this.idPhoneNumber = idPhoneNumber;
-    }
-
-    public String getPhoneNumber()
-    {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber)
-    {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Short getIsDeleted()
-    {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Short isDeleted)
-    {
-        this.isDeleted = isDeleted;
-    }
-
-    public Integer getPhoneNumberSource()
-    {
-        return phoneNumberSource;
-    }
-
-    public void setPhoneNumberSource(Integer phoneNumberSource)
-    {
-        this.phoneNumberSource = phoneNumberSource;
-    }
-
-    public PhoneTypeDto getPhoneTypeDto()
-    {
-        return phoneTypeDto;
-    }
-
-    public void setPhoneTypeDto(PhoneTypeDto phoneTypeDto)
-    {
-        this.phoneTypeDto = phoneTypeDto;
-    }
+	private Long			id;
+	private String			phoneNumber;
+	private PhoneTypeDto	phoneTypeDto;
+	private Short			isDeleted;
 }

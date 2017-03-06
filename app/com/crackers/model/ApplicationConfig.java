@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "ApplicationConfig")
-public class ApplicationConfig implements java.io.Serializable
-{
+public class ApplicationConfig implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private String				configKey;
 	private String				configValue;
 	private Integer				createdBy;

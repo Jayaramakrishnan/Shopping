@@ -1,61 +1,13 @@
 package com.crackers.vo;
 
-public class EmailVO
-{
+import lombok.Data;
 
-    private Integer idEmail;
-    private String  email;
-    private short   isDeleted = 0;
-    private Integer emailSource;
-    private Short   isPrimary;
+@Data
+public class EmailVO {
 
-    public Integer getIdEmail()
-    {
-        return idEmail;
-    }
-
-    public void setIdEmail(Integer idEmail)
-    {
-        this.idEmail = idEmail;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    public short getIsDeleted()
-    {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(short isDeleted)
-    {
-        this.isDeleted = isDeleted;
-    }
-
-    public Integer getEmailSource()
-    {
-        return emailSource;
-    }
-
-    public void setEmailSource(Integer emailSource)
-    {
-        this.emailSource = emailSource;
-    }
-
-    public Short getIsPrimary()
-    {
-        return isPrimary;
-    }
-
-    public void setIsPrimary(Short isPrimary)
-    {
-        this.isPrimary = isPrimary;
-    }
+	private Long	id;
+	private Long	idUser;
+	private String	email;
+	private Short	isDeleted;
+	private Short	isPrimary;
 }

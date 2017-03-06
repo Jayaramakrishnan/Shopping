@@ -8,11 +8,10 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "Products")
-public class Products
-{
+public class Products {
 
 	@GraphId
-	private Integer	id;
+	private Integer		id;
 	@Relationship(type = "WITH_IN", direction = Relationship.OUTGOING)
 	private Crackers	crackers;
 }

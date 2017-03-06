@@ -14,21 +14,17 @@ import com.crackers.dto.EmailDto;
 import com.crackers.model.Email;
 
 @Component
-public class EmailTranslator
-{
+public class EmailTranslator {
 
-	private Logger				logger	= Logger.getLogger(EmailTranslator.class);
+	private Logger logger = Logger.getLogger(EmailTranslator.class);
 
-	public List<EmailDto> translateListToEmailDto(List<Email> emails) throws InvocationTargetException
-	{
+	public List<EmailDto> translateListToEmailDto(List<Email> emails) throws InvocationTargetException {
 		List<EmailDto> emailDtos = new ArrayList<>();
-		if (emails == null)
-		{
+		if (emails == null) {
 			return emailDtos;
 		}
 		Iterator<Email> emailIterator = emails.iterator();
-		while (emailIterator.hasNext())
-		{
+		while (emailIterator.hasNext()) {
 			Email email1 = emailIterator.next();
 			EmailDto emailDto = new EmailDto();
 			BeanUtil.copyBeanProperties(email1, emailDto, new ArrayList<>());
@@ -36,12 +32,25 @@ public class EmailTranslator
 		}
 		return emailDtos;
 	}
+	
+	public List<Email> translateDtoListToEmail(List<EmailDto> emailDts) throws InvocationTargetException {
+		List<Email> emails = new ArrayList<>();
+		if (emailDts == null) {
+			return emails;
+		}
+		Iterator<EmailDto> emailIterator = emailDts.iterator();
+		while (emailIterator.hasNext()) {
+			EmailDto emailDto = emailIterator.next();
+			Email email = new Email();
+			BeanUtil.copyBeanProperties(emailDto, email, new ArrayList<>());
+			emails.add(email);
+		}
+		return emails;
+	}
 
-	public EmailDto translateToEmailDto(Email email) throws InvocationTargetException
-	{
+	public EmailDto translateToEmailDto(Email email) throws InvocationTargetException {
 		EmailDto emailDto = new EmailDto();
-		if (email == null)
-		{
+		if (email == null) {
 			return emailDto;
 		}
 		CrackersLogger.info(logger, "EmailDto:" + emailDto);
@@ -49,11 +58,9 @@ public class EmailTranslator
 		return emailDto;
 	}
 
-	public Email translateDtoToEmail(EmailDto emailDto) throws InvocationTargetException
-	{
+	public Email translateDtoToEmail(EmailDto emailDto) throws InvocationTargetException {
 		Email email = new Email();
-		if (emailDto == null)
-		{
+		if (emailDto == null) {
 			return email;
 		}
 		CrackersLogger.info(logger, "EmailDto:" + emailDto);
@@ -61,23 +68,19 @@ public class EmailTranslator
 		return email;
 	}
 
-	public Integer getEmailId(EmailDto emailDto)
-	{
-		if (emailDto == null)
-		{
+	public Long getEmailId(EmailDto emailDto) {
+		if (emailDto == null) {
 			return null;
 		}
-		return emailDto.getIdEmail();
+		return emailDto.getId();
 	}
 
-	public EmailDto translateToEmailDto(Integer idEmail) throws InvocationTargetException
-	{
-		if (idEmail == null)
-		{
+	public EmailDto translateToEmailDto(Long idEmail) throws InvocationTargetException {
+		if (idEmail == null) {
 			return null;
 		}
 		EmailDto emailDto = new EmailDto();
-		emailDto.setIdEmail(idEmail);
+		emailDto.setId(idEmail);
 		return emailDto;
 	}
 }

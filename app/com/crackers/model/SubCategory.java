@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "SubCategory")
-public class SubCategory implements java.io.Serializable
-{
+public class SubCategory implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Integer				idCategory;
 	private String				subCategoryName;
 	private Short				isDeleted;

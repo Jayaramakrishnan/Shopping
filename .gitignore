@@ -12,3 +12,4 @@ target
 .sbtserver/connections/master.log
 project/.sbtserver
 project/.sbtserver.lock
+/bin/

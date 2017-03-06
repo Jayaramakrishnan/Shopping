@@ -8,14 +8,12 @@ import com.crackers.dto.UserDto;
 import com.crackers.manager.db.AuthenticationManager;
 
 @Component
-public class AutheticationService
-{
+public class AutheticationService {
 
-    @Resource
-    private AuthenticationManager authenticationManager;
+	@Resource
+	private AuthenticationManager authenticationManager;
 
-    public Object validate(UserDto userDto, String password) throws Exception
-    {
-        return authenticationManager.validate(userDto, password);
-    }
+	public Object validate(UserDto userDto, String password) throws Exception {
+		return authenticationManager.validate(userDto, password);
+	}
 }

@@ -12,8 +12,7 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "Role")
-public class Role implements java.io.Serializable
-{
+public class Role implements java.io.Serializable {
 
 	private static final long			serialVersionUID		= 1L;
 	@GraphId

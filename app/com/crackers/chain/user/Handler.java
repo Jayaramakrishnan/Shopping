@@ -11,25 +11,21 @@ import com.crackers.dto.UserDto;
 import com.crackers.exceptions.UnparseableDateTimeStringException;
 
 @Component
-public abstract class Handler
-{
+public abstract class Handler {
 
-    private static Logger logger = Logger.getLogger(Handler.class);
-    protected Handler     sucessor;
+	private static Logger	logger	= Logger.getLogger(Handler.class);
+	protected Handler		sucessor;
 
-    public void setSucessor(Handler sucessor)
-    {
-        this.sucessor = sucessor;
-    }
+	public void setSucessor(Handler sucessor) {
+		this.sucessor = sucessor;
+	}
 
-    public UserDto handleRequest(Long idUser, UserDto userDto, Long idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
-    {
-        CrackersLogger.info(logger, "Inside Handler");
-        if (sucessor != null)
-        {
-            CrackersLogger.info(logger, "Going to call sucessor");
-            sucessor.handleRequest(idUser, userDto, idCurrentUser, changedList);
-        }
-        return userDto;
-    }
+	public UserDto handleRequest(Long idUser, UserDto userDto, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException {
+		CrackersLogger.info(logger, "Inside Handler");
+		if (sucessor != null) {
+			CrackersLogger.info(logger, "Going to call sucessor");
+			sucessor.handleRequest(idUser, userDto, changedList);
+		}
+		return userDto;
+	}
 }

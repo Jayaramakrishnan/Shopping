@@ -8,14 +8,12 @@ import com.crackers.model.Image;
 import com.crackers.repositories.ImageRepository;
 
 @Component
-public class ImageManager
-{
+public class ImageManager {
 
-    @Resource
-    private ImageRepository imageRepository;
+	@Resource
+	private ImageRepository imageRepository;
 
-    public Image getImage(Long idUser)
-    {
-        return imageRepository.getImageById(idUser);
-    }
+	public Image getImage(Long idUser) {
+		return imageRepository.getImageById(idUser);
+	}
 }

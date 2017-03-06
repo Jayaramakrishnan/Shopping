@@ -12,8 +12,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "Pencils")
-public class Pencils extends BaseCategory
-{
+public class Pencils extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	private String				pencilSize;

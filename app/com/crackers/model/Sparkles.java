@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NodeEntity(label = "Sparkles")
-public class Sparkles extends BaseCategory
-{
+public class Sparkles extends BaseCategory {
 
 	private static final long	serialVersionUID	= 1L;
 	private String				sparkleColor;

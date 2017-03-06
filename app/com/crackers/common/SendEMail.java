@@ -36,8 +36,7 @@ import com.crackers.repositories.UserRepository;
 import com.google.common.base.Stopwatch;
 
 @Component
-public class SendEMail
-{
+public class SendEMail {
 
 	private static Logger				logger	= Logger.getLogger(SendEMail.class);
 	@Resource
@@ -49,49 +48,40 @@ public class SendEMail
 	@Resource
 	private EmailTrackRepository		emailTrackRepository;
 
-	public void sendMail(EmailTemplate emailTemplate, Long resourceId, User user, List<UserInfo> userInfo)
-	{
+	public void sendMail(EmailTemplate emailTemplate, Long resourceId, User user, List<UserInfo> userInfo) {
 		Stopwatch stopwatch = Stopwatch.createStarted();
-		if (emailTemplate == null)
-		{
+		if (emailTemplate == null) {
 			return;
 		}
 		String isEmailOn = applicationConfigRepository.getConfigValueByKey(CommonConstants.IS_EMAIL_ON);
-		if (isEmailOn == null)
-		{
+		if (isEmailOn == null) {
 			CrackersLogger.info(logger, "Config Value for Email ON or OFF is not set");
 			return;
 		}
 		Boolean emailOn = Boolean.parseBoolean(isEmailOn);
-		if (!emailOn)
-		{
+		if (!emailOn) {
 			CrackersLogger.info(logger, "Email is Turned OFF");
 			return;
 		}
-		for (UserInfo userInfos : userInfo)
-		{
+		for (UserInfo userInfos : userInfo) {
 			CrackersLogger.info(logger, "userInfos" + userInfo.size());
-			if (userInfos != null)
-			{
+			if (userInfos != null) {
 				EmailTemplate template = new EmailTemplate();
 				template.setBody(emailTemplate.getBody());
 				Map<String, String> map = new HashMap<>();
-				if (Objects.nonNull(userInfos.getFullName()))
-				{
+				if (Objects.nonNull(userInfos.getFullName())) {
 					map.put("[[Name]]", userInfos.getFullName());
 				}
 				map.put(CommonConstants.POWERED_BY_XXX, EmailHelper.replaceNullInString(applicationConfigRepository.getConfigValueByKey(CommonConstants.POWERED_BY_XXX)));
 				map.put(CommonConstants.SUPPORT_EMAIL_ID, EmailHelper.replaceNullInString(applicationConfigRepository.getConfigValueByKey(CommonConstants.SUPPORT_EMAIL_ID)));
 				template.setBody(EmailHelper.getFilledEmailTemplate(map, emailTemplate.getBody()));
-				try
-				{
+				try {
 					Session session = null;
 					Properties props = new Properties();
 					props.put(CommonConstants.MAIL_TRANSPORT_PROTOCOL, "smtp");
 					props.put(CommonConstants.MAIL_SMTP_HOST, getEmailSettings("smtp_ip"));
 					props.put(CommonConstants.MAIL_SMTP_PORT, getEmailSettings("smtp_port"));
-					if (Boolean.parseBoolean(Dashboard.clientConfigurationSettings.getIsTLSOn()))
-					{
+					if (Boolean.parseBoolean(Dashboard.clientConfigurationSettings.getIsTLSOn())) {
 						props.put(CommonConstants.MAIL_SMTP_STARTTLS, "true");
 						props.put(CommonConstants.MAIL_SMTP_AUTH, "true");
 						props.put(CommonConstants.MAIL_SMTP_SSL, getEmailSettings("smtp_ip"));
@@ -99,19 +89,16 @@ public class SendEMail
 						final String password = applicationConfigRepository.getConfigValueByKey(CommonConstants.EMAIL_ACCESS_PASSWORD);// change accordingly
 						TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
 
-							public java.security.cert.X509Certificate[] getAcceptedIssuers()
-							{
+							public java.security.cert.X509Certificate[] getAcceptedIssuers() {
 								return null;
 							}
 
 							@Override
-							public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws CertificateException
-							{
+							public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws CertificateException {
 							}
 
 							@Override
-							public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws CertificateException
-							{
+							public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws CertificateException {
 							}
 						} };
 						// Install the all-trusting trust manager
@@ -121,8 +108,7 @@ public class SendEMail
 						// Create all-trusting host name verifier
 						HostnameVerifier allHostsValid = new HostnameVerifier() {
 
-							public boolean verify(String hostname, SSLSession session)
-							{
+							public boolean verify(String hostname, SSLSession session) {
 								return true;
 							}
 						};
@@ -130,14 +116,12 @@ public class SendEMail
 						HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 						session = Session.getInstance(props, new javax.mail.Authenticator() {
 
-							protected PasswordAuthentication getPasswordAuthentication()
-							{
+							protected PasswordAuthentication getPasswordAuthentication() {
 								return new PasswordAuthentication(username, password);
 							}
 						});
 					}
-					else
-					{
+					else {
 						session = Session.getInstance(props);
 					}
 					MimeMessage message = new MimeMessage(session);
@@ -146,25 +130,21 @@ public class SendEMail
 					message.setContent(template.getBody(), "text/html; charset=utf-8");
 					String emailSetting = getEmailSettings("user_test_mail");
 					CrackersLogger.info(logger, "user_test_mail " + emailSetting);
-					if (emailSetting != null && emailSetting.equalsIgnoreCase("TEST"))
-					{
+					if (emailSetting != null && emailSetting.equalsIgnoreCase("TEST")) {
 						String testMail = getEmailSettings("test_mail_id");
-						if (testMail != null)
-						{
+						if (testMail != null) {
 							CrackersLogger.info(logger, "TestMail" + testMail);
 							message.addRecipient(Message.RecipientType.TO, new InternetAddress(testMail));
 						}
 					}
-					else if (emailSetting != null)
-					{
+					else if (emailSetting != null) {
 						CrackersLogger.info(logger, "UserMail" + userInfos.getUserName());
 						message.addRecipient(Message.RecipientType.TO, new InternetAddress(userInfos.getUserName()));
 					}
 					Transport.send(message);
 					putEmailTrack(emailTemplate, user, userInfos, resourceId, (short) 1);
 				}
-				catch (Exception e)
-				{
+				catch (Exception e) {
 					CrackersLogger.error(logger, "Exception while sending Mail", e);
 					putEmailTrack(emailTemplate, user, userInfos, resourceId, (short) 0);
 				}
@@ -173,42 +153,36 @@ public class SendEMail
 		CrackersLogger.info(logger, "stopwatch " + stopwatch);
 	}
 
-	private void putEmailTrack(EmailTemplate emailTemplate, User user, UserInfo userInfos, Long resourceId, Short isMailSend)
-	{
+	private void putEmailTrack(EmailTemplate emailTemplate, User user, UserInfo userInfos, Long resourceId, Short isMailSend) {
 		CrackersLogger.info(logger, "Inside email track");
 		EmailTrack emailTrack = new EmailTrack();
 		emailTrack.setIdEmailTemplate(emailTemplate.getId());
 		emailTrack.setCreatedBy(user.getId());
-		if (Objects.nonNull(userInfos.getIdUser()))
-		{
+		if (Objects.nonNull(userInfos.getIdUser())) {
 			emailTrack.setIdRecipient(userInfos.getIdUser());
 		}
 		emailTrack.setIdGeneric(resourceId);
 		emailTrack.setIsMailSend(isMailSend);
 		emailTrack.setIsDeleted((short) CommonConstants.IS_DELETED);
-		emailTrack.setCreatedOn(DateStringUtil.getCurrentLong());
+		emailTrack.setCreatedOn(DateStringUtil.getCurrentTimestamp());
 		emailTrack.setEmail(userInfos.getUserName());
 		emailTrackRepository.save(emailTrack);
 	}
 
-	public String getEmailSettings(String key)
-	{
+	public String getEmailSettings(String key) {
 		String value = applicationConfigRepository.getConfigValueByKey(key);
 		CrackersLogger.debug(logger, "Email key is: ".concat(key));
-		if (value == null)
-		{
+		if (value == null) {
 			CrackersLogger.error(logger, "Missing Email Configuration in DB while fetching the key: " + key, null);
 			return null;
 		}
 		return value;
 	}
 
-	public Integer getEmailSettingsInteger(String key)
-	{
+	public Integer getEmailSettingsInteger(String key) {
 		String value = applicationConfigRepository.getConfigValueByKey(key);
 		CrackersLogger.debug(logger, "Email key is: ".concat(key));
-		if (value == null)
-		{
+		if (value == null) {
 			CrackersLogger.error(logger, "Missing Email Configuration in DB while fetching the key: " + key, null);
 			return null;
 		}

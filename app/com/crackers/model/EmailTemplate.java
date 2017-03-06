@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "EmailTemplate")
-public class EmailTemplate implements java.io.Serializable
-{
+public class EmailTemplate implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private String				subject;
 	private String				body;
 	private Short				isDeleted;

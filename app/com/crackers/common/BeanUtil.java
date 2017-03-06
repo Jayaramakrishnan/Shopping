@@ -10,43 +10,35 @@ import org.springframework.beans.BeanUtils;
 
 import com.google.common.collect.Lists;
 
-public class BeanUtil
-{
+public class BeanUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 
-    private BeanUtil() {
-    }
+	private BeanUtil() {
+	}
 
-    public static void copyBeanProperties(final Object source, final Object target, final Collection<String> includes) throws InvocationTargetException
-    {
-        final Collection<String> excludes = Lists.newArrayList();
-        copyBeanPropertiesExclude(source, target, includes, excludes);
-    }
+	public static void copyBeanProperties(final Object source, final Object target, final Collection<String> includes) throws InvocationTargetException {
+		final Collection<String> excludes = Lists.newArrayList();
+		copyBeanPropertiesExclude(source, target, includes, excludes);
+	}
 
-    public static void copyBeanPropertiesExclude(final Object source, final Object target, final Collection<String> includes, final Collection<String> excludes)
-    {
-        Collection<String> excludeList = excludes;
-        if (excludeList == null)
-        {
-            excludeList = Lists.newArrayList();
-        }
-        final PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(source.getClass());
-        for (final PropertyDescriptor propertyDescriptor : propertyDescriptors)
-        {
-            String propName = propertyDescriptor.getName();
-            try
-            {
-                if (propertyDescriptor.getReadMethod().invoke(source) == null && (includes == null || !includes.contains(propName)))
-                {
-                    excludeList.add(propName);
-                }
-            }
-            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
-            {
-                logger.error("Exception occurred while copying data from source to target", e);
-            }
-        }
-        BeanUtils.copyProperties(source, target, excludeList.toArray(new String[excludeList.size()]));
-    }
+	public static void copyBeanPropertiesExclude(final Object source, final Object target, final Collection<String> includes, final Collection<String> excludes) {
+		Collection<String> excludeList = excludes;
+		if (excludeList == null) {
+			excludeList = Lists.newArrayList();
+		}
+		final PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(source.getClass());
+		for (final PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+			String propName = propertyDescriptor.getName();
+			try {
+				if (propertyDescriptor.getReadMethod().invoke(source) == null && (includes == null || !includes.contains(propName))) {
+					excludeList.add(propName);
+				}
+			}
+			catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				logger.error("Exception occurred while copying data from source to target", e);
+			}
+		}
+		BeanUtils.copyProperties(source, target, excludeList.toArray(new String[excludeList.size()]));
+	}
 }

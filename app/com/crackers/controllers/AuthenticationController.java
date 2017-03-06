@@ -30,8 +30,7 @@ import play.libs.Json;
 import play.mvc.Result;
 
 @Component
-public class AuthenticationController extends BaseController
-{
+public class AuthenticationController extends BaseController {
 
 	private static Logger			logger	= Logger.getLogger(AuthenticationController.class);
 	@Resource
@@ -41,19 +40,16 @@ public class AuthenticationController extends BaseController
 	@Resource
 	private LoginTrackService		loginTrackService;
 
-	public Result authenticate()
-	{
+	public Result authenticate() {
 		Date date = new Date();
 		long time = date.getTime();
 		Long ts = new Long(time);
 		String userName = request().getHeader("username");
 		String password = request().getHeader("password");
-		try
-		{
+		try {
 			final UserDto userDto = new UserDto();
 			CrackersLogger.info(logger, "Inside the Login controller checking the user name and password for empty");
-			if (userName == null || password == null)
-			{
+			if (userName == null || password == null) {
 				CrackersLogger.info(logger, "user name or password is empty");
 				return unauthorized("Invalid username or password");
 			}
@@ -61,13 +57,11 @@ public class AuthenticationController extends BaseController
 			userDto.setUserName(userName);
 			CrackersLogger.info(logger, "Validating the user using the authenticate service");
 			Object validUser = authenticationService.validate(userDto, password);
-			if (validUser == null)
-			{
+			if (validUser == null) {
 				CrackersLogger.info(logger, "User is invalid");
-				try
-				{
+				try {
 					LoginTrackDto loginTrackDto = new LoginTrackDto();
-					loginTrackDto.setIdUser(CryptoBinderUtil.getDecryptId(userDto.getIdUser()));
+					loginTrackDto.setIdUser(CryptoBinderUtil.getDecryptId(userDto.getId()));
 					loginTrackDto.setUserDevice(request().getHeader(CommonConstants.USER_DEVICE_STRING));
 					loginTrackDto.setUserAgent(request().getHeader(CommonConstants.USER_AGENT_STRING));
 					loginTrackDto.setClientIp(request().getHeader(CommonConstants.CLIENT_IP_STRING));
@@ -78,17 +72,14 @@ public class AuthenticationController extends BaseController
 					loginTrackDto.setIsSessionExpired((short) 0);
 					loginTrackService.loginTrackFailed(loginTrackDto);
 				}
-				catch (Exception e)
-				{
+				catch (Exception e) {
 					return unauthorized("Invalid username or password" + e);
 				}
 				return unauthorized("Invalid username or password");
 			}
-			else
-			{
+			else {
 				String uniqueID = null;
-				if (validUser instanceof User)
-				{
+				if (validUser instanceof User) {
 					User userInfo = (User) validUser;
 					logger.info("User is valid, session has been created");
 					Long idUser = userInfo.getId();
@@ -98,12 +89,10 @@ public class AuthenticationController extends BaseController
 					CacheManager.setUserInfoToCache(uniqueID, userInfo);
 					CacheManager.addUserTokenToCache(idUser, uniqueID);
 					CrackersLogger.info(logger, "id" + CacheManager.getIdUserFromCache(uniqueID));
-					if (!setUserRoleFunctionAccess(uniqueID))
-					{
+					if (!setUserRoleFunctionAccess(uniqueID)) {
 						return unauthorized("Unauthorized");
 					}
-					try
-					{
+					try {
 						LoginTrackDto loginTrackDto = new LoginTrackDto();
 						loginTrackDto.setIdUser(userInfo.getId());
 						loginTrackDto.setUserDevice(request().getHeader(CommonConstants.USER_DEVICE_STRING));
@@ -118,8 +107,7 @@ public class AuthenticationController extends BaseController
 						loginTrackDto.setEmail(userName);
 						loginTrackService.loginTrack(uniqueID, loginTrackDto);
 					}
-					catch (Exception e)
-					{
+					catch (Exception e) {
 						CrackersLogger.error(logger, "Error while updating login track", e);
 						return ok(Json.toJson(uniqueID));
 					}
@@ -127,16 +115,13 @@ public class AuthenticationController extends BaseController
 				return ok(Json.toJson(uniqueID));
 			}
 		}
-		catch (RegistrationException registrationException)
-		{
+		catch (RegistrationException registrationException) {
 			CrackersLogger.error(logger, "Registration Exception while authenticating ", registrationException);
 			return noContent();
 		}
-		catch (AccessDeninedException AccessDeninedException)
-		{
+		catch (AccessDeninedException AccessDeninedException) {
 			CrackersLogger.info(logger, "Not Authorized User");
-			try
-			{
+			try {
 				CrackersLogger.error(logger, "Exception", AccessDeninedException);
 				LoginTrackDto loginTrackDto = new LoginTrackDto();
 				loginTrackDto.setIdUser(null);
@@ -150,42 +135,34 @@ public class AuthenticationController extends BaseController
 				loginTrackDto.setIsSessionExpired((short) 0);
 				loginTrackService.loginTrackFailed(loginTrackDto);
 			}
-			catch (Exception e)
-			{
+			catch (Exception e) {
 				CrackersLogger.error(logger, "Not Authorized User", e);
 				return unauthorized("Not Authorized User" + e);
 			}
 			return unauthorized("Not Authorized User");
 		}
-		catch (Exception exception)
-		{
+		catch (Exception exception) {
 			CrackersLogger.error(logger, "Error while validting the user", exception);
 			return unauthorized("Invalid username or password");
 		}
 	}
 
-	public boolean setUserRoleFunctionAccess(String uniqueId)
-	{
-		try
-		{
+	public boolean setUserRoleFunctionAccess(String uniqueId) {
+		try {
 			Long idUser = CacheManager.getIdUserFromCache(uniqueId);
-			if (idUser == null)
-			{
+			if (idUser == null) {
 				return false;
 			}
 			List<Object[]> resourceObj = roleRepository.getUserResource(idUser);
 			Role roles = roleRepository.getUserRole(idUser);
 			Map<Integer, List<Integer>> resourceMap = new HashMap<>();
-			for (Object[] obj : resourceObj)
-			{
-				if (resourceMap.containsKey((int) obj[2]))
-				{
+			for (Object[] obj : resourceObj) {
+				if (resourceMap.containsKey((int) obj[2])) {
 					List<Integer> access = resourceMap.get((int) obj[2]);
 					access.add((int) obj[3]);
 					resourceMap.put((int) obj[2], access);
 				}
-				else
-				{
+				else {
 					List<Integer> access = new ArrayList<>();
 					access.add((int) obj[3]);
 					resourceMap.put((int) obj[2], access);
@@ -193,18 +170,15 @@ public class AuthenticationController extends BaseController
 			}
 			CrackersLogger.debug(logger, "UniqueId:" + uniqueId);
 			CacheManager.setUserRoleToCache(uniqueId, roles);
-			if (CacheManager.getFunctionAccessFromCache(uniqueId) != null)
-			{
+			if (CacheManager.getFunctionAccessFromCache(uniqueId) != null) {
 				CacheManager.removeFunctionAccessFromCache(uniqueId);
 				CacheManager.setFunctionAccessToCache(uniqueId, resourceMap);
 			}
-			else
-			{
+			else {
 				CacheManager.setFunctionAccessToCache(uniqueId, resourceMap);
 			}
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			CrackersLogger.error(logger, "Error in Setting Functional Access to Cache ", e);
 		}
 		return true;

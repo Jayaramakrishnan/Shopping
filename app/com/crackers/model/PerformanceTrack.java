@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "PerformanceTrack")
-public class PerformanceTrack implements java.io.Serializable
-{
+public class PerformanceTrack implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Integer				idUser;
 	private String				className;
 	private String				method;

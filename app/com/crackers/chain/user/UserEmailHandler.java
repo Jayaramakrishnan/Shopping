@@ -15,6 +15,7 @@ import com.crackers.common.CrackersLogger;
 import com.crackers.dto.EmailDto;
 import com.crackers.dto.UserDto;
 import com.crackers.exceptions.UnparseableDateTimeStringException;
+import com.crackers.manager.db.UserManager;
 import com.crackers.services.UserService;
 import com.crackers.util.CryptoBinderUtil;
 
@@ -22,34 +23,33 @@ import com.crackers.util.CryptoBinderUtil;
 public class UserEmailHandler extends Handler
 {
 
-    private static Logger  logger = Logger.getLogger(UserEmailHandler.class);
-    protected final String EMAIL  = "Email";
+    private static Logger         logger = Logger.getLogger(UserEmailHandler.class);
+    protected static final String EMAIL  = "Email";
     @Resource
-    private UserService    userService;
+    private UserManager           userManager;
+    @Resource
+    private UserService           userService;
 
     @Override
-    public UserDto handleRequest(Long idUser, UserDto userDto, Long idCurrentUser, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException
-    {
+    public UserDto handleRequest(Long idUser, UserDto userDto, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException {
         CrackersLogger.info(logger, "Inside EMAIL");
         if (changedList.equalsIgnoreCase(EMAIL) && userDto.getEmailDtos() != null)
         {
-        	Long userId = CryptoBinderUtil.getDecryptId(userDto.getIdUser());
+            Long userId = CryptoBinderUtil.getDecryptId(userDto.getId());
             CrackersLogger.info(logger, "Inside UserEmailHandler");
             List<EmailDto> dtosFromDB = userService.getEmailList(userId);
-            List<EmailDto> externalEntityDtosGiven = userDto.getEmailDtos();
-            CrackersLogger.info(logger, "LIST Form DB:::::::" + dtosFromDB);
-            CrackersLogger.info(logger, "LIST from User:::::" + externalEntityDtosGiven);
+            List<EmailDto> externalEmailDtosGiven = userDto.getEmailDtos();
             Iterator<EmailDto> externalIteratorFromDb = dtosFromDB.iterator();
             List<EmailDto> externalEntityDtoChanged = new ArrayList<>();
             CrackersLogger.info(logger, "Size of user Email list:" + userDto.getEmailDtos().size());
-            if (externalEntityDtosGiven.isEmpty())
+            if (externalEmailDtosGiven.isEmpty())
             {
                 CrackersLogger.info(logger, "Full empty the list of emails");
                 while (externalIteratorFromDb.hasNext())
                 {
                     EmailDto emailDto = externalIteratorFromDb.next();
                     emailDto.setIsDeleted((short) 1);
-                    EmailDto dto = userService.updateEmailList(userId, idCurrentUser, emailDto);
+                    EmailDto dto = userService.updateUserEmail(userId, emailDto);
                     externalEntityDtoChanged.add(dto);
                 }
             }
@@ -62,24 +62,24 @@ public class UserEmailHandler extends Handler
                         int i = 0;
                         CrackersLogger.info(logger, "Inside Email iterator of DB ");
                         EmailDto emailDto = externalIteratorFromDb.next();
-                        for (EmailDto exteEntityDto : externalEntityDtosGiven)
+                        for (EmailDto exteEmailDto : externalEmailDtosGiven)
                         {
-                            CrackersLogger.info(logger, "Inside Email iterator of user" + (emailDto.getIdEmail().equals(exteEntityDto.getIdEmail())));
-                            if (emailDto.getIdEmail().equals(exteEntityDto.getIdEmail()))
+                            CrackersLogger.info(logger, "Inside Email iterator of user" + (emailDto.getId().equals(exteEmailDto.getId())));
+                            if (emailDto.getId().equals(exteEmailDto.getId()))
                             {
                                 CrackersLogger.info(logger, "This is old user Email!!!!!!!!!!");
                                 i++;
-                                EmailDto externalEntityDto = new EmailDto();
-                                if (!(emailDto.getEmail().equalsIgnoreCase(exteEntityDto.getEmail())) || !(emailDto.getIsDeleted().equals(exteEntityDto.getIsDeleted())) || !(emailDto.getIsPrimary().equals(exteEntityDto.getIsPrimary())))
+                                EmailDto externalEntityDto;
+                                if (!(emailDto.getEmail().equalsIgnoreCase(exteEmailDto.getEmail())) || !(emailDto.getIsDeleted().equals(exteEmailDto.getIsDeleted())) || !(emailDto.getIsPrimary().equals(exteEmailDto.getIsPrimary())))
                                 {
                                     CrackersLogger.info(logger, "Update the email");
-                                    externalEntityDto = userService.updateEmailList(userId, idCurrentUser, exteEntityDto);
+                                    externalEntityDto = userService.updateUserEmail(userId, exteEmailDto);
                                     externalEntityDtoChanged.add(externalEntityDto);
                                 }
                                 else
                                 {
                                     CrackersLogger.info(logger, "No change in email");
-                                    externalEntityDtoChanged.add(exteEntityDto);
+                                    externalEntityDtoChanged.add(exteEmailDto);
                                 }
                             }
                         }
@@ -87,21 +87,18 @@ public class UserEmailHandler extends Handler
                         {
                             CrackersLogger.info(logger, "Delete the given emails");
                             emailDto.setIsDeleted((short) 1);
-                            EmailDto dto = userService.updateEmailList(userId, idCurrentUser, emailDto);
+                            EmailDto dto = userService.updateUserEmail(userId, emailDto);
                             externalEntityDtoChanged.add(dto);
                         }
                     }
                 }
-                for (EmailDto exteEntityDto : externalEntityDtosGiven)
+                for (EmailDto exteEntityDto : externalEmailDtosGiven)
                 {
                     CrackersLogger.info(logger, "***********Inside create email*************" + exteEntityDto.getEmail());
-                    CrackersLogger.debug(logger, "EMail");
-                    CrackersLogger.debug(logger, "EMail");
-                    if (exteEntityDto != null && exteEntityDto.getIdEmail() == null && exteEntityDto.getEmail() != null)
+                    if (exteEntityDto != null && exteEntityDto.getId() == null && exteEntityDto.getEmail() != null)
                     {
                         CrackersLogger.info(logger, "This is new user Email!!!!!!!!!!");
-                        EmailDto externalEntityDto = userService.createEmail(userId, idCurrentUser, exteEntityDto);
-                        CrackersLogger.info(logger, "userEmailDto" + externalEntityDto);
+                        EmailDto externalEntityDto = userService.createEmail(userId, exteEntityDto);
                         externalEntityDtoChanged.add(externalEntityDto);
                     }
                 }
@@ -109,6 +106,6 @@ public class UserEmailHandler extends Handler
                 return userDto;
             }
         }
-        return super.handleRequest(idUser, userDto, idUser, changedList);
+        return super.handleRequest(idUser, userDto, changedList);
     }
 }

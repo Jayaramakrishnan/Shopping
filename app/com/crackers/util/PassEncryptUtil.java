@@ -13,18 +13,16 @@ import org.springframework.stereotype.Component;
 import com.crackers.common.CrackersLogger;
 
 @Component
-public class PassEncryptUtil
-{
+public class PassEncryptUtil {
 
-    private static Logger logger = Logger.getLogger(PassEncryptUtil.class);
+	private static Logger logger = Logger.getLogger(PassEncryptUtil.class);
 
-    public String encryptPassword(String data, String secret, String algorithm) throws NoSuchAlgorithmException, InvalidKeyException
-    {
-        CrackersLogger.info(logger, "Validation By  " + algorithm);
-        SecretKeySpec signingKey = new SecretKeySpec(secret.getBytes(), algorithm);
-        Mac mac = Mac.getInstance(algorithm);
-        mac.init(signingKey);
-        byte[] rawSig = mac.doFinal(data.getBytes());
-        return new String(Hex.encodeHex(rawSig));
-    }
+	public String encryptPassword(String data, String secret, String algorithm) throws NoSuchAlgorithmException, InvalidKeyException {
+		CrackersLogger.info(logger, "Validation By  " + algorithm);
+		SecretKeySpec signingKey = new SecretKeySpec(secret.getBytes(), algorithm);
+		Mac mac = Mac.getInstance(algorithm);
+		mac.init(signingKey);
+		byte[] rawSig = mac.doFinal(data.getBytes());
+		return new String(Hex.encodeHex(rawSig));
+	}
 }

@@ -7,12 +7,11 @@ import lombok.Data;
 
 @Data
 @NodeEntity(label = "LoginTrack")
-public class LoginTrack implements java.io.Serializable
-{
+public class LoginTrack implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private Long				idUser;
 	private String				email;
 	private String				userDevice;

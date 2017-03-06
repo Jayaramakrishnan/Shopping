@@ -8,20 +8,22 @@ import org.springframework.stereotype.Component;
 import com.crackers.common.CrackersLogger;
 import com.crackers.model.LoginTrack;
 import com.crackers.model.User;
+import com.crackers.repositories.LoginTrackRepository;
 import com.crackers.repositories.UserRepository;
 
 @Component
-public class LoginTrackManager
-{
+public class LoginTrackManager {
 
 	private Logger					logger	= Logger.getLogger(LoginTrackManager.class);
 	@Resource
 	private UserRepository			userRepository;
+	@Resource
+	private LoginTrackRepository	loginTrackRepository;
 
-	public void loginTrack(LoginTrack loginTrack)
-	{
+	public void loginTrack(LoginTrack loginTrack) {
+		loginTrackRepository.save(loginTrack);
 		User user = userRepository.checkValidUser(loginTrack.getIdUser());
-		if(user == null)
+		if (user == null)
 			return;
 		user.setLoginTrack(loginTrack);
 		userRepository.save(user);
