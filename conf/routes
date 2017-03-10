@@ -3,33 +3,33 @@
 # ~~~~
 
 # Home page
-GET      /                                                                @com.crackers.controllers.LoginController.index(url: String ?= "")
-POST     /Login                                                           @com.crackers.controllers.LoginController.validate
-GET      /Logout                                                          @com.crackers.controllers.LoginController.logout
-GET      /sessioncheck                                                    @com.crackers.controllers.LoginController.sessionCheck
+GET      /                                                                @com.crackers.controllers.login.LoginController.index(url: String ?= "")
+POST     /Login                                                           @com.crackers.controllers.login.LoginController.validate
+GET      /Logout                                                          @com.crackers.controllers.login.LoginController.logout
+GET      /sessioncheck                                                    @com.crackers.controllers.login.LoginController.sessionCheck
 
-GET      /DashBoard                                                       @com.crackers.controllers.Dashboard.dashBoard
-POST     /redirectResource                                                @com.crackers.controllers.Dashboard.redirectResource
+GET      /DashBoard                                                       @com.crackers.controllers.login.Dashboard.dashBoard
+POST     /redirectResource                                                @com.crackers.controllers.login.Dashboard.redirectResource
 
 # Map static resources from the /public folder to the /assets URL path
 GET       /assets/*file               									   controllers.Assets.at(path="/public", file)
 
 #SignIn
-GET      /Authenticate                                                    @com.crackers.controllers.AuthenticationController.authenticate
-GET      /userInfo                                                        @com.crackers.controllers.UserController.getUserInfo(uniqueId: String)
+GET      /Authenticate                                                    @com.crackers.controllers.login.AuthenticationController.authenticate
+GET      /userInfo                                                        @com.crackers.controllers.login.UserController.getUserInfo(uniqueId: String)
 
 #SignUp
 POST     /CreateUser                                                      @com.crackers.controllers.web.UserSettingWebController.createUser
-POST     /User                                                            @com.crackers.controllers.UserController.createUser(uniqueId: String)
+POST     /User                                                            @com.crackers.controllers.login.UserController.createUser(uniqueId: String)
 
 #Update User Info
 PUT      /UpdateUser/:idUser                                              @com.crackers.controllers.web.UserSettingWebController.updateUser(idUser: Long)
-PUT      /User                                                            @com.crackers.controllers.UserController.updateUser(uniqueId: String)
+PUT      /User                                                            @com.crackers.controllers.login.UserController.updateUser(uniqueId: String)
 
 #Forget Password
 POST     /createForgetPasswordWeb                                         @com.crackers.controllers.web.PasswordController.createForgetLoginPassword()
-POST     /createForgetPassword                                            @com.crackers.controllers.UserController.createForgetPassword()
+POST     /createForgetPassword                                            @com.crackers.controllers.login.UserController.createForgetPassword()
 
 #Dashboard Listing
-#GET		 /category														  @com.crackers.controllers.categories.CategoryController.getCategories()
+#GET		 /category													  @com.crackers.controllers.categories.CategoryController.getCategories()
 # single category -> sub categories
