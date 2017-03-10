@@ -24,13 +24,13 @@ public class UserCredentialHandler extends Handler {
 	private static Logger	logger	= Logger.getLogger(UserImageHandler.class);
 	private String			image	= "userCredential";
 	@Resource
-	private UserManager		userService;
+	private UserManager		userManager;
 
 	@Override
 	public UserDto handleRequest(Long idUser, UserDto userDto, String changedList) throws InvocationTargetException, UnparseableDateTimeStringException, IOException {
 		if (changedList.equalsIgnoreCase(image) && userDto.getImageDto() != null) {
 			CrackersLogger.info(logger, "Inside User Credential");
-			return userService.updateUserCredential(CryptoBinderUtil.getDecryptId(userDto.getId()), userDto);
+			return userManager.updateUserCredential(CryptoBinderUtil.getDecryptId(userDto.getId()), userDto);
 		}
 		return super.handleRequest(idUser, userDto, changedList);
 	}
