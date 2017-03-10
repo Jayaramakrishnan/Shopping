@@ -14,13 +14,13 @@ public class KeywordTrack implements java.io.Serializable {
 	private Long				id;
 	private String				form;
 	private String				keyword;
-	private Integer				idUser;
-	private Integer				count;
+	private Long				idUser;
+	private Long				count;
 	private String				noOfMatches;
 	private String				exception;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
-	private Integer				updatedBy;
+	private Long				updatedBy;
 	private Long				updatedOn;
 	private String				url;
 }

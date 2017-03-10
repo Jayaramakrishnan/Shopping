@@ -11,8 +11,8 @@ public class PhoneType implements java.io.Serializable {
 
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
-	private Integer				id;
+	private Long				id;
 	private String				phoneType;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
 }

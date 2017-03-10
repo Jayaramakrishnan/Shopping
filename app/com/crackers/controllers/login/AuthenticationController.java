@@ -1,4 +1,4 @@
-package com.crackers.controllers;
+package com.crackers.controllers.login;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.crackers.common.CommonConstants;
 import com.crackers.common.CrackersLogger;
+import com.crackers.controllers.BaseController;
 import com.crackers.dto.LoginTrackDto;
 import com.crackers.dto.UserDto;
 import com.crackers.exceptions.AccessDeninedException;

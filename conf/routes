@@ -31,5 +31,5 @@ POST     /createForgetPasswordWeb                                         @com.c
 POST     /createForgetPassword                                            @com.crackers.controllers.UserController.createForgetPassword()
 
 #Dashboard Listing
-# master category
+#GET		 /category														  @com.crackers.controllers.categories.CategoryController.getCategories()
 # single category -> sub categories

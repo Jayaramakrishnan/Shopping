@@ -15,8 +15,8 @@ public class EmailTemplate implements java.io.Serializable {
 	private String				subject;
 	private String				body;
 	private Short				isDeleted;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
-	private Integer				updatedBy;
+	private Long				updatedBy;
 	private Long				updatedOn;
 }

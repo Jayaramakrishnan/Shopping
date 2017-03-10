@@ -1,4 +1,4 @@
-package com.crackers.controllers;
+package com.crackers.controllers.login;
 
 import javax.annotation.Resource;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.crackers.common.CommonConstants;
 import com.crackers.common.CrackersLogger;
 import com.crackers.common.RestUrlAttribute;
+import com.crackers.controllers.BaseController;
 import com.crackers.dto.UserDto;
 import com.crackers.model.Role;
 import com.crackers.repositories.ApplicationConfigRepository;
@@ -51,7 +52,7 @@ public class Dashboard extends BaseController {
 						userInfoVO.setUserName(userInfo.getUserName());
 					}
 					userInfoVO.setIdUser(userInfo.getId());
-					userInfoVO.setIdRole(userRole.getId());
+					userInfoVO.setIdRole(Long.valueOf(userRole.getId()));
 					userInfoVO.setRole(userRole.getRole());
 					userInfoVO.setImageColorCode(userInfo.getImageColorCode());
 				}

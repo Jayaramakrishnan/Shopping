@@ -13,6 +13,6 @@ public class FunctionalAccess implements java.io.Serializable {
 	@GraphId
 	private Long				id;
 	private String				functionAccess;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
 }

@@ -13,9 +13,9 @@ public class RoleFunctionalAccess implements java.io.Serializable {
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
 	private Long				id;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
-	private Integer				updatedBy;
+	private Long				updatedBy;
 	private Long				updatedOn;
 	private Short				isDeleted;
 	@Relationship(type = "HAS_FUNCTIONAL_ACCESS", direction = Relationship.OUTGOING)

@@ -24,7 +24,7 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.crackers.controllers.Dashboard;
+import com.crackers.controllers.login.Dashboard;
 import com.crackers.dto.UserInfo;
 import com.crackers.model.EmailTemplate;
 import com.crackers.model.EmailTrack;

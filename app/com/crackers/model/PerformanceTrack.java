@@ -12,11 +12,11 @@ public class PerformanceTrack implements java.io.Serializable {
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
 	private Long				id;
-	private Integer				idUser;
+	private Long				idUser;
 	private String				className;
 	private String				method;
 	private Long				threadId;
-	private Integer				lineNumber;
+	private Long				lineNumber;
 	private Long				startTime;
 	private Long				endTime;
 }

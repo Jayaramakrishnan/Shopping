@@ -16,11 +16,12 @@ public class BaseCategory implements Serializable {
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
 	private Long				id;
-	private Integer				productCode;
-	private String				productName;
-	private String				productMeasurements;
-	private String				productDescription;
+	private String				categoryCode;
+	private String				crackerCode;
+	private String				crackerName;
+	private String				crackerMeasurements;
+	private String				crackerDescription;
 	private String				isFancy;
 	@Relationship(type = "HAS_MULTIPLE_BRANDS", direction = Relationship.OUTGOING)
-	private List<ProductBrand>	productBrand		= Lists.newArrayList();
+	private List<CrackerBrand>	crackersBrand		= Lists.newArrayList();
 }

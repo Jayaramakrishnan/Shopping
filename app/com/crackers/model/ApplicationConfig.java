@@ -14,6 +14,6 @@ public class ApplicationConfig implements java.io.Serializable {
 	private Long				id;
 	private String				configKey;
 	private String				configValue;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
 }

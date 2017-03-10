@@ -12,11 +12,12 @@ public class Category implements java.io.Serializable {
 	private static final long	serialVersionUID	= 1L;
 	@GraphId
 	private Long				id;
+	private String				categoryCode;
 	private String				categoryName;
 	private Short				isDeleted;
 	private Integer				sortOrder;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
-	private Integer				updatedBy;
+	private Long				updatedBy;
 	private Long				updatedOn;
 }

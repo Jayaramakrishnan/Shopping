@@ -16,12 +16,12 @@ public class Role implements java.io.Serializable {
 
 	private static final long			serialVersionUID		= 1L;
 	@GraphId
-	private Integer						id;
+	private Long						id;
 	private String						role;
 	private Short						isDeleted;
-	private Integer						createdBy;
+	private Long						createdBy;
 	private Long						createdOn;
-	private Integer						updatedBy;
+	private Long						updatedBy;
 	private Long						updatedOn;
 	@Relationship(type = "HAS_ROLE_FUNCTIONAL_ACCESS", direction = Relationship.OUTGOING)
 	private List<RoleFunctionalAccess>	roleFunctionalAccess	= Lists.newArrayList();

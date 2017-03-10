@@ -13,6 +13,6 @@ public class FunctionalResource implements java.io.Serializable {
 	@GraphId
 	private Long				id;
 	private String				functions;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
 }

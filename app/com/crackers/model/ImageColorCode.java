@@ -14,6 +14,6 @@ public class ImageColorCode implements java.io.Serializable {
 	private Long				id;
 	private String				imageColorCodeValue;
 	private Short				isDeleted;
-	private Integer				createdBy;
+	private Long				createdBy;
 	private Long				createdOn;
 }

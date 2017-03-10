@@ -1,4 +1,4 @@
-package com.crackers.controllers;
+package com.crackers.controllers.login;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidKeyException;
@@ -20,6 +20,7 @@ import com.crackers.common.CommonConstants;
 import com.crackers.common.CrackersLogger;
 import com.crackers.common.RestUrlAttribute;
 import com.crackers.common.SendEMail;
+import com.crackers.controllers.BaseController;
 import com.crackers.dto.UserDto;
 import com.crackers.exceptions.RegistrationException;
 import com.crackers.model.User;

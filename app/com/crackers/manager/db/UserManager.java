@@ -16,7 +16,7 @@ import com.crackers.common.BeanUtil;
 import com.crackers.common.CommonConstants;
 import com.crackers.common.CrackersLogger;
 import com.crackers.common.DateStringUtil;
-import com.crackers.controllers.Dashboard;
+import com.crackers.controllers.login.Dashboard;
 import com.crackers.dto.UserDto;
 import com.crackers.model.ContactDetails;
 import com.crackers.model.Email;

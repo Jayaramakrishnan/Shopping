@@ -11,7 +11,7 @@ import lombok.Data;
 public class Products {
 
 	@GraphId
-	private Integer		id;
+	private Long		id;
 	@Relationship(type = "WITH_IN", direction = Relationship.OUTGOING)
 	private Crackers	crackers;
 }

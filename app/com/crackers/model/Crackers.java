@@ -11,7 +11,7 @@ import lombok.Data;
 public class Crackers {
 
 	@GraphId
-	private Integer			id;
+	private Long			id;
 	@Relationship(type = "HAS_CATEGORY", direction = Relationship.OUTGOING)
 	private SoundCrackers	soundCrackers;
 	@Relationship(type = "HAS_CATEGORY", direction = Relationship.OUTGOING)
